@@ -1,25 +1,16 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
 import { usePrevNextButtons, PrevButton, NextButton } from "./CarouselButtons";
 import { useDotButton } from "./useDotButton";
 import { DotButton } from "./useDotButton";
-
-function getCurrentDay() {
-    const date = new Date();
-    const day = date.getDay().toString().padStart(2, "0");
-    const month = date.getMonth().toString().padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${day} / ${month} / ${year}`;
-}
-
-const questions = [
-    "What obstacles did you tackle today?",
-    "What made you smile today?",
-    "What did you learn today?",
-    "How did you help someone (or yourself) today?",
-    "What's one thing you'd love to repeat tomorrow?",
-];
+import { questions } from "./questions";
+import { getCurrentDay } from "./utils/getCurrentDay";
+import Header from "./ui/Header";
+import { useEffect, useState } from "react";
+import { type Day } from "./types";
+import { dateToString } from "./utils/dates";
+import AutoHeight from "embla-carousel-auto-height";
+import Answer from "./ui/Answer";
 
 function App() {
     const [emblaRef, emblaApi] = useEmblaCarousel();
@@ -34,14 +25,23 @@ function App() {
         onNextButtonClick,
     } = usePrevNextButtons(emblaApi);
 
+    const [day, setDay] = useState<Day>(() => ({
+        date: dateToString(new Date()),
+        questions: questions.map((question) => ({
+            prompt: question,
+            answers: [],
+        })),
+    }));
+
+    const [answer, setAnswer] = useState("");
+
+    useEffect(() => {
+        console.log(day);
+    });
+
     return (
         <div style={{ padding: 20 }}>
-            <Typography
-                color="primary"
-                variant="h1"
-            >
-                Not So Bad
-            </Typography>
+            <Header />
             <Typography variant="subtitle1">
                 This <strong>{getCurrentDay()}</strong>
             </Typography>
@@ -60,6 +60,7 @@ function App() {
                                 <div style={{ width: "80%", margin: "auto" }}>
                                     <Typography
                                         variant="body1"
+                                        fontWeight="bold"
                                         margin={3}
                                     >
                                         {question}
@@ -67,41 +68,81 @@ function App() {
                                     <TextField
                                         color="secondary"
                                         label="Type here..."
+                                        value={answer}
+                                        onChange={(e) =>
+                                            setAnswer(e.target.value)
+                                        }
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                setDay((day) => ({
+                                                    ...day,
+                                                    questions:
+                                                        day.questions.map((q) =>
+                                                            q.prompt ===
+                                                            question
+                                                                ? {
+                                                                      ...q,
+                                                                      answers: [
+                                                                          ...q.answers,
+                                                                          answer,
+                                                                      ],
+                                                                  }
+                                                                : q
+                                                        ),
+                                                }));
+                                            }
+                                        }}
                                         fullWidth
                                     />
                                 </div>
+                                <Box
+                                    width="80%"
+                                    margin="auto"
+                                    gap={2}
+                                    display="flex"
+                                    flexDirection="column"
+                                    marginTop={4}
+                                >
+                                    {day.questions
+                                        .find((q) => q.prompt === question)
+                                        ?.answers.map((answer, i) => (
+                                            <Answer
+                                                key={`${answer}-${i}`}
+                                                text={answer}
+                                            />
+                                        ))}
+                                </Box>
                             </div>
                         ))}
                     </div>
-                    <Box
-                        width="80%"
-                        margin="auto"
-                        gap={1}
-                        display="flex"
-                        flexDirection="column"
-                        marginTop={4}
-                    >
-                        
-                    </Box>
                 </div>
 
                 <div className="embla__controls">
                     <div className="embla__buttons">
                         <PrevButton
-                            onClick={onPrevButtonClick}
+                            onClick={() => {
+                                setAnswer("");
+                                onPrevButtonClick();
+                            }}
                             disabled={prevBtnDisabled}
                         />
                         <NextButton
-                            onClick={onNextButtonClick}
+                            onClick={() => {
+                                setAnswer("");
+                                onNextButtonClick();
+                            }}
                             disabled={nextBtnDisabled}
                         />
                     </div>
-
                     <div className="embla__dots">
                         {scrollSnaps.map((_, index) => (
                             <DotButton
                                 key={index}
-                                onClick={() => onDotButtonClick(index)}
+                                onClick={() => {
+                                    setAnswer("");
+                                    onDotButtonClick(index);
+                                }}
                                 className={"embla__dot".concat(
                                     index === selectedIndex
                                         ? " embla__dot--selected"
@@ -112,6 +153,15 @@ function App() {
                     </div>
                 </div>
             </section>
+            <div style={{ width: "80%", maxWidth: "400px", margin: "2rem auto"}}>
+                <Button
+                    variant="contained"
+                    disableElevation
+                    fullWidth
+                >
+                    Save
+                </Button>
+            </div>
         </div>
     );
 }

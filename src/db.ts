@@ -1,11 +1,15 @@
-// db.ts
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
+import type { Question } from './types';
+
 
 interface MyDB extends DBSchema {
-  users: {
+  days: {
     key: number;
-    value: { id: number; name: string; age: number };
-    indexes: { 'by-name': string };
+    value: {
+        id: number,
+        date: string,
+        questions: Question[]
+    };
   };
 }
 
@@ -15,10 +19,10 @@ export const getDB = () => {
   if (!dbPromise) {
     dbPromise = openDB<MyDB>('my-database', 1, {
       upgrade(db) {
-        const store = db.createObjectStore('users', { keyPath: 'id', autoIncrement: true });
-        store.createIndex('by-name', 'name');
+        db.createObjectStore('days', { keyPath: 'id', autoIncrement: true });
       },
     });
   }
   return dbPromise;
 };
+
