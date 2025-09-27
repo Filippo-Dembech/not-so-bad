@@ -9,11 +9,13 @@ import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import { dateToString } from "./utils/dates";
-import AutoHeight from "embla-carousel-auto-height";
 import Answer from "./ui/Answer";
+import AutoHeight from "embla-carousel-auto-height";
+
+const options = {}
 
 function App() {
-    const [emblaRef, emblaApi] = useEmblaCarousel();
+    const [emblaRef, emblaApi] = useEmblaCarousel(options, [AutoHeight()]);
 
     const { selectedIndex, scrollSnaps, onDotButtonClick } =
         useDotButton(emblaApi);
@@ -36,8 +38,13 @@ function App() {
     const [answer, setAnswer] = useState("");
 
     useEffect(() => {
+        emblaApi?.reInit();
+    }, [day, emblaApi])
+
+    useEffect(() => {
         console.log(day);
     });
+    
 
     return (
         <div style={{ padding: 20 }}>
@@ -73,8 +80,8 @@ function App() {
                                             setAnswer(e.target.value)
                                         }
                                         onKeyDown={(e) => {
+                                            e.preventDefault();
                                             if (e.key === "Enter") {
-                                                e.preventDefault();
                                                 setDay((day) => ({
                                                     ...day,
                                                     questions:
@@ -91,6 +98,12 @@ function App() {
                                                                 : q
                                                         ),
                                                 }));
+                                            }
+                                            if (e.code === "Tab") {
+                                                onNextButtonClick();
+                                            }
+                                            if (e.code === "Tab" && e.shiftKey) {
+                                                onPrevButtonClick();
                                             }
                                         }}
                                         fullWidth
@@ -158,6 +171,9 @@ function App() {
                     variant="contained"
                     disableElevation
                     fullWidth
+                    onClick={() => {
+
+                    }}
                 >
                     Save
                 </Button>
