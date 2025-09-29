@@ -11,6 +11,7 @@ import { type Day } from "./types";
 import { dateToString } from "./utils/dates";
 import Answer from "./ui/Answer";
 import AutoHeight from "embla-carousel-auto-height";
+import { saveDay } from "./db";
 
 const options = {}
 
@@ -36,16 +37,11 @@ function App() {
     }));
 
     const [answer, setAnswer] = useState("");
-
+    
     useEffect(() => {
         emblaApi?.reInit();
     }, [day, emblaApi])
-
-    useEffect(() => {
-        console.log(day);
-    });
     
-
     return (
         <div style={{ padding: 20 }}>
             <Header />
@@ -76,11 +72,10 @@ function App() {
                                         color="secondary"
                                         label="Type here..."
                                         value={answer}
-                                        onChange={(e) =>
+                                        onChange={(e) => {
                                             setAnswer(e.target.value)
-                                        }
+                                        }}
                                         onKeyDown={(e) => {
-                                            e.preventDefault();
                                             if (e.key === "Enter") {
                                                 setDay((day) => ({
                                                     ...day,
@@ -171,8 +166,8 @@ function App() {
                     variant="contained"
                     disableElevation
                     fullWidth
-                    onClick={() => {
-
+                    onClick={async () => {
+                        await saveDay(day);
                     }}
                 >
                     Save

@@ -1,28 +1,30 @@
-import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
-import type { Question } from './types';
+import { openDB } from 'idb'
+import { type Day } from './types'
 
+const dbPromise = openDB('not-so-bad', 1, {
+  upgrade(db) {
+    if (!db.objectStoreNames.contains('days')) {
+      db.createObjectStore('days', { keyPath: 'date' })
+    }
+  },
+})
 
-interface MyDB extends DBSchema {
-  days: {
-    key: number;
-    value: {
-        id: number,
-        date: string,
-        questions: Question[]
-    };
-  };
+export async function saveDay(day: Day) {
+  const db = await dbPromise
+  await db.put('days', day)
 }
 
-let dbPromise: Promise<IDBPDatabase<MyDB>>;
+export async function getDay(date: string): Promise<Day | undefined> {
+  const db = await dbPromise
+  return db.get('days', date)
+}
 
-export const getDB = () => {
-  if (!dbPromise) {
-    dbPromise = openDB<MyDB>('my-database', 1, {
-      upgrade(db) {
-        db.createObjectStore('days', { keyPath: 'id', autoIncrement: true });
-      },
-    });
-  }
-  return dbPromise;
-};
+export async function getAllDays(): Promise<Day[]> {
+  const db = await dbPromise
+  return db.getAll('days')
+}
 
+export async function deleteDay(date: string) {
+  const db = await dbPromise
+  await db.delete('days', date)
+}
