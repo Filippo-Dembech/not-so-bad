@@ -8,7 +8,7 @@ interface AnswerProps {
 export default function Answer({text}: AnswerProps) {
     const style: CSSProperties = {
         background: "var(--answer-background)",
-        padding: "10px 0",
+        padding: "1rem",
         borderRadius: "10px",
         color: "green"
     }

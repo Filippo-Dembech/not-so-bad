@@ -8,10 +8,9 @@ import { getCurrentDay } from "./utils/getCurrentDay";
 import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
-import { dateToString } from "./utils/dates";
 import Answer from "./ui/Answer";
 import AutoHeight from "embla-carousel-auto-height";
-import { saveDay } from "./db";
+import { getInitialDate, saveDay } from "./db";
 
 const options = {}
 
@@ -28,19 +27,23 @@ function App() {
         onNextButtonClick,
     } = usePrevNextButtons(emblaApi);
 
-    const [day, setDay] = useState<Day>(() => ({
-        date: dateToString(new Date()),
-        questions: questions.map((question) => ({
-            prompt: question,
-            answers: [],
-        })),
-    }));
-
+    const [day, setDay] = useState<Day | undefined>(undefined);
+    
     const [answer, setAnswer] = useState("");
+    
+    useEffect(() => {
+        async function initializeDay() {
+            const day = await getInitialDate();
+            setDay(day);
+        }
+        initializeDay();
+    }, [])
     
     useEffect(() => {
         emblaApi?.reInit();
     }, [day, emblaApi])
+    
+    if (!day) return <div>LOADING...</div>
     
     return (
         <div style={{ padding: 20 }}>
@@ -78,9 +81,9 @@ function App() {
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") {
                                                 setDay((day) => ({
-                                                    ...day,
+                                                    ...day!,
                                                     questions:
-                                                        day.questions.map((q) =>
+                                                        day!.questions.map((q) =>
                                                             q.prompt ===
                                                             question
                                                                 ? {
