@@ -1,4 +1,12 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    CircularProgress,
+    Snackbar,
+    TextField,
+    Typography,
+} from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
 import { usePrevNextButtons, PrevButton, NextButton } from "./CarouselButtons";
 import { useDotButton } from "./useDotButton";
@@ -10,9 +18,9 @@ import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import Answer from "./ui/Answer";
 import AutoHeight from "embla-carousel-auto-height";
-import { getInitialDate, saveDay } from "./db";
+import { deleteAnswer, getInitialDate, saveDay } from "./db";
 
-const options = {}
+const options = {};
 
 function App() {
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [AutoHeight()]);
@@ -28,23 +36,34 @@ function App() {
     } = usePrevNextButtons(emblaApi);
 
     const [day, setDay] = useState<Day | undefined>(undefined);
-    
     const [answer, setAnswer] = useState("");
-    
+    const [isSnackOpen, setIsSnackOpen] = useState(false);
+
     useEffect(() => {
         async function initializeDay() {
             const day = await getInitialDate();
             setDay(day);
         }
         initializeDay();
-    }, [])
-    
+    }, []);
+
     useEffect(() => {
         emblaApi?.reInit();
-    }, [day, emblaApi])
-    
-    if (!day) return <div>LOADING...</div>
-    
+    }, [day, emblaApi]);
+
+    if (!day)
+        return (
+            <CircularProgress
+                color="secondary"
+                sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                }}
+            />
+        );
+
     return (
         <div style={{ padding: 20 }}>
             <Header />
@@ -76,31 +95,36 @@ function App() {
                                         label="Type here..."
                                         value={answer}
                                         onChange={(e) => {
-                                            setAnswer(e.target.value)
+                                            setAnswer(e.target.value);
                                         }}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") {
                                                 setDay((day) => ({
                                                     ...day!,
                                                     questions:
-                                                        day!.questions.map((q) =>
-                                                            q.prompt ===
-                                                            question
-                                                                ? {
-                                                                      ...q,
-                                                                      answers: [
-                                                                          ...q.answers,
-                                                                          answer,
-                                                                      ],
-                                                                  }
-                                                                : q
+                                                        day!.questions.map(
+                                                            (q) =>
+                                                                q.prompt ===
+                                                                question
+                                                                    ? {
+                                                                          ...q,
+                                                                          answers:
+                                                                              [
+                                                                                  ...q.answers,
+                                                                                  answer,
+                                                                              ],
+                                                                      }
+                                                                    : q
                                                         ),
                                                 }));
                                             }
                                             if (e.code === "Tab") {
                                                 onNextButtonClick();
                                             }
-                                            if (e.code === "Tab" && e.shiftKey) {
+                                            if (
+                                                e.code === "Tab" &&
+                                                e.shiftKey
+                                            ) {
                                                 onPrevButtonClick();
                                             }
                                         }}
@@ -121,6 +145,15 @@ function App() {
                                             <Answer
                                                 key={`${answer}-${i}`}
                                                 text={answer}
+                                                onDelete={async () => {
+                                                    const newDay =
+                                                        await deleteAnswer(
+                                                            day,
+                                                            question,
+                                                            answer
+                                                        );
+                                                    setDay(newDay);
+                                                }}
                                             />
                                         ))}
                                 </Box>
@@ -164,18 +197,35 @@ function App() {
                     </div>
                 </div>
             </section>
-            <div style={{ width: "80%", maxWidth: "400px", margin: "2rem auto"}}>
+            <div
+                style={{ width: "80%", maxWidth: "400px", margin: "2rem auto" }}
+            >
                 <Button
                     variant="contained"
                     disableElevation
                     fullWidth
                     onClick={async () => {
                         await saveDay(day);
+                        setIsSnackOpen(true);
                     }}
                 >
                     Save
                 </Button>
             </div>
+            <Snackbar
+                open={isSnackOpen}
+                autoHideDuration={3000}
+                onClose={() => setIsSnackOpen(false)}
+            >
+                <Alert
+                    severity="success"
+                    sx={{ backgroundColor: "green"}}
+                    variant="filled"
+                    onClose={() => setIsSnackOpen(false)}
+                >
+                    Day successfully saved!
+                </Alert>
+            </Snackbar>
         </div>
     );
 }
