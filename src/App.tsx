@@ -7,20 +7,77 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
+import { DatePicker } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import useEmblaCarousel from "embla-carousel-react";
 import { usePrevNextButtons, PrevButton, NextButton } from "./CarouselButtons";
 import { useDotButton } from "./useDotButton";
 import { DotButton } from "./useDotButton";
 import { questions } from "./questions";
-import { getCurrentDay } from "./utils/getCurrentDay";
 import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import Answer from "./ui/Answer";
 import AutoHeight from "embla-carousel-auto-height";
-import { deleteAnswer, getInitialDate, saveDay } from "./db";
+import { deleteAnswer, getAllDays, getDay, getInitialDate, saveDay } from "./db";
+import { dateToString, stringToDate } from "./utils/dates";
 
 const options = {};
+
+const sampleDays: Day[] = [
+  {
+    date: "03/09/2025",
+    questions: [
+      { prompt: "What obstacles did you tackle today?", answers: ["Debugged a stubborn bug"] },
+      { prompt: "What made you smile today?", answers: ["A funny meme in the team chat"] },
+      { prompt: "What did you learn today?", answers: ["How to use JS optional chaining better"] },
+      { prompt: "How did you help someone (or yourself) today?", answers: ["Helped a colleague with CSS layout"] },
+      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Morning run"] },
+    ]
+  },
+  {
+    date: "07/09/2025",
+    questions: [
+      { prompt: "What obstacles did you tackle today?", answers: ["Fixed a deployment issue"] },
+      { prompt: "What made you smile today?", answers: ["Coffee spill, then laughter with a friend"] },
+      { prompt: "What did you learn today?", answers: ["Basics of React context API"] },
+      { prompt: "How did you help someone (or yourself) today?", answers: ["Explained a tricky function to a teammate"] },
+      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Cycling after work"] },
+    ]
+  },
+  {
+    date: "12/09/2025",
+    questions: [
+      { prompt: "What obstacles did you tackle today?", answers: ["Solved a tough algorithm problem"] },
+      { prompt: "What made you smile today?", answers: ["Cute dog outside the office"] },
+      { prompt: "What did you learn today?", answers: ["New VSCode shortcut"] },
+      { prompt: "How did you help someone (or yourself) today?", answers: ["Reviewed a teammate’s PR"] },
+      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Evening meditation"] },
+    ]
+  },
+  {
+    date: "18/09/2025",
+    questions: [
+      { prompt: "What obstacles did you tackle today?", answers: ["Refactored some messy code"] },
+      { prompt: "What made you smile today?", answers: ["Random compliment from a coworker"] },
+      { prompt: "What did you learn today?", answers: ["TypeScript types tricks"] },
+      { prompt: "How did you help someone (or yourself) today?", answers: ["Helped a teammate understand closures"] },
+      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Gym session"] },
+    ]
+  },
+  {
+    date: "25/09/2025",
+    questions: [
+      { prompt: "What obstacles did you tackle today?", answers: ["Fixed a failing test suite"] },
+      { prompt: "What made you smile today?", answers: ["Watched a funny clip online"] },
+      { prompt: "What did you learn today?", answers: ["Material UI theming"] },
+      { prompt: "How did you help someone (or yourself) today?", answers: ["Explained JS promises to a friend"] },
+      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Morning cycling routine"] },
+    ]
+  },
+];
+
 
 function App() {
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [AutoHeight()]);
@@ -36,13 +93,21 @@ function App() {
     } = usePrevNextButtons(emblaApi);
 
     const [day, setDay] = useState<Day | undefined>(undefined);
+    const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
+    const [historyDays, setHistoryDays] = useState<Day[] | undefined>(
+        undefined
+    );
     const [answer, setAnswer] = useState("");
     const [isSnackOpen, setIsSnackOpen] = useState(false);
 
     useEffect(() => {
         async function initializeDay() {
             const day = await getInitialDate();
+            const historyDays = await getAllDays();
             setDay(day);
+            setHistoryDays(historyDays);
+            setSelectedDay(stringToDate(day.date))
+            sampleDays.forEach(async (sampleDay) => await saveDay(sampleDay))
         }
         initializeDay();
     }, []);
@@ -68,7 +133,7 @@ function App() {
         <div style={{ padding: 20 }}>
             <Header />
             <Typography variant="subtitle1">
-                This <strong>{getCurrentDay()}</strong>
+                This <strong>{day.date}</strong>
             </Typography>
             <section className="embla theme-light">
                 <div
@@ -211,6 +276,36 @@ function App() {
                 >
                     Save
                 </Button>
+                <div
+                    style={{
+                        position: "absolute",
+                        bottom: "1rem",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                    }}
+                >
+                    <DatePicker
+                        selected={selectedDay}
+                        onChange={async (date) => {
+                            if (!date) return;
+                            const newDay = await getDay(dateToString(date));
+                            if (newDay) setDay(newDay);
+                            setSelectedDay(date);
+                        }}
+                        dayClassName={(date) =>
+                            historyDays?.some(
+                                (day) =>
+                                    stringToDate(day.date).toDateString() ===
+                                    date.toDateString()
+                            )
+                                ? "highlight"
+                                : ""
+                        }
+                        customInput={
+                            <Button variant="outlined">HISTORY</Button>
+                        }
+                    />
+                </div>
             </div>
             <Snackbar
                 open={isSnackOpen}
@@ -219,7 +314,7 @@ function App() {
             >
                 <Alert
                     severity="success"
-                    sx={{ backgroundColor: "green"}}
+                    sx={{ backgroundColor: "green" }}
                     variant="filled"
                     onClose={() => setIsSnackOpen(false)}
                 >

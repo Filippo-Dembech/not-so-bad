@@ -1,69 +1,27 @@
-# React + TypeScript + Vite
+# Not So Bad
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Not So Bad** is a daily reflection app that helps you focus on the positive moments in your life.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Capture small wins and uplifting moments each day.
+- Reflect on things you're grateful for.
+- Track your progress over time and see how your perspective improves.
+- Build a habit of noticing the good, even on tough days.
 
-## Expanding the ESLint configuration
+## Why Use Not So Bad?
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Life can be overwhelming, and it’s easy to focus on the negatives. Not So Bad trains your mind to see the silver linings, reduce stress, and appreciate everyday victories that often go unnoticed.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## How It Works
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. **Daily Prompts:** Get simple prompts to record positive experiences.
+2. **Reflection:** Review past entries to see how much good there is in your life.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Contribute
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Welcome contributions! Feel free to open issues or submit pull requests to help improve Not So Bad.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Focus on the good, because it’s usually **not so bad**.
