@@ -14,7 +14,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { PrevButton, NextButton } from "./CarouselButtons";
 import { usePrevNextButtons } from "./usePrevNextButtons";
 import { useDotButton } from "./useDotButton";
-import { DotButton } from "./useDotButton";
+import { DotButton } from "./DotButton";
 import { questions } from "./questions";
 import Header from "./ui/Header";
 import { useEffect, useState } from "react";
