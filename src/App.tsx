@@ -1,9 +1,4 @@
-import {
-    Alert,
-    Button,
-    Snackbar,
-    Typography,
-} from "@mui/material";
+import { Alert, Button, Snackbar, Typography } from "@mui/material";
 import { DatePicker } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
@@ -13,16 +8,12 @@ import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import AutoHeight from "embla-carousel-auto-height";
-import {
-    getAllDays,
-    getDay,
-    getInitialDate,
-    saveDay,
-} from "./db";
+import { getAllDays, getDay, getInitialDate } from "./db";
 import { dateToString, stringToDate } from "./utils/dates";
 import { useSnackbar } from "./hooks/useSnackbar";
 import LoadingWheel from "./ui/LoadingWheel";
 import QuestionsForm from "./ui/QuestionsForm";
+import SaveButton from "./ui/SaveButton";
 
 const options = {};
 
@@ -67,7 +58,7 @@ function App() {
             <Typography variant="subtitle1">
                 This <strong>{day.date}</strong>
             </Typography>
-            <QuestionsForm 
+            <QuestionsForm
                 emblaRef={emblaRef}
                 setDay={setDay}
                 day={day}
@@ -76,25 +67,11 @@ function App() {
             <div
                 style={{ width: "80%", maxWidth: "400px", margin: "2rem auto" }}
             >
-                <Button
-                    variant="contained"
-                    disableElevation
-                    fullWidth
-                    onClick={async () => {
-                        if (
-                            day.questions.every(
-                                (question) => question.answers.length === 0
-                            )
-                        ) {
-                            showNoAnswerSnackbar();
-                            return;
-                        }
-                        await saveDay(day);
-                        showSuccessSnackbar();
-                    }}
-                >
-                    Save
-                </Button>
+                <SaveButton
+                    day={day}
+                    showSuccess={showSuccessSnackbar}
+                    showNoAnswer={showNoAnswerSnackbar}
+                />
                 <div
                     style={{
                         position: "absolute",
