@@ -11,10 +11,10 @@ import { DatePicker } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import useEmblaCarousel from "embla-carousel-react";
-import { PrevButton, NextButton } from "./CarouselButtons";
+import { PrevButton, NextButton } from "./ui/CarouselButtons";
 import { usePrevNextButtons } from "./hooks/usePrevNextButtons";
 import { useDotButton } from "./hooks/useDotButton";
-import { DotButton } from "./DotButton";
+import { DotButton } from "./ui/DotButton";
 import { questions } from "./questions";
 import Header from "./ui/Header";
 import { useEffect, useState } from "react";
@@ -30,6 +30,7 @@ import {
 } from "./db";
 import { dateToString, stringToDate } from "./utils/dates";
 import { useSnackbar } from "./hooks/useSnackbar";
+import LoadingWheel from "./ui/LoadingWheel";
 
 const options = {};
 
@@ -69,7 +70,6 @@ function App() {
             setDay(day);
             setHistoryDays(historyDays);
             setSelectedDay(stringToDate(day.date));
-            //sampleDays.forEach(async (sampleDay) => await saveDay(sampleDay))
         }
         initializeDay();
     }, []);
@@ -78,18 +78,7 @@ function App() {
         emblaApi?.reInit();
     }, [day, emblaApi]);
 
-    if (!day)
-        return (
-            <CircularProgress
-                color="secondary"
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                }}
-            />
-        );
+    if (!day) return <LoadingWheel />;
 
     return (
         <div style={{ padding: 20 }}>
