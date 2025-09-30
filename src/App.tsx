@@ -99,7 +99,8 @@ function App() {
         undefined
     );
     const [answer, setAnswer] = useState("");
-    const [isSnackOpen, setIsSnackOpen] = useState(false);
+    const [isSuccessSnackOpen, setIsSuccessSnackOpen] = useState(false);
+    const [isNoAnswerSnackOpen, setIsNoAnswerSnackOpen] = useState(false);
 
     useEffect(() => {
         async function initializeDay() {
@@ -271,8 +272,12 @@ function App() {
                     disableElevation
                     fullWidth
                     onClick={async () => {
+                        if (day.questions.every(question => question.answers.length === 0)) {
+                            setIsNoAnswerSnackOpen(true);
+                            return;
+                        }
                         await saveDay(day);
-                        setIsSnackOpen(true);
+                        setIsSuccessSnackOpen(true);
                     }}
                 >
                     Save
@@ -282,7 +287,7 @@ function App() {
                         position: "absolute",
                         bottom: "1rem",
                         left: "50%",
-                        transform: "translateX(-50%)",
+                        transform: "translateX(-50%)",  // because this <DatePicker> has a `transform` property set, <DatePicker> needs a `portalId` to stay on top of the UI
                     }}
                 >
                     <DatePicker
@@ -291,10 +296,16 @@ function App() {
                             if (!date) return;
                             const newDay = await getDay(dateToString(date));
                             if (newDay) {
-                                console.log("newDay = ", newDay);
                                 setDay(newDay);
+                            } else {
+                                setDay({
+                                    date: dateToString(date),
+                                    questions: questions.map((question) => ({
+                                        prompt: question,
+                                        answers: [],
+                                    })),
+                                });
                             }
-                            console.log(`There is no ${date} day in the DB`)
                             setSelectedDay(date);
                         }}
                         dayClassName={(date) =>
@@ -314,17 +325,30 @@ function App() {
                 </div>
             </div>
             <Snackbar
-                open={isSnackOpen}
+                open={isSuccessSnackOpen}
                 autoHideDuration={3000}
-                onClose={() => setIsSnackOpen(false)}
+                onClose={() => setIsSuccessSnackOpen(false)}
             >
                 <Alert
                     severity="success"
                     sx={{ backgroundColor: "green" }}
                     variant="filled"
-                    onClose={() => setIsSnackOpen(false)}
+                    onClose={() => setIsSuccessSnackOpen(false)}
                 >
                     Day successfully saved!
+                </Alert>
+            </Snackbar>
+            <Snackbar
+                open={isNoAnswerSnackOpen}
+                autoHideDuration={3000}
+                onClose={() => setIsNoAnswerSnackOpen(false)}
+            >
+                <Alert
+                    severity="warning"
+                    variant="filled"
+                    onClose={() => setIsNoAnswerSnackOpen(false)}
+                >
+                    Please, answer to at least one question!
                 </Alert>
             </Snackbar>
         </div>
