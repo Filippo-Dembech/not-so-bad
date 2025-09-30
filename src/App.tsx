@@ -21,7 +21,13 @@ import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import Answer from "./ui/Answer";
 import AutoHeight from "embla-carousel-auto-height";
-import { deleteAnswer, getAllDays, getDay, getInitialDate, saveDay } from "./db";
+import {
+    deleteAnswer,
+    getAllDays,
+    getDay,
+    getInitialDate,
+    saveDay,
+} from "./db";
 import { dateToString, stringToDate } from "./utils/dates";
 
 const options = {};
@@ -79,7 +85,6 @@ const options = {};
 //   },
 // ];
 
-
 function App() {
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [AutoHeight()]);
 
@@ -108,7 +113,7 @@ function App() {
             const historyDays = await getAllDays();
             setDay(day);
             setHistoryDays(historyDays);
-            setSelectedDay(stringToDate(day.date))
+            setSelectedDay(stringToDate(day.date));
             //sampleDays.forEach(async (sampleDay) => await saveDay(sampleDay))
         }
         initializeDay();
@@ -157,46 +162,47 @@ function App() {
                                     >
                                         {question}
                                     </Typography>
-                                    <TextField
-                                        color="secondary"
-                                        label="Type here..."
-                                        value={answer}
-                                        onChange={(e) => {
-                                            setAnswer(e.target.value);
+                                    <form
+                                        onSubmit={(e) => {
+                                            e.preventDefault();
+                                            setDay((day) => ({
+                                                ...day!,
+                                                questions: day!.questions.map(
+                                                    (q) =>
+                                                        q.prompt === question
+                                                            ? {
+                                                                  ...q,
+                                                                  answers: [
+                                                                      ...q.answers,
+                                                                      answer,
+                                                                  ],
+                                                              }
+                                                            : q
+                                                ),
+                                            }));
                                         }}
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter") {
-                                                setDay((day) => ({
-                                                    ...day!,
-                                                    questions:
-                                                        day!.questions.map(
-                                                            (q) =>
-                                                                q.prompt ===
-                                                                question
-                                                                    ? {
-                                                                          ...q,
-                                                                          answers:
-                                                                              [
-                                                                                  ...q.answers,
-                                                                                  answer,
-                                                                              ],
-                                                                      }
-                                                                    : q
-                                                        ),
-                                                }));
-                                            }
-                                            if (e.code === "Tab") {
-                                                onNextButtonClick();
-                                            }
-                                            if (
-                                                e.code === "Tab" &&
-                                                e.shiftKey
-                                            ) {
-                                                onPrevButtonClick();
-                                            }
-                                        }}
-                                        fullWidth
-                                    />
+                                    >
+                                        <TextField
+                                            color="secondary"
+                                            label="Type here..."
+                                            value={answer}
+                                            onChange={(e) => {
+                                                setAnswer(e.target.value);
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.code === "Tab") {
+                                                    onNextButtonClick();
+                                                }
+                                                if (
+                                                    e.code === "Tab" &&
+                                                    e.shiftKey
+                                                ) {
+                                                    onPrevButtonClick();
+                                                }
+                                            }}
+                                            fullWidth
+                                        />
+                                    </form>
                                 </div>
                                 <Box
                                     width="80%"
@@ -272,7 +278,11 @@ function App() {
                     disableElevation
                     fullWidth
                     onClick={async () => {
-                        if (day.questions.every(question => question.answers.length === 0)) {
+                        if (
+                            day.questions.every(
+                                (question) => question.answers.length === 0
+                            )
+                        ) {
                             setIsNoAnswerSnackOpen(true);
                             return;
                         }
@@ -287,7 +297,7 @@ function App() {
                         position: "absolute",
                         bottom: "1rem",
                         left: "50%",
-                        transform: "translateX(-50%)",  // because this <DatePicker> has a `transform` property set, <DatePicker> needs a `portalId` to stay on top of the UI
+                        transform: "translateX(-50%)", // because this <DatePicker> has a `transform` property set, <DatePicker> needs a `portalId` to stay on top of the UI
                     }}
                 >
                     <DatePicker
@@ -320,7 +330,7 @@ function App() {
                         customInput={
                             <Button variant="outlined">HISTORY</Button>
                         }
-                        portalId="root-portal"  // this ensures that the calendar stays on top of other elements
+                        portalId="root-portal" // this ensures that the calendar stays on top of other elements
                     />
                 </div>
             </div>
