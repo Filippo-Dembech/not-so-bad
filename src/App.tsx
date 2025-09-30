@@ -1,19 +1,18 @@
-import { Alert, Button, Snackbar, Typography } from "@mui/material";
-import { DatePicker } from "react-datepicker";
+import { Alert, Snackbar, Typography } from "@mui/material";
+import useEmblaCarousel from "embla-carousel-react";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
-import useEmblaCarousel from "embla-carousel-react";
-import { questions } from "./questions";
 import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import AutoHeight from "embla-carousel-auto-height";
-import { getAllDays, getDay, getInitialDate } from "./db";
-import { dateToString, stringToDate } from "./utils/dates";
+import { getAllDays, getInitialDate } from "./db";
+import { stringToDate } from "./utils/dates";
 import { useSnackbar } from "./hooks/useSnackbar";
 import LoadingWheel from "./ui/LoadingWheel";
 import QuestionsForm from "./ui/QuestionsForm";
 import SaveButton from "./ui/SaveButton";
+import History from "./ui/History";
 
 const options = {};
 
@@ -72,47 +71,12 @@ function App() {
                     showSuccess={showSuccessSnackbar}
                     showNoAnswer={showNoAnswerSnackbar}
                 />
-                <div
-                    style={{
-                        position: "absolute",
-                        bottom: "1rem",
-                        left: "50%",
-                        transform: "translateX(-50%)", // because this <DatePicker> has a `transform` property set, <DatePicker> needs a `portalId` to stay on top of the UI
-                    }}
-                >
-                    <DatePicker
-                        selected={selectedDay}
-                        onChange={async (date) => {
-                            if (!date) return;
-                            const newDay = await getDay(dateToString(date));
-                            if (newDay) {
-                                setDay(newDay);
-                            } else {
-                                setDay({
-                                    date: dateToString(date),
-                                    questions: questions.map((question) => ({
-                                        prompt: question,
-                                        answers: [],
-                                    })),
-                                });
-                            }
-                            setSelectedDay(date);
-                        }}
-                        dayClassName={(date) =>
-                            historyDays?.some(
-                                (day) =>
-                                    stringToDate(day.date).toDateString() ===
-                                    date.toDateString()
-                            )
-                                ? "highlight"
-                                : ""
-                        }
-                        customInput={
-                            <Button variant="outlined">HISTORY</Button>
-                        }
-                        portalId="root-portal" // this ensures that the calendar stays on top of other elements
-                    />
-                </div>
+                <History
+                    setDay={setDay}
+                    setSelectedDay={setSelectedDay}
+                    historyDays={historyDays}
+                    selectedDay={selectedDay}
+                />
             </div>
             <Snackbar
                 open={isSuccess}
