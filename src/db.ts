@@ -40,6 +40,11 @@ export async function getAllDays(): Promise<Day[]> {
     return db.getAll("days");
 }
 
+export async function deleteDay(date: string): Promise<void> {
+    const db = await dbPromise;
+    await db.delete("days", date);
+}
+
 export async function deleteAnswer(
     day: Day,
     targetQuestion: string,
@@ -58,6 +63,11 @@ export async function deleteAnswer(
                   }
         ),
     };
-    await saveDay(newDay);
+    if (newDay.questions.every(question => question.answers.length === 0)) {
+        await deleteDay(newDay.date)
+    } else {
+        await saveDay(newDay);
+    }
+    // return `newDay` in order to sync the UI
     return newDay;
 }

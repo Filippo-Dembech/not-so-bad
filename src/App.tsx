@@ -25,58 +25,58 @@ import { dateToString, stringToDate } from "./utils/dates";
 
 const options = {};
 
-const sampleDays: Day[] = [
-  {
-    date: "03/09/2025",
-    questions: [
-      { prompt: "What obstacles did you tackle today?", answers: ["Debugged a stubborn bug"] },
-      { prompt: "What made you smile today?", answers: ["A funny meme in the team chat"] },
-      { prompt: "What did you learn today?", answers: ["How to use JS optional chaining better"] },
-      { prompt: "How did you help someone (or yourself) today?", answers: ["Helped a colleague with CSS layout"] },
-      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Morning run"] },
-    ]
-  },
-  {
-    date: "07/09/2025",
-    questions: [
-      { prompt: "What obstacles did you tackle today?", answers: ["Fixed a deployment issue"] },
-      { prompt: "What made you smile today?", answers: ["Coffee spill, then laughter with a friend"] },
-      { prompt: "What did you learn today?", answers: ["Basics of React context API"] },
-      { prompt: "How did you help someone (or yourself) today?", answers: ["Explained a tricky function to a teammate"] },
-      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Cycling after work"] },
-    ]
-  },
-  {
-    date: "12/09/2025",
-    questions: [
-      { prompt: "What obstacles did you tackle today?", answers: ["Solved a tough algorithm problem"] },
-      { prompt: "What made you smile today?", answers: ["Cute dog outside the office"] },
-      { prompt: "What did you learn today?", answers: ["New VSCode shortcut"] },
-      { prompt: "How did you help someone (or yourself) today?", answers: ["Reviewed a teammate’s PR"] },
-      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Evening meditation"] },
-    ]
-  },
-  {
-    date: "18/09/2025",
-    questions: [
-      { prompt: "What obstacles did you tackle today?", answers: ["Refactored some messy code"] },
-      { prompt: "What made you smile today?", answers: ["Random compliment from a coworker"] },
-      { prompt: "What did you learn today?", answers: ["TypeScript types tricks"] },
-      { prompt: "How did you help someone (or yourself) today?", answers: ["Helped a teammate understand closures"] },
-      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Gym session"] },
-    ]
-  },
-  {
-    date: "25/09/2025",
-    questions: [
-      { prompt: "What obstacles did you tackle today?", answers: ["Fixed a failing test suite"] },
-      { prompt: "What made you smile today?", answers: ["Watched a funny clip online"] },
-      { prompt: "What did you learn today?", answers: ["Material UI theming"] },
-      { prompt: "How did you help someone (or yourself) today?", answers: ["Explained JS promises to a friend"] },
-      { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Morning cycling routine"] },
-    ]
-  },
-];
+// const sampleDays: Day[] = [
+//   {
+//     date: "03/09/2025",
+//     questions: [
+//       { prompt: "What obstacles did you tackle today?", answers: ["Debugged a stubborn bug"] },
+//       { prompt: "What made you smile today?", answers: ["A funny meme in the team chat"] },
+//       { prompt: "What did you learn today?", answers: ["How to use JS optional chaining better"] },
+//       { prompt: "How did you help someone (or yourself) today?", answers: ["Helped a colleague with CSS layout"] },
+//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Morning run"] },
+//     ]
+//   },
+//   {
+//     date: "07/09/2025",
+//     questions: [
+//       { prompt: "What obstacles did you tackle today?", answers: ["Fixed a deployment issue"] },
+//       { prompt: "What made you smile today?", answers: ["Coffee spill, then laughter with a friend"] },
+//       { prompt: "What did you learn today?", answers: ["Basics of React context API"] },
+//       { prompt: "How did you help someone (or yourself) today?", answers: ["Explained a tricky function to a teammate"] },
+//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Cycling after work"] },
+//     ]
+//   },
+//   {
+//     date: "12/09/2025",
+//     questions: [
+//       { prompt: "What obstacles did you tackle today?", answers: ["Solved a tough algorithm problem"] },
+//       { prompt: "What made you smile today?", answers: ["Cute dog outside the office"] },
+//       { prompt: "What did you learn today?", answers: ["New VSCode shortcut"] },
+//       { prompt: "How did you help someone (or yourself) today?", answers: ["Reviewed a teammate’s PR"] },
+//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Evening meditation"] },
+//     ]
+//   },
+//   {
+//     date: "18/09/2025",
+//     questions: [
+//       { prompt: "What obstacles did you tackle today?", answers: ["Refactored some messy code"] },
+//       { prompt: "What made you smile today?", answers: ["Random compliment from a coworker"] },
+//       { prompt: "What did you learn today?", answers: ["TypeScript types tricks"] },
+//       { prompt: "How did you help someone (or yourself) today?", answers: ["Helped a teammate understand closures"] },
+//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Gym session"] },
+//     ]
+//   },
+//   {
+//     date: "25/09/2025",
+//     questions: [
+//       { prompt: "What obstacles did you tackle today?", answers: ["Fixed a failing test suite"] },
+//       { prompt: "What made you smile today?", answers: ["Watched a funny clip online"] },
+//       { prompt: "What did you learn today?", answers: ["Material UI theming"] },
+//       { prompt: "How did you help someone (or yourself) today?", answers: ["Explained JS promises to a friend"] },
+//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Morning cycling routine"] },
+//     ]
+//   },
+// ];
 
 
 function App() {
@@ -107,7 +107,7 @@ function App() {
             setDay(day);
             setHistoryDays(historyDays);
             setSelectedDay(stringToDate(day.date))
-            sampleDays.forEach(async (sampleDay) => await saveDay(sampleDay))
+            //sampleDays.forEach(async (sampleDay) => await saveDay(sampleDay))
         }
         initializeDay();
     }, []);
