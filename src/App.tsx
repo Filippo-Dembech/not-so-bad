@@ -290,7 +290,11 @@ function App() {
                         onChange={async (date) => {
                             if (!date) return;
                             const newDay = await getDay(dateToString(date));
-                            if (newDay) setDay(newDay);
+                            if (newDay) {
+                                console.log("newDay = ", newDay);
+                                setDay(newDay);
+                            }
+                            console.log(`There is no ${date} day in the DB`)
                             setSelectedDay(date);
                         }}
                         dayClassName={(date) =>
@@ -305,6 +309,7 @@ function App() {
                         customInput={
                             <Button variant="outlined">HISTORY</Button>
                         }
+                        portalId="root-portal"  // this ensures that the calendar stays on top of other elements
                     />
                 </div>
             </div>
