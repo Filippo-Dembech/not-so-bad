@@ -29,61 +29,9 @@ import {
     saveDay,
 } from "./db";
 import { dateToString, stringToDate } from "./utils/dates";
+import { useSnackbar } from "./hooks/useSnackbar";
 
 const options = {};
-
-// const sampleDays: Day[] = [
-//   {
-//     date: "03/09/2025",
-//     questions: [
-//       { prompt: "What obstacles did you tackle today?", answers: ["Debugged a stubborn bug"] },
-//       { prompt: "What made you smile today?", answers: ["A funny meme in the team chat"] },
-//       { prompt: "What did you learn today?", answers: ["How to use JS optional chaining better"] },
-//       { prompt: "How did you help someone (or yourself) today?", answers: ["Helped a colleague with CSS layout"] },
-//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Morning run"] },
-//     ]
-//   },
-//   {
-//     date: "07/09/2025",
-//     questions: [
-//       { prompt: "What obstacles did you tackle today?", answers: ["Fixed a deployment issue"] },
-//       { prompt: "What made you smile today?", answers: ["Coffee spill, then laughter with a friend"] },
-//       { prompt: "What did you learn today?", answers: ["Basics of React context API"] },
-//       { prompt: "How did you help someone (or yourself) today?", answers: ["Explained a tricky function to a teammate"] },
-//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Cycling after work"] },
-//     ]
-//   },
-//   {
-//     date: "12/09/2025",
-//     questions: [
-//       { prompt: "What obstacles did you tackle today?", answers: ["Solved a tough algorithm problem"] },
-//       { prompt: "What made you smile today?", answers: ["Cute dog outside the office"] },
-//       { prompt: "What did you learn today?", answers: ["New VSCode shortcut"] },
-//       { prompt: "How did you help someone (or yourself) today?", answers: ["Reviewed a teammate’s PR"] },
-//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Evening meditation"] },
-//     ]
-//   },
-//   {
-//     date: "18/09/2025",
-//     questions: [
-//       { prompt: "What obstacles did you tackle today?", answers: ["Refactored some messy code"] },
-//       { prompt: "What made you smile today?", answers: ["Random compliment from a coworker"] },
-//       { prompt: "What did you learn today?", answers: ["TypeScript types tricks"] },
-//       { prompt: "How did you help someone (or yourself) today?", answers: ["Helped a teammate understand closures"] },
-//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Gym session"] },
-//     ]
-//   },
-//   {
-//     date: "25/09/2025",
-//     questions: [
-//       { prompt: "What obstacles did you tackle today?", answers: ["Fixed a failing test suite"] },
-//       { prompt: "What made you smile today?", answers: ["Watched a funny clip online"] },
-//       { prompt: "What did you learn today?", answers: ["Material UI theming"] },
-//       { prompt: "How did you help someone (or yourself) today?", answers: ["Explained JS promises to a friend"] },
-//       { prompt: "What's one thing you'd love to repeat tomorrow?", answers: ["Morning cycling routine"] },
-//     ]
-//   },
-// ];
 
 function App() {
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [AutoHeight()]);
@@ -104,8 +52,15 @@ function App() {
         undefined
     );
     const [answer, setAnswer] = useState("");
-    const [isSuccessSnackOpen, setIsSuccessSnackOpen] = useState(false);
-    const [isNoAnswerSnackOpen, setIsNoAnswerSnackOpen] = useState(false);
+
+    const {
+        isSuccess,
+        hasNoAnswer,
+        showNoAnswerSnackbar,
+        showSuccessSnackbar,
+        hideNoAnswerSnackbar,
+        hideSuccessSnackbar,
+    } = useSnackbar();
 
     useEffect(() => {
         async function initializeDay() {
@@ -283,11 +238,11 @@ function App() {
                                 (question) => question.answers.length === 0
                             )
                         ) {
-                            setIsNoAnswerSnackOpen(true);
+                            showNoAnswerSnackbar();
                             return;
                         }
                         await saveDay(day);
-                        setIsSuccessSnackOpen(true);
+                        showSuccessSnackbar();
                     }}
                 >
                     Save
@@ -335,28 +290,28 @@ function App() {
                 </div>
             </div>
             <Snackbar
-                open={isSuccessSnackOpen}
+                open={isSuccess}
                 autoHideDuration={3000}
-                onClose={() => setIsSuccessSnackOpen(false)}
+                onClose={hideSuccessSnackbar}
             >
                 <Alert
                     severity="success"
                     sx={{ backgroundColor: "green" }}
                     variant="filled"
-                    onClose={() => setIsSuccessSnackOpen(false)}
+                    onClose={hideSuccessSnackbar}
                 >
                     Day successfully saved!
                 </Alert>
             </Snackbar>
             <Snackbar
-                open={isNoAnswerSnackOpen}
+                open={hasNoAnswer}
                 autoHideDuration={3000}
-                onClose={() => setIsNoAnswerSnackOpen(false)}
+                onClose={hideNoAnswerSnackbar}
             >
                 <Alert
                     severity="warning"
                     variant="filled"
-                    onClose={() => setIsNoAnswerSnackOpen(false)}
+                    onClose={hideNoAnswerSnackbar}
                 >
                     Please, answer to at least one question!
                 </Alert>
