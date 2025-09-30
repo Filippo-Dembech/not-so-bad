@@ -1,0 +1,56 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">Self-improve icon: heart-plant with upward arrow and sparkles</title>
+
+  <!-- Single green color -->
+  <defs>
+    <style>
+      .g { fill: #2ecc71; stroke: #2ecc71; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .g-fill { fill: #2ecc71; stroke: none; }
+      .g-stroke { fill: none; stroke: #2ecc71; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <!-- Heart base (acts like "the good in your life") -->
+  <path class="g-fill" d="
+    M64 86
+    C64 86 36 62 36 44
+    C36 32 46 24 60 28
+    C64 30 68 30 72 28
+    C86 24 96 32 96 44
+    C96 62 68 86 68 86
+    Z"></path>
+
+  <!-- Stem / arrow body rising from heart -->
+  <path class="g-stroke" d="M64 64 L64 28"></path>
+
+  <!-- Arrow head -->
+  <path class="g" d="M56 36 L64 24 L72 36 L64 32 Z"></path>
+
+  <!-- Left leaf -->
+  <path class="g-fill" d="M50 50
+    C44 44 36 40 34 48
+    C34 48 40 54 48 54
+    C50 54 52 52 50 50
+    Z"></path>
+
+  <!-- Right leaf -->
+  <path class="g-fill" d="M78 50
+    C84 44 92 40 94 48
+    C94 48 88 54 80 54
+    C78 54 76 52 78 50
+    Z"></path>
+
+  <!-- Sparkles (three small shapes to suggest "good things") -->
+  <g class="g-fill" transform="translate(18,18) scale(0.9)">
+    <path d="M6 0 L8 4 L12 6 L8 8 L6 12 L4 8 L0 6 L4 4 Z"></path>
+  </g>
+
+  <g class="g-fill" transform="translate(96,20) scale(0.7)">
+    <path d="M6 0 L8 4 L12 6 L8 8 L6 12 L4 8 L0 6 L4 4 Z"></path>
+  </g>
+
+  <g class="g-fill" transform="translate(100,84) scale(0.8)">
+    <path d="M6 0 L8 4 L12 6 L8 8 L6 12 L4 8 L0 6 L4 4 Z"></path>
+  </g>
+</svg>
