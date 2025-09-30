@@ -1,7 +1,5 @@
-import { Alert, Snackbar, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
-import "react-datepicker/dist/react-datepicker.css";
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
@@ -13,6 +11,8 @@ import LoadingWheel from "./ui/LoadingWheel";
 import QuestionsForm from "./ui/QuestionsForm";
 import SaveButton from "./ui/SaveButton";
 import History from "./ui/History";
+import SuccessSnackbar from "./ui/SuccessSnackbar";
+import NoAnswerSnackbar from "./ui/NoAnswerSnackbar";
 
 const options = {};
 
@@ -78,33 +78,14 @@ function App() {
                     selectedDay={selectedDay}
                 />
             </div>
-            <Snackbar
-                open={isSuccess}
-                autoHideDuration={3000}
+            <SuccessSnackbar
+                isOpen={isSuccess}
                 onClose={hideSuccessSnackbar}
-            >
-                <Alert
-                    severity="success"
-                    sx={{ backgroundColor: "green" }}
-                    variant="filled"
-                    onClose={hideSuccessSnackbar}
-                >
-                    Day successfully saved!
-                </Alert>
-            </Snackbar>
-            <Snackbar
-                open={hasNoAnswer}
-                autoHideDuration={3000}
+            />
+            <NoAnswerSnackbar
+                isOpen={hasNoAnswer}
                 onClose={hideNoAnswerSnackbar}
-            >
-                <Alert
-                    severity="warning"
-                    variant="filled"
-                    onClose={hideNoAnswerSnackbar}
-                >
-                    Please, answer to at least one question!
-                </Alert>
-            </Snackbar>
+            />
         </div>
     );
 }
