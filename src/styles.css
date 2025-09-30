@@ -179,3 +179,15 @@ body {
   color: white;
   border-radius: 50%;
 }
+
+@media (max-width: 400px) {
+  .embla__button {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .embla__dot:after {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+}
