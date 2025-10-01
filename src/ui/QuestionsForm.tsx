@@ -84,6 +84,7 @@ export default function QuestionsForm({
                                     <TextField
                                         color="secondary"
                                         label="Type here..."
+                                        autoComplete="off"
                                         value={answer}
                                         onChange={(e) => {
                                             setAnswer(e.target.value);
