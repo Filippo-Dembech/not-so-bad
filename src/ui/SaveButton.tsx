@@ -16,6 +16,7 @@ export default function SaveButton({
     return (
         <Button
             variant="contained"
+            disabled={day.questions.every(question => question.answers.length === 0)}
             disableElevation
             fullWidth
             onClick={async () => {

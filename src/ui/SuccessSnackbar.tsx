@@ -17,7 +17,7 @@ export default function SuccessSnackbar({
         >
             <Alert
                 severity="success"
-                sx={{ backgroundColor: "green" }}
+                sx={{ backgroundColor: "#2A5C3D" }}
                 variant="filled"
                 onClose={onClose}
             >

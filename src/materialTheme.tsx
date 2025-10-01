@@ -1,6 +1,18 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 let zenGreenTheme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&.Mui-disabled": {
+            backgroundColor: "#A8D5BA",
+            color: "white",
+          },
+        },
+      },
+    },
+  },
   palette: {
     primary: {
       main: '#3B7A57',
