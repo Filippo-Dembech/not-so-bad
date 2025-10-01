@@ -3,7 +3,7 @@ import type { EmblaCarouselType } from "embla-carousel";
 import { questions } from "../questions";
 import { Box, TextField, Typography } from "@mui/material";
 import type { Day } from "../types";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { usePrevNextButtons } from "../hooks/usePrevNextButtons";
 import { NextButton, PrevButton } from "./CarouselButtons";
 import { DotButton } from "./DotButton";
@@ -33,8 +33,16 @@ export default function QuestionsForm({
     } = usePrevNextButtons(emblaApi);
     const { selectedIndex, scrollSnaps, onDotButtonClick } =
         useDotButton(emblaApi);
+    
+    const sectionStyle: CSSProperties = {
+        border: "2px solid #7FB993",
+        borderRadius: 20,
+        paddingBottom: "2rem",
+        margin: "2rem auto"
+    }
+
     return (
-        <section className="embla theme-light">
+        <section className="embla theme-light" style={sectionStyle}>
             <div
                 className="embla__viewport"
                 ref={emblaRef}

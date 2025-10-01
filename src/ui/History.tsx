@@ -31,6 +31,7 @@ export default function History({
         >
             <DatePicker
                 selected={selectedDay}
+                calendarClassName="theme-light"
                 onChange={async (date) => {
                     if (!date) return;
                     const newDay = await getDay(dateToString(date));

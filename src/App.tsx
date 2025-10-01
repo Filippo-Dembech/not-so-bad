@@ -52,7 +52,7 @@ function App() {
     if (!day) return <LoadingWheel />;
 
     return (
-        <div style={{ padding: 20 }}>
+        <div style={{ padding: "1.5rem" }}>
             <Header />
             <Typography variant="subtitle1">
                 This <strong>{day.date}</strong>

@@ -36,6 +36,12 @@ body {
   --admonition-note-rgb-value: 46, 109, 188;
   --admonition-warning-rgb-value: 255, 196, 9;
   --admonition-danger-rgb-value: 220, 38, 38;
+  --theme-primary-main: rgb(59, 122, 87);
+  --theme-primary-light: rgb(108, 167, 133);
+  --theme-primary-dark: rgb(42, 92, 61);
+  --theme-secondary-main: rgb(168, 213, 186);
+  --theme-secondary-light: rgb(207, 240, 221);
+  --theme-secondary-dark: rgb(127, 185, 147);
 }
 .theme-dark {
   --brand-primary: rgb(138, 180, 248);
@@ -174,10 +180,54 @@ body {
   box-shadow: inset 0 0 0 0.15rem rgb(0, 129, 0);
 }
 
+.react-datepicker {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.react-datepicker__header {
+  background-color: var(--theme-secondary-light);
+}
+
+.react-datepicker__current-month {
+  color: var(--theme-primary-dark);
+}
+
+.react-datepicker__month-container {
+  background:#f0f5f2 
+}
+
+.react-datepicker__week {
+  border-top: 2px solid gainsboro;
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--theme-secondary-light) !important;
+}
+
+
+.react-datepicker__day-names {
+  font-weight: bold;
+}
+
 .highlight {
-  background-color: #3b853d;
+  /*background-color: #3b853d;*/
+  background-color: var(--theme-secondary-main);
   color: white;
   border-radius: 50%;
+}
+
+.highlight:hover {
+  background-color: var(--theme-secondary-dark) !important;
+  border-radius: 50% !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: var(--theme-primary-main)
+}
+
+.react-datepicker__day--selected:hover {
+  background-color: var(--theme-primary-dark) !important
 }
 
 @media (max-width: 400px) {

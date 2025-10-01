@@ -24,16 +24,14 @@ export default function SaveButton({
                         (question) => question.answers.length === 0
                     )
                 ) {
-                    alert("no answer");
                     showNoAnswer();
                     return;
                 }
-                alert("success");
                 await saveDay(day);
                 showSuccess();
             }}
         >
-            Save
+            Save Memories
         </Button>
     );
 }
