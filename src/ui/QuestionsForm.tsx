@@ -1,6 +1,6 @@
 import type { EmblaViewportRefType } from "embla-carousel-react";
 import type { EmblaCarouselType } from "embla-carousel";
-import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import type { Day, Question } from "../types";
 import { useState, type CSSProperties } from "react";
 import { usePrevNextButtons } from "../hooks/usePrevNextButtons";
@@ -10,7 +10,6 @@ import { useDotButton } from "../hooks/useDotButton";
 import Answer from "./Answer";
 import { deleteAnswer } from "../db";
 import { useLanguage } from "../context/LanguageContext";
-import { GoPlus } from "react-icons/go";
 
 interface QuestionsFormProps {
     emblaRef: EmblaViewportRefType;
