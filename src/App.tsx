@@ -52,6 +52,7 @@ function App() {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+    const [isWhyOpen, setIsWhyOpen] = useState(false);
 
     useEffect(() => {
         if (!language) return; // if language is not loaded yet from the DB return
@@ -116,11 +117,6 @@ function App() {
                     >
                         {language.history}
                     </Button>
-                    <Button
-                        startIcon={<GoQuestion />}
-                    >
-                        {language.why}
-                    </Button>
                     <Dialog
                         open={isHistoryOpen}
                         onClose={() => setIsHistoryOpen(false)}
@@ -161,6 +157,24 @@ function App() {
                             inline
                             portalId="root-portal" // this ensures that the calendar stays on top of other elements
                         />
+                    </Dialog>
+                    <Button
+                        startIcon={<GoQuestion />}
+                        onClick={() => setIsWhyOpen(true)}
+                    >
+                        {language.why}
+                    </Button>
+                    <Dialog open={isWhyOpen} onClose={() => setIsWhyOpen(false)}>
+                            <Box padding={3}>
+                                <Typography variant="h2" color="primary">Not So Bad</Typography>
+                                <Box display="flex" flexDirection="column" gap={2} marginTop={2}>
+                                    {language.description.map(paragraph => (
+                                        <Typography variant="body1">
+                                            {paragraph}
+                                        </Typography>
+                                    ))}
+                                </Box>
+                            </Box>
                     </Dialog>
                     <Select
                         style={{

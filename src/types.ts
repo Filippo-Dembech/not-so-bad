@@ -19,4 +19,5 @@ export interface Language {
     history: string;
     why: string;
     addButton: string;
+    description: string[]
 }
