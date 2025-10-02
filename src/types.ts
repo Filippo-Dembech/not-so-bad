@@ -21,4 +21,5 @@ export interface Language {
     addButton: string;
     description: string[];
     savePdf: string;
+    noDay: string;
 }

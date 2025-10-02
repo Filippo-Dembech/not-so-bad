@@ -7,7 +7,7 @@ import {
     Select,
     Typography,
 } from "@mui/material";
-import html2pdf from 'html2pdf.js';
+import html2pdf from "html2pdf.js";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GoQuestion } from "react-icons/go";
 import useEmblaCarousel from "embla-carousel-react";
@@ -105,42 +105,68 @@ function App() {
                         const options = {
                             margin: 0.5,
                             filename: "not-so-bad.pdf",
-                            html2canvas: { scale: 2},
-                            jsPDF: { unit: "in", format: "letter", oriantation: "portrait"}
-                        }
-                        const html = `
+                            html2canvas: { scale: 2 },
+                            jsPDF: {
+                                unit: "in",
+                                format: "letter",
+                                oriantation: "portrait",
+                            },
+                        };
 
+                        let html;
+
+                        if (days.length === 0) {
+                            html = `
+                                <h1 style="color: #2A5C3D">Not So Bad</h1>
+                                <p style="color: gray; font-style: italic">${language.noDay}</p>
+                            `;
+                        } else {
+                            html = `
                             <h1 style="color: #2A5C3D">Not So Bad</h1>
-                            ${days.map((day) => (
-                                `
+                            ${days
+                                .map(
+                                    (day) =>
+                                        `
                                     <div style="position:relative">
                                         <img style="position: absolute; top: 0; right: 0" src="/not-so-bad-icon.svg" alt="not-so-bad-icon" width="100px"/>
-                                        <h2 style="color: #3B7A57; border-radius: 0 20px 20px 0; background-color: #CFF0DD; padding: 0.5rem 2rem">${day.date}</h2>
+                                        <h2 style="color: #3B7A57; border-radius: 0 20px 20px 0; background-color: #CFF0DD; padding: 0.5rem 2rem">${
+                                            day.date
+                                        }</h2>
                                         <div style="padding: 0 2rem">
-                                        ${day.questions.map(question => (
-                                            `
+                                        ${day.questions
+                                            .map(
+                                                (question) =>
+                                                    `
                                                 <div>
-                                                    <p style="font-weight: bold">${question.prompt}</p>
+                                                    <p style="font-weight: bold">${
+                                                        question.prompt
+                                                    }</p>
                                                     <ul style="list-style: none">
-                                                        ${question.answers.map(answer => (
-                                                            `
+                                                        ${question.answers
+                                                            .map(
+                                                                (answer) =>
+                                                                    `
                                                                 <li style="display: flex; align-items: center; font-style: italic">
                                                                     <span style="color: gray; padding-right: 1rem">-</span>
                                                                     ${answer}
                                                                 </li>
                                                             `
-                                                        )).join(" ")}
+                                                            )
+                                                            .join(" ")}
                                                     </ul>
                                                 </div>
                                             `
-                                        )).join(" ")}
+                                            )
+                                            .join(" ")}
                                         </div>
                                     <div>
                                     <div class="page-break"></div>
                                 `
-                            )).join(" ")}
-                        `
-                        html2pdf().set(options).from(html).save()
+                                )
+                                .join(" ")}
+                        `;
+                        }
+                        html2pdf().set(options).from(html).save();
                     }}
                 >
                     {language.savePdf}
