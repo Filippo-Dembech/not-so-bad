@@ -1,4 +1,5 @@
 export interface Question {
+    id: number;
     prompt: string;
     answers: string[]
 }
@@ -10,9 +11,10 @@ export interface Day {
 
 export interface Language {
     titleDay: string;
-    questions: string[];
+    questions: Question[];
     saveButton: string;
     noAnswer: string;
     success: string;
     textFieldPlaceholder: string;
+    history: string;
 }

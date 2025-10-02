@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import type { Day } from "../types";
 import { saveDay } from "../db";
+import { useLanguage } from "../context/LanguageContext";
 
 interface SaveButtonProps {
     day: Day;
@@ -13,6 +14,7 @@ export default function SaveButton({
     showNoAnswer,
     showSuccess,
 }: SaveButtonProps) {
+    const {language} = useLanguage();
     return (
         <Button
             variant="contained"
@@ -32,7 +34,7 @@ export default function SaveButton({
                 showSuccess();
             }}
         >
-            Save Memories
+            {language.saveButton}
         </Button>
     );
 }

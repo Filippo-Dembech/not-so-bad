@@ -2,10 +2,10 @@ import DatePicker from "react-datepicker";
 import type { Day } from "../types";
 import { getDay } from "../db";
 import { dateToString, stringToDate } from "../utils/dates";
-import { questions } from "../questions";
 import { Button } from "@mui/material";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import { useLanguage } from "../context/LanguageContext";
 
 interface HistoryProps {
     selectedDay?: Date;
@@ -20,6 +20,7 @@ export default function History({
     setDay,
     historyDays,
 }: HistoryProps) {
+    const {language} = useLanguage();
     return (
         <div
             style={{
@@ -40,7 +41,7 @@ export default function History({
                     } else {
                         setDay({
                             date: dateToString(date),
-                            questions: questions.map((question) => ({
+                            questions: language.questions.map((question) => ({
                                 prompt: question,
                                 answers: [],
                             })),
@@ -57,7 +58,7 @@ export default function History({
                         ? "highlight"
                         : ""
                 }
-                customInput={<Button variant="outlined">HISTORY</Button>}
+                customInput={<Button variant="outlined">{language.history}</Button>}
                 portalId="root-portal" // this ensures that the calendar stays on top of other elements
             />
         </div>

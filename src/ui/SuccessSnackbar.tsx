@@ -1,4 +1,5 @@
 import { Alert, Snackbar } from "@mui/material";
+import { useLanguage } from "../context/LanguageContext";
 
 interface SuccessSnackbarProps {
     isOpen: boolean;
@@ -9,6 +10,7 @@ export default function SuccessSnackbar({
     isOpen,
     onClose,
 }: SuccessSnackbarProps) {
+    const {language} = useLanguage()
     return (
         <Snackbar
             open={isOpen}
@@ -21,7 +23,7 @@ export default function SuccessSnackbar({
                 variant="filled"
                 onClose={onClose}
             >
-                Day successfully saved!
+                {language.success}
             </Alert>
         </Snackbar>
     );

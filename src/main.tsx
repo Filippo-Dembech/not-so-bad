@@ -5,12 +5,15 @@ import "./styles.css";
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import zenGreenTheme from './materialTheme.tsx';
+import { LanguageProvider } from './context/LanguageContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={zenGreenTheme}>
       <CssBaseline />
-      <App />
+      <LanguageProvider>
+        <App />
+      </LanguageProvider>
     </ThemeProvider>
   </StrictMode>,
 )

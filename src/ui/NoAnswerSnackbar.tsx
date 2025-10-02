@@ -1,4 +1,5 @@
 import { Alert, Snackbar } from "@mui/material";
+import { useLanguage } from "../context/LanguageContext";
 
 interface NoAnswerSnackbarProps {
     isOpen: boolean;
@@ -9,6 +10,7 @@ export default function NoAnswerSnackbar({
     isOpen,
     onClose,
 }: NoAnswerSnackbarProps) {
+    const {language} = useLanguage()
     return (
         <Snackbar
             open={isOpen}
@@ -20,7 +22,7 @@ export default function NoAnswerSnackbar({
                 variant="filled"
                 onClose={onClose}
             >
-                Please, answer to at least one question!
+                {language.noAnswer}
             </Alert>
         </Snackbar>
     );

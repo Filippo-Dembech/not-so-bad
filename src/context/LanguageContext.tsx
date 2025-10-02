@@ -2,7 +2,7 @@
 // MyContext.tsx
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Language } from "../types";
-import { english } from "../languages";
+import { english as initialLanguage } from "../languages";
 
 interface LanguageContextType {
     language: Language;
@@ -18,7 +18,7 @@ interface LanguageProviderProps {
 }
 
 function LanguageProvider({ children }: LanguageProviderProps) {
-    const [language, setLanguage] = useState<Language>(english)
+    const [language, setLanguage] = useState<Language>(initialLanguage)
 
     return (
         <LanguageContext.Provider value={{ language, setLanguage}}>

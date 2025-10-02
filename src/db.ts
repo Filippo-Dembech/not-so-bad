@@ -1,21 +1,5 @@
 import { openDB } from "idb";
 import { type Day } from "./types";
-import { dateToString } from "./utils/dates";
-import { questions } from "./questions";
-
-export async function getInitialDate() {
-    const days = await getAllDays();
-    const today = dateToString(new Date());
-    const result = days.find((day) => today == day.date);
-    if (result) return result;
-    return {
-        date: today,
-        questions: questions.map((question) => ({
-            prompt: question,
-            answers: [],
-        })),
-    };
-}
 
 const dbPromise = openDB("not-so-bad", 1, {
     upgrade(db) {
@@ -24,6 +8,14 @@ const dbPromise = openDB("not-so-bad", 1, {
         }
     },
 });
+
+export async function saveLanguage() {
+    
+}
+
+export async function getLanguage() {
+    
+}
 
 export async function saveDay(day: Day) {
     const db = await dbPromise;
@@ -47,13 +39,13 @@ export async function deleteDay(date: string): Promise<void> {
 
 export async function deleteAnswer(
     day: Day,
-    targetQuestion: string,
+    questionId: number,
     targetAnswer: string
 ) {
     const newDay: Day = {
         ...day,
         questions: day.questions.map((question) =>
-            question.prompt !== targetQuestion
+            question.id !== questionId
                 ? question
                 : {
                       ...question,

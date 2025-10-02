@@ -1,6 +1,5 @@
 import type { EmblaViewportRefType } from "embla-carousel-react";
 import type { EmblaCarouselType } from "embla-carousel";
-import { questions } from "../questions";
 import { Box, TextField, Typography } from "@mui/material";
 import type { Day } from "../types";
 import { useState, type CSSProperties } from "react";
@@ -10,6 +9,7 @@ import { DotButton } from "./DotButton";
 import { useDotButton } from "../hooks/useDotButton";
 import Answer from "./Answer";
 import { deleteAnswer } from "../db";
+import { useLanguage } from "../context/LanguageContext";
 
 interface QuestionsFormProps {
     emblaRef: EmblaViewportRefType;
@@ -34,6 +34,8 @@ export default function QuestionsForm({
     const { selectedIndex, scrollSnaps, onDotButtonClick } =
         useDotButton(emblaApi);
     
+    const {language} = useLanguage()
+    
     const sectionStyle: CSSProperties = {
         border: "2px solid #7FB993",
         borderRadius: 20,
@@ -48,10 +50,10 @@ export default function QuestionsForm({
                 ref={emblaRef}
             >
                 <div className="embla__container">
-                    {questions.map((question) => (
+                    {language.questions.map((question) => (
                         <div
                             className="embla__slide"
-                            key={question}
+                            key={question.id}
                             style={{ textAlign: "center" }}
                         >
                             <div style={{ width: "80%", margin: "auto" }}>
@@ -60,7 +62,7 @@ export default function QuestionsForm({
                                     fontWeight="bold"
                                     margin={3}
                                 >
-                                    {question}
+                                    {question.prompt}
                                 </Typography>
                                 <form
                                     onSubmit={(e) => {
@@ -68,7 +70,7 @@ export default function QuestionsForm({
                                         setDay((day) => ({
                                             ...day!,
                                             questions: day!.questions.map((q) =>
-                                                q.prompt === question
+                                                q.id === question.id
                                                     ? {
                                                           ...q,
                                                           answers: [
@@ -83,7 +85,7 @@ export default function QuestionsForm({
                                 >
                                     <TextField
                                         color="secondary"
-                                        label="Type here..."
+                                        label={language.textFieldPlaceholder}
                                         autoComplete="off"
                                         value={answer}
                                         onChange={(e) => {
@@ -113,7 +115,7 @@ export default function QuestionsForm({
                                 marginTop={4}
                             >
                                 {day.questions
-                                    .find((q) => q.prompt === question)
+                                    .find((q) => q.id === question.id)
                                     ?.answers.map((answer, i) => (
                                         <Answer
                                             key={`${answer}-${i}`}
@@ -122,7 +124,7 @@ export default function QuestionsForm({
                                                 const newDay =
                                                     await deleteAnswer(
                                                         day,
-                                                        question,
+                                                        question.id,
                                                         answer
                                                     );
                                                 setDay(newDay);

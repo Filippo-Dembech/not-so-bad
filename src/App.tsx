@@ -4,8 +4,8 @@ import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import AutoHeight from "embla-carousel-auto-height";
-import { getAllDays, getInitialDate } from "./db";
-import { stringToDate } from "./utils/dates";
+import { getAllDays } from "./db";
+import { dateToString, stringToDate } from "./utils/dates";
 import { useSnackbar } from "./hooks/useSnackbar";
 import LoadingWheel from "./ui/LoadingWheel";
 import QuestionsForm from "./ui/QuestionsForm";
@@ -13,6 +13,7 @@ import SaveButton from "./ui/SaveButton";
 import History from "./ui/History";
 import SuccessSnackbar from "./ui/SuccessSnackbar";
 import NoAnswerSnackbar from "./ui/NoAnswerSnackbar";
+import { useLanguage } from "./context/LanguageContext";
 
 const options = {};
 
@@ -34,16 +35,28 @@ function App() {
         hideSuccessSnackbar,
     } = useSnackbar();
 
+    const { language } = useLanguage();
+
     useEffect(() => {
+        async function getInitialDay() {
+            const days = await getAllDays();
+            const today = dateToString(new Date());
+            const result = days.find((day) => today == day.date);
+            if (result) return result;
+            return {
+                date: today,
+                questions: language.questions,
+            };
+        }
         async function initializeDay() {
-            const day = await getInitialDate();
+            const day = await getInitialDay();
             const historyDays = await getAllDays();
             setDay(day);
             setHistoryDays(historyDays);
             setSelectedDay(stringToDate(day.date));
         }
         initializeDay();
-    }, []);
+    }, [language.questions]);
 
     useEffect(() => {
         emblaApi?.reInit();
@@ -55,7 +68,7 @@ function App() {
         <div style={{ padding: "1.5rem" }}>
             <Header />
             <Typography variant="subtitle1">
-                This <strong>{day.date}</strong>
+                {language.titleDay} <strong>{day.date}</strong>
             </Typography>
             <QuestionsForm
                 emblaRef={emblaRef}
