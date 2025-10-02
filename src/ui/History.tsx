@@ -41,10 +41,7 @@ export default function History({
                     } else {
                         setDay({
                             date: dateToString(date),
-                            questions: language.questions.map((question) => ({
-                                prompt: question,
-                                answers: [],
-                            })),
+                            questions: language!.questions
                         });
                     }
                     setSelectedDay(date);
@@ -58,7 +55,7 @@ export default function History({
                         ? "highlight"
                         : ""
                 }
-                customInput={<Button variant="outlined">{language.history}</Button>}
+                customInput={<Button variant="outlined">{language!.history}</Button>}
                 portalId="root-portal" // this ensures that the calendar stays on top of other elements
             />
         </div>

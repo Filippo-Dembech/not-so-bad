@@ -50,7 +50,7 @@ export default function QuestionsForm({
                 ref={emblaRef}
             >
                 <div className="embla__container">
-                    {language.questions.map((question) => (
+                    {language!.questions.map((question) => (
                         <div
                             className="embla__slide"
                             key={question.id}
@@ -85,7 +85,7 @@ export default function QuestionsForm({
                                 >
                                     <TextField
                                         color="secondary"
-                                        label={language.textFieldPlaceholder}
+                                        label={language!.textFieldPlaceholder}
                                         autoComplete="off"
                                         value={answer}
                                         onChange={(e) => {

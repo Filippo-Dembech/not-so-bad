@@ -1,20 +1,26 @@
 import { openDB } from "idb";
-import { type Day } from "./types";
+import { type Day, type Language } from "./types";
 
-const dbPromise = openDB("not-so-bad", 1, {
+const dbPromise = openDB("not-so-bad", 2, {
     upgrade(db) {
         if (!db.objectStoreNames.contains("days")) {
             db.createObjectStore("days", { keyPath: "date" });
         }
+        if (!db.objectStoreNames.contains("settings")) {
+            db.createObjectStore("settings", { keyPath: "key" });
+        }
     },
 });
 
-export async function saveLanguage() {
-    
+export async function saveLanguage(language: Language) {
+    const db = await dbPromise;
+    await db.put("settings", {key: "language", value: language})
 }
 
 export async function getLanguage() {
-    
+    const db = await dbPromise;
+    const result = await db.get("settings", "language");
+    return result?.value;
 }
 
 export async function saveDay(day: Day) {

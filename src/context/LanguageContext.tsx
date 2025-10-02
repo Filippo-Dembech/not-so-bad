@@ -1,11 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 // MyContext.tsx
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Language } from "../types";
-import { english as initialLanguage } from "../languages";
+import { getLanguage, saveLanguage } from "../db";
+import { english } from "../languages";
 
 interface LanguageContextType {
-    language: Language;
+    language?: Language;
     setLanguage: (language: Language) => void;
 }
 
@@ -18,7 +19,21 @@ interface LanguageProviderProps {
 }
 
 function LanguageProvider({ children }: LanguageProviderProps) {
-    const [language, setLanguage] = useState<Language>(initialLanguage)
+    
+
+    const [language, setLanguage] = useState<Language | undefined>(undefined)
+    
+    useEffect(() => {
+        async function initializeLanguage() {
+            const result = await getLanguage();
+            if (result) {
+                setLanguage(result);
+            } else {
+                await saveLanguage(english);
+            }
+        }
+        initializeLanguage();
+    }, [])
 
     return (
         <LanguageContext.Provider value={{ language, setLanguage}}>

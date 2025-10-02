@@ -38,6 +38,7 @@ function App() {
     const { language } = useLanguage();
 
     useEffect(() => {
+        if (!language) return   // if language is not loaded yet from the DB return
         async function getInitialDay() {
             const days = await getAllDays();
             const today = dateToString(new Date());
@@ -45,7 +46,7 @@ function App() {
             if (result) return result;
             return {
                 date: today,
-                questions: language.questions,
+                questions: language!.questions,
             };
         }
         async function initializeDay() {
@@ -56,13 +57,13 @@ function App() {
             setSelectedDay(stringToDate(day.date));
         }
         initializeDay();
-    }, [language.questions]);
+    }, [language]);
 
     useEffect(() => {
         emblaApi?.reInit();
     }, [day, emblaApi]);
 
-    if (!day) return <LoadingWheel />;
+    if (!day || !language) return <LoadingWheel />;
 
     return (
         <div style={{ padding: "1.5rem" }}>

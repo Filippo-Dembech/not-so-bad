@@ -22,7 +22,7 @@ export default function NoAnswerSnackbar({
                 variant="filled"
                 onClose={onClose}
             >
-                {language.noAnswer}
+                {language!.noAnswer}
             </Alert>
         </Snackbar>
     );

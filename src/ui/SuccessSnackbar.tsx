@@ -23,7 +23,7 @@ export default function SuccessSnackbar({
                 variant="filled"
                 onClose={onClose}
             >
-                {language.success}
+                {language!.success}
             </Alert>
         </Snackbar>
     );
