@@ -8,6 +8,7 @@ import {
     Typography,
 } from "@mui/material";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { GoQuestion } from "react-icons/go";
 import useEmblaCarousel from "embla-carousel-react";
 import Header from "./ui/Header";
 import { useEffect, useState } from "react";
@@ -105,6 +106,8 @@ function App() {
                     <img
                         src="/not-so-bad-icon.svg"
                         alt="icon"
+                        width={100}
+                        style={{ display: "block", margin: "0 auto"}}
                     />
                     <Button
                         startIcon={<MdHistory />}
@@ -112,6 +115,11 @@ function App() {
                         onClick={() => setIsHistoryOpen(true)}
                     >
                         {language.history}
+                    </Button>
+                    <Button
+                        startIcon={<GoQuestion />}
+                    >
+                        {language.why}
                     </Button>
                     <Dialog
                         open={isHistoryOpen}

@@ -17,4 +17,5 @@ export interface Language {
     success: string;
     textFieldPlaceholder: string;
     history: string;
+    why: string;
 }

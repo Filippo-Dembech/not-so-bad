@@ -30,6 +30,7 @@ function LanguageProvider({ children }: LanguageProviderProps) {
                 setLanguage(result);
             } else {
                 await saveLanguage(english);
+                setLanguage(english)
             }
         }
         initializeLanguage();

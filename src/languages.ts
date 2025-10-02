@@ -13,7 +13,8 @@ const english: Language = {
     success: "Memories have been saved successfully!",
     textFieldPlaceholder: "Enter memory here...",
     titleDay: "This",
-    history: "History"
+    history: "History",
+    why: "Why Not So Bad"
 };
 
 const italian: Language = {
@@ -29,7 +30,8 @@ const italian: Language = {
     success: "I ricordi sono stati salvati con successo!",
     textFieldPlaceholder: "Inserisci ricordo qui...",
     titleDay: "Questo",
-    history: "Storia"
+    history: "Storia",
+    why: "Perché Not So Bad"
 };
 
 export { english, italian };
