@@ -14,7 +14,7 @@ import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import AutoHeight from "embla-carousel-auto-height";
-import { getAllDays, getDay } from "./db";
+import { getAllDays, getDay, saveLanguage } from "./db";
 import { dateToString, stringToDate } from "./utils/dates";
 import { useSnackbar } from "./hooks/useSnackbar";
 import LoadingWheel from "./ui/LoadingWheel";
@@ -169,12 +169,14 @@ function App() {
                             bottom: "1rem",
                         }}
                         defaultValue="english"
-                        onChange={(e) => {
+                        onChange={async (e) => {
                             if (e.target.value === "italian") {
                                 setLanguage(italian);
+                                await saveLanguage(italian);
                             }
                             if (e.target.value === "english") {
                                 setLanguage(english);
+                                await saveLanguage(english)
                             }
                         }}
                     >
