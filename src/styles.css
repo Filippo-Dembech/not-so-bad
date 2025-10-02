@@ -234,6 +234,10 @@ body {
   background-color: var(--theme-primary-dark) !important
 }
 
+.page-break {
+  break-before: page;
+}
+
 @media (max-width: 400px) {
   .embla__button {
     width: 3rem;

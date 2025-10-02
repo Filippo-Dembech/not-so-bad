@@ -19,7 +19,8 @@ const english: Language = {
     description: [
         '"Not So Bad" is a simple app that helps you reflect on your day and notice the good moments. Answer a few guided questions and see the positive side of your daily life.',
         'By regularly reflecting on positive aspects of your day, you can train your brain to notice the good more naturally. Over time, this can shift your mindset toward a more positive, appreciative perspective.'
-    ]
+    ],
+    savePdf: "Save as PDF"
 };
 
 const italian: Language = {
@@ -41,7 +42,8 @@ const italian: Language = {
     description: [
         '"Not So Bad" è un’app semplice che ti aiuta a riflettere sulla tua giornata e a notare i momenti positivi. Rispondi a qualche domanda guidata e scopri il lato positivo della tua vita quotidiana.',
         'Riflettendo regolarmente sugli aspetti positivi della tua giornata, puoi allenare il tuo cervello a notare il bene in modo più naturale. Col tempo, questo può spostare il tuo modo di pensare verso una prospettiva più positiva e riconoscente.'
-    ]
+    ],
+    savePdf: "Salva PDF"
 };
 
 export { english, italian };
