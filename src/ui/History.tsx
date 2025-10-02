@@ -24,10 +24,12 @@ export default function History({
     return (
         <div
             style={{
-                position: "absolute",
+                position: "fixed",
                 bottom: "1rem",
                 left: "50%",
+                zIndex: "999",
                 transform: "translateX(-50%)", // because this <DatePicker> has a `transform` property set, <DatePicker> needs a `portalId` to stay on top of the UI
+                backgroundColor: "white"
             }}
         >
             <DatePicker
