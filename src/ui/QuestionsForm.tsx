@@ -1,7 +1,7 @@
 import type { EmblaViewportRefType } from "embla-carousel-react";
 import type { EmblaCarouselType } from "embla-carousel";
-import { Box, TextField, Typography } from "@mui/material";
-import type { Day } from "../types";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import type { Day, Question } from "../types";
 import { useState, type CSSProperties } from "react";
 import { usePrevNextButtons } from "../hooks/usePrevNextButtons";
 import { NextButton, PrevButton } from "./CarouselButtons";
@@ -33,18 +33,36 @@ export default function QuestionsForm({
     } = usePrevNextButtons(emblaApi);
     const { selectedIndex, scrollSnaps, onDotButtonClick } =
         useDotButton(emblaApi);
-    
-    const {language} = useLanguage()
-    
+
+    const { language } = useLanguage();
+
     const sectionStyle: CSSProperties = {
         border: "2px solid #7FB993",
         borderRadius: 20,
         paddingBottom: "2rem",
-        margin: "2rem auto"
+        margin: "2rem auto",
+    };
+
+    function addAnswerTo(question: Question) {
+        if (!answer) return;
+        setDay((day) => ({
+            ...day!,
+            questions: day!.questions.map((q) =>
+                q.id === question.id
+                    ? {
+                          ...q,
+                          answers: [...q.answers, answer],
+                      }
+                    : q
+            ),
+        }));
     }
 
     return (
-        <section className="embla theme-light" style={sectionStyle}>
+        <section
+            className="embla theme-light"
+            style={sectionStyle}
+        >
             <div
                 className="embla__viewport"
                 ref={emblaRef}
@@ -65,22 +83,12 @@ export default function QuestionsForm({
                                     {question.prompt}
                                 </Typography>
                                 <form
+                                    style={{
+                                        display: "flex",
+                                    }}
                                     onSubmit={(e) => {
                                         e.preventDefault();
-                                        setDay((day) => ({
-                                            ...day!,
-                                            questions: day!.questions.map((q) =>
-                                                q.id === question.id
-                                                    ? {
-                                                          ...q,
-                                                          answers: [
-                                                              ...q.answers,
-                                                              answer,
-                                                          ],
-                                                      }
-                                                    : q
-                                            ),
-                                        }));
+                                        addAnswerTo(question);
                                     }}
                                 >
                                     <TextField
@@ -104,6 +112,14 @@ export default function QuestionsForm({
                                         }}
                                         fullWidth
                                     />
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        disableElevation
+                                        onClick={() => addAnswerTo(question)}
+                                    >
+                                        {language!.addButton}
+                                    </Button>
                                 </form>
                             </div>
                             <Box

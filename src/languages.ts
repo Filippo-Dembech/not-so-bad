@@ -14,7 +14,8 @@ const english: Language = {
     textFieldPlaceholder: "Enter memory here...",
     titleDay: "This",
     history: "History",
-    why: "Why Not So Bad"
+    why: "Why Not So Bad",
+    addButton: "Add"
 };
 
 const italian: Language = {
@@ -31,7 +32,8 @@ const italian: Language = {
     textFieldPlaceholder: "Inserisci ricordo qui...",
     titleDay: "Questo",
     history: "Storia",
-    why: "Perché Not So Bad"
+    why: "Perché Not So Bad",
+    addButton: "Aggiungi"
 };
 
 export { english, italian };

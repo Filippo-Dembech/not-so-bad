@@ -18,4 +18,5 @@ export interface Language {
     textFieldPlaceholder: string;
     history: string;
     why: string;
+    addButton: string;
 }
