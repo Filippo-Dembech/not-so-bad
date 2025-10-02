@@ -20,13 +20,14 @@ import { useSnackbar } from "./hooks/useSnackbar";
 import LoadingWheel from "./ui/LoadingWheel";
 import QuestionsForm from "./ui/QuestionsForm";
 import SaveButton from "./ui/SaveButton";
-import History from "./ui/History";
 import SuccessSnackbar from "./ui/SuccessSnackbar";
 import NoAnswerSnackbar from "./ui/NoAnswerSnackbar";
 import { useLanguage } from "./context/LanguageContext";
 import { MdHistory } from "react-icons/md";
 import { english, italian } from "./languages";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
 
 const options = {};
 
@@ -245,12 +246,6 @@ function App() {
                     day={day}
                     showSuccess={showSuccessSnackbar}
                     showNoAnswer={showNoAnswerSnackbar}
-                />
-                <History
-                    setDay={setDay}
-                    setSelectedDay={setSelectedDay}
-                    historyDays={historyDays}
-                    selectedDay={selectedDay}
                 />
             </div>
             <SuccessSnackbar

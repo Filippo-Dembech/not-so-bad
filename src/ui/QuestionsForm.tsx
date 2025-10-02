@@ -56,6 +56,7 @@ export default function QuestionsForm({
                     : q
             ),
         }));
+        setAnswer("")
     }
 
     return (
@@ -133,7 +134,7 @@ export default function QuestionsForm({
                             >
                                 {day.questions
                                     .find((q) => q.id === question.id)
-                                    ?.answers.map((answer, i) => (
+                                    ?.answers.slice().reverse().map((answer, i) => (
                                         <Answer
                                             key={`${answer}-${i}`}
                                             text={answer}

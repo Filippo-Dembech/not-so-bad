@@ -17,7 +17,7 @@ const english: Language = {
     why: "Why Not So Bad",
     addButton: "Add",
     description: [
-        'Not So Bad" is a simple app that helps you reflect on your day and notice the good moments. Answer a few guided questions and see the positive side of your daily life.',
+        '"Not So Bad" is a simple app that helps you reflect on your day and notice the good moments. Answer a few guided questions and see the positive side of your daily life.',
         'By regularly reflecting on positive aspects of your day, you can train your brain to notice the good more naturally. Over time, this can shift your mindset toward a more positive, appreciative perspective.'
     ]
 };

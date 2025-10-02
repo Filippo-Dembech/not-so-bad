@@ -3,8 +3,6 @@ import type { Day } from "../types";
 import { getDay } from "../db";
 import { dateToString, stringToDate } from "../utils/dates";
 import { Button } from "@mui/material";
-import "react-datepicker/dist/react-datepicker.css";
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import { useLanguage } from "../context/LanguageContext";
 
 interface HistoryProps {
