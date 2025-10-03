@@ -122,8 +122,6 @@ function App() {
                                 <p style="color: gray; font-style: italic">${language.noDay}</p>
                             `;
                         } else {
-                            // OLD ICON IMAGE
-                            //<img style="position: absolute; top: 0; right: 0" src="/not-so-bad-icon.svg" alt="not-so-bad-icon" width="100px"/>
                             html = `
                             <h1 style="color: #2A5C3D">Not So Bad</h1>
                             ${sortedDays.map(
@@ -330,6 +328,7 @@ function App() {
                 {language.titleDay} <strong>{day.date}</strong>
             </Typography>
             <QuestionsForm
+                setHistoryDays={setHistoryDays}
                 emblaRef={emblaRef}
                 setDay={setDay}
                 day={day}

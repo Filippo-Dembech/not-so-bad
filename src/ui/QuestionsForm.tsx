@@ -15,6 +15,7 @@ interface QuestionsFormProps {
     emblaRef: EmblaViewportRefType;
     emblaApi: EmblaCarouselType | undefined;
     setDay: React.Dispatch<React.SetStateAction<Day | undefined>>;
+    setHistoryDays: React.Dispatch<React.SetStateAction<Day[] | undefined>>;
     day: Day;
 }
 
@@ -22,6 +23,7 @@ export default function QuestionsForm({
     emblaRef,
     emblaApi,
     setDay,
+    setHistoryDays,
     day,
 }: QuestionsFormProps) {
     const [answer, setAnswer] = useState("");
@@ -145,6 +147,9 @@ export default function QuestionsForm({
                                                         question.id,
                                                         answer
                                                     );
+                                                if (newDay.questions.every(question => question.answers.length === 0)) {
+                                                    setHistoryDays(historyDays => historyDays?.filter(historyDay => historyDay.date !== newDay.date))
+                                                }
                                                 setDay(newDay);
                                             }}
                                         />
