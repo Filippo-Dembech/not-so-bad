@@ -27,6 +27,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import LanguagesSelect from "./ui/LanguagesSelect";
+import Footer from "./ui/Footer";
 
 const options = {};
 
@@ -300,6 +301,7 @@ function App() {
                 isOpen={hasNoAnswer}
                 onClose={hideNoAnswerSnackbar}
             />
+            <Footer />
         </div>
     );
 }
