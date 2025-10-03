@@ -249,3 +249,13 @@ body {
     height: 0.9rem;
   }
 }
+
+@media (max-width: 490px) {
+  .embla__dot {
+    display: none
+  }
+  .embla__controls {
+    display: flex;
+    justify-content: center;
+  }
+}
