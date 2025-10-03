@@ -6,6 +6,7 @@ import {
     Typography,
 } from "@mui/material";
 import html2pdf from "html2pdf.js";
+import { TiWarningOutline } from 'react-icons/ti'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GoQuestion } from "react-icons/go";
 import useEmblaCarousel from "embla-carousel-react";
@@ -54,6 +55,7 @@ function App() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const [isWhyOpen, setIsWhyOpen] = useState(false);
+    const [isWarningOpen, setIsWarningOpen] = useState(false);
 
     useEffect(() => {
         if (!language) return; // if language is not loaded yet from the DB return
@@ -241,6 +243,7 @@ function App() {
                     </Dialog>
                     <Button
                         startIcon={<GoQuestion />}
+                        style={{ justifyContent: "flex-start" }}
                         onClick={() => setIsWhyOpen(true)}
                     >
                         {language.why}
@@ -267,6 +270,34 @@ function App() {
                                         {paragraph}
                                     </Typography>
                                 ))}
+                            </Box>
+                        </Box>
+                    </Dialog>
+                    <Button
+                        startIcon={<TiWarningOutline/>}
+                        style={{ justifyContent: "flex-start" }}
+                        onClick={() => setIsWarningOpen(true)}
+                    >
+                        {language.warningButton}
+                    </Button>
+                    <Dialog
+                        open={isWarningOpen}
+                        onClose={() => setIsWarningOpen(false)}
+                    >
+                        <Box padding={3}>
+                            <Typography
+                                variant="h2"
+                                color="primary"
+                            >
+                                {language.warningTitle}
+                            </Typography>
+                            <Box
+                                display="flex"
+                                flexDirection="column"
+                                gap={2}
+                                marginTop={2}
+                            >
+                                {language.warningText}
                             </Box>
                         </Box>
                     </Dialog>

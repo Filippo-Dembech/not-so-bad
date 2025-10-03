@@ -25,7 +25,10 @@ const italian: Language = {
         'Riflettendo regolarmente sugli aspetti positivi della tua giornata, puoi allenare il tuo cervello a notare il bene in modo più naturale. Col tempo, questo può spostare il tuo modo di pensare verso una prospettiva più positiva e riconoscente.'
     ],
     savePdf: "Salva PDF",
-    noDay: "Nessun ricordo è ancora stato salvato."
+    noDay: "Nessun ricordo è ancora stato salvato.",
+    warningButton: "Attenzione",
+    warningTitle: "Salva PDF",
+    warningText: '"Not So Bad" utilizza IndexedDB per salvare i dati. Per questo ti consiglio di fare un backup giornaliero dei dati salvandoli come PDF usando il pulsante in basso a destra nella schermata iniziale.'
 };
 
 
@@ -54,7 +57,10 @@ const english: Language = {
         'By regularly reflecting on the positive aspects of your day, you can train your brain to notice the good more naturally. Over time, this can shift your mindset toward a more positive and grateful perspective.'
     ],
     savePdf: "Save PDF",
-    noDay: "No memories have been saved yet."
+    noDay: "No memories have been saved yet.",
+    warningButton: "Warning",
+    warningTitle: "Save PDF",
+    warningText: '"Not So Bad" uses IndexedDB to store data. For this reason, I recommend making a daily backup of the data by saving it as a PDF using the button at the bottom right on the home screen.'
 };
 
 const spanish: Language = {
@@ -82,7 +88,10 @@ const spanish: Language = {
         'Al reflexionar regularmente sobre los aspectos positivos de tu día, puedes entrenar tu cerebro para notar el bien de manera más natural. Con el tiempo, esto puede cambiar tu forma de pensar hacia una perspectiva más positiva y agradecida.'
     ],
     savePdf: "Guardar PDF",
-    noDay: "Aún no se han guardado recuerdos."
+    noDay: "Aún no se han guardado recuerdos.",
+    warningButton: "Advertencia",
+    warningTitle: "Guardar PDF",
+    warningText: '"Not So Bad" utiliza IndexedDB para almacenar los datos. Por esta razón, recomiendo hacer una copia de seguridad diaria de los datos guardándolos como PDF usando el botón en la parte inferior derecha de la pantalla principal.'
 };
 
 const french: Language = {
@@ -110,7 +119,10 @@ const french: Language = {
         'En réfléchissant régulièrement aux aspects positifs de votre journée, vous pouvez entraîner votre cerveau à remarquer le bien de manière plus naturelle. Avec le temps, cela peut orienter votre façon de penser vers une perspective plus positive et reconnaissante.'
     ],
     savePdf: "Enregistrer PDF",
-    noDay: "Aucun souvenir n’a encore été enregistré."
+    noDay: "Aucun souvenir n’a encore été enregistré.",
+    warningButton: "Attention",
+    warningTitle: "Enregistrer PDF",
+    warningText: '"Not So Bad" utilise IndexedDB pour stocker les données. Pour cette raison, je recommande de faire une sauvegarde quotidienne des données en les enregistrant au format PDF en utilisant le bouton en bas à droite de l’écran d’accueil.'
 };
 
 const german: Language = {
@@ -138,7 +150,10 @@ const german: Language = {
         'Indem du regelmäßig über die positiven Aspekte deines Tages nachdenkst, kannst du dein Gehirn trainieren, das Gute natürlicher wahrzunehmen. Mit der Zeit kann dies deine Denkweise in eine positivere und dankbarere Richtung verschieben.'
     ],
     savePdf: "PDF speichern",
-    noDay: "Es wurden noch keine Erinnerungen gespeichert."
+    noDay: "Es wurden noch keine Erinnerungen gespeichert.",
+    warningButton: "Achtung",
+    warningTitle: "PDF speichern",
+    warningText: '"Not So Bad" verwendet IndexedDB, um Daten zu speichern. Deshalb empfehle ich, täglich ein Backup der Daten zu machen, indem du sie als PDF speicherst und den Button unten rechts auf dem Startbildschirm benutzt.'
 };
 
 const japanese: Language = {
@@ -166,7 +181,10 @@ const japanese: Language = {
         '毎日、ポジティブな出来事を振り返ることで、脳は自然に良いことに気づくようになります。時間が経つにつれ、より前向きで感謝に満ちた考え方へと変わっていきます。'
     ],
     savePdf: "PDFを保存",
-    noDay: "まだ思い出は保存されていません。"
+    noDay: "まだ思い出は保存されていません。",
+    warningButton: "警告",
+    warningTitle: "PDFを保存",
+    warningText: '「Not So Bad」はIndexedDBを使ってデータを保存します。そのため、ホーム画面の右下にあるボタンを使って、データをPDFとして保存し、毎日バックアップすることをおすすめします。'
 };
 
 export { english, italian, french, german, japanese, spanish };

@@ -22,4 +22,7 @@ export interface Language {
     description: string[];
     savePdf: string;
     noDay: string;
+    warningButton: string;
+    warningTitle: string;
+    warningText: string;
 }
