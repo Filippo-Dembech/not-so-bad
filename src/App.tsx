@@ -338,6 +338,7 @@ function App() {
             >
                 <SaveButton
                     day={day}
+                    setHistoryDays={setHistoryDays}
                     showSuccess={showSuccessSnackbar}
                     showNoAnswer={showNoAnswerSnackbar}
                 />
