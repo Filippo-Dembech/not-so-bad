@@ -3,8 +3,6 @@ import {
     Button,
     Dialog,
     Drawer,
-    MenuItem,
-    Select,
     Typography,
 } from "@mui/material";
 import html2pdf from "html2pdf.js";
@@ -15,7 +13,7 @@ import Header from "./ui/Header";
 import { useEffect, useState } from "react";
 import { type Day } from "./types";
 import AutoHeight from "embla-carousel-auto-height";
-import { getAllDays, getDay, saveLanguage } from "./db";
+import { getAllDays, getDay } from "./db";
 import { dateToString, stringToDate } from "./utils/dates";
 import { useSnackbar } from "./hooks/useSnackbar";
 import LoadingWheel from "./ui/LoadingWheel";
@@ -25,10 +23,10 @@ import SuccessSnackbar from "./ui/SuccessSnackbar";
 import NoAnswerSnackbar from "./ui/NoAnswerSnackbar";
 import { useLanguage } from "./context/LanguageContext";
 import { MdHistory } from "react-icons/md";
-import { english, italian } from "./languages";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import LanguagesSelect from "./ui/LanguagesSelect";
 
 const options = {};
 
@@ -50,7 +48,7 @@ function App() {
         hideSuccessSnackbar,
     } = useSnackbar();
 
-    const { language, setLanguage } = useLanguage();
+    const { language } = useLanguage();
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
@@ -271,57 +269,7 @@ function App() {
                             </Box>
                         </Box>
                     </Dialog>
-                    <Select
-                        style={{
-                            justifyContent: "flex-start",
-                            position: "absolute",
-                            bottom: "1rem",
-                        }}
-                        defaultValue="english"
-                        onChange={async (e) => {
-                            if (e.target.value === "italian") {
-                                setLanguage(italian);
-                                await saveLanguage(italian);
-                            }
-                            if (e.target.value === "english") {
-                                setLanguage(english);
-                                await saveLanguage(english);
-                            }
-                        }}
-                    >
-                        <MenuItem value="english">
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                gap={1}
-                            >
-                                <img
-                                    src={`${
-                                        import.meta.env.BASE_URL
-                                    }/united-kingdom.png`}
-                                    style={{ width: "1rem" }}
-                                    alt="eng-icon"
-                                />
-                                <Typography>ENG</Typography>
-                            </Box>
-                        </MenuItem>
-                        <MenuItem value="italian">
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                gap={1}
-                            >
-                                <img
-                                    src={`${
-                                        import.meta.env.BASE_URL
-                                    }/italian.png`}
-                                    style={{ width: "1rem" }}
-                                    alt="eng-icon"
-                                />
-                                <Typography>IT</Typography>
-                            </Box>
-                        </MenuItem>
-                    </Select>
+                    <LanguagesSelect />
                 </Box>
             </Drawer>
             <Typography variant="subtitle1">
