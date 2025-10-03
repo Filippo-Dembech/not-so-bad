@@ -102,6 +102,7 @@ function App() {
                     variant="outlined"
                     onClick={async () => {
                         const days = await getAllDays();
+                        const sortedDays = days.sort((a, b) => stringToDate(a.date).getTime() - stringToDate(b.date).getTime())
                         const options = {
                             margin: 0.5,
                             filename: "not-so-bad.pdf",
@@ -115,7 +116,7 @@ function App() {
 
                         let html;
 
-                        if (days.length === 0) {
+                        if (sortedDays.length === 0) {
                             html = `
                                 <h1 style="color: #2A5C3D">Not So Bad</h1>
                                 <p style="color: gray; font-style: italic">${language.noDay}</p>
@@ -123,8 +124,7 @@ function App() {
                         } else {
                             html = `
                             <h1 style="color: #2A5C3D">Not So Bad</h1>
-                            ${days
-                                .map(
+                            ${sortedDays.map(
                                     (day) =>
                                         `
                                     <div style="position:relative">
