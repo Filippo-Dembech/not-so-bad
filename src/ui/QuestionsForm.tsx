@@ -27,7 +27,7 @@ export default function QuestionsForm() {
         useDotButton(emblaApi);
 
     const { language } = useLanguage();
-    const { currentDay, setDay, setHistoryDays } = useDays();
+    const { currentDay, setCurrentDay, setHistoryDays } = useDays();
 
     useEffect(() => {
         emblaApi?.reInit();
@@ -39,9 +39,6 @@ export default function QuestionsForm() {
         paddingBottom: "2rem",
         margin: "2rem auto",
     };
-    
-    console.log("currentDay = ", currentDay);
-    console.log("language.questions = ", language?.questions)
 
     return (
         <section
@@ -103,7 +100,7 @@ export default function QuestionsForm() {
                                                             )
                                                     );
                                                 }
-                                                setDay(newDay);
+                                                setCurrentDay(newDay);
                                             }}
                                         />
                                     ))}

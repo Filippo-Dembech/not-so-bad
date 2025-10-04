@@ -1,7 +1,6 @@
 import DatePicker from "react-datepicker";
 import { getDay } from "../db";
 import { dateToString, stringToDate } from "../utils/dates";
-import { useLanguage } from "../context/LanguageContext";
 import { useDays } from "../context/DaysContext";
 import type { Day } from "../types";
 import { useState } from "react";
@@ -11,25 +10,24 @@ interface CalendarProps {
 }
 
 export default function Calendar({ onSelect }: CalendarProps) {
-    const { language } = useLanguage();
-    const { currentDay, setDay, historyDays } = useDays();
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>(stringToDate(currentDay!.date))
+    const { currentDay, setCurrentDay, historyDays, createDay } = useDays();
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(
+        stringToDate(currentDay!.date)
+    );
+
+    async function getCurrentDay(date: Date): Promise<Day> {
+        const dbDay = await getDay(dateToString(date));
+        if (dbDay) return dbDay;
+        return createDay(dateToString(date))
+    }
+
     return (
         <DatePicker
             selected={selectedDate}
             calendarClassName="theme-light"
             onChange={async (date) => {
                 if (!date) return;
-                const dbDay = await getDay(dateToString(date));
-                if (dbDay) {
-                    setDay(dbDay);
-                } else {
-                    const newDay: Day = {
-                        date: dateToString(date),
-                        questions: language!.questions,
-                    }
-                    setDay(newDay);
-                }
+                setCurrentDay(await getCurrentDay(date));
                 setSelectedDate(date);
                 onSelect();
             }}

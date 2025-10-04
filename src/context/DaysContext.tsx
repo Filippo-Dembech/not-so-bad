@@ -13,10 +13,11 @@ import { dateToString } from "../utils/dates";
 
 interface DaysContextType {
     currentDay?: Day;
+    setCurrentDay: React.Dispatch<React.SetStateAction<Day | undefined>>;
     historyDays?: Day[];
-    setDay: React.Dispatch<React.SetStateAction<Day | undefined>>;
     setHistoryDays: React.Dispatch<React.SetStateAction<Day[] | undefined>>;
     addAnswerTo: (question: Question, answer: string) => void;
+    createDay: (date: string) => Day;
 }
 
 const DaysContext = createContext<DaysContextType | undefined>(undefined);
@@ -26,12 +27,22 @@ interface DaysProviderProps {
 }
 
 function DaysProvider({ children }: DaysProviderProps) {
-    const [day, setDay] = useState<Day | undefined>(undefined);
+    const [currentDay, setCurrentDay] = useState<Day | undefined>(undefined);
     const [historyDays, setHistoryDays] = useState<Day[] | undefined>(
         undefined
     );
 
     const { language } = useLanguage();
+    
+    function createDay(date: string): Day {
+        return {
+            date: date,
+            questions: language!.questions.map((question) => ({
+                id: question.id,
+                answers: [],
+            })),
+        };
+    }
 
     useEffect(() => {
         if (!language) return; // if language is not loaded yet from the DB, return
@@ -40,18 +51,12 @@ function DaysProvider({ children }: DaysProviderProps) {
             const today = dateToString(new Date());
             const result = days.find((day) => today == day.date);
             if (result) return result;
-            return {
-                date: today,
-                questions: language!.questions.map((question) => ({
-                    id: question.id,
-                    answers: [],
-                })),
-            };
+            return createDay(today)
         }
         async function initializeDay() {
             const day = await getInitialDay();
             const historyDays = await getAllDays();
-            setDay(day);
+            setCurrentDay(day);
             setHistoryDays(historyDays);
         }
         initializeDay();
@@ -59,7 +64,7 @@ function DaysProvider({ children }: DaysProviderProps) {
 
     function addAnswerTo(question: Question, answer: string) {
         if (!answer) return;
-        setDay((day) => ({
+        setCurrentDay((day) => ({
             ...day!,
             questions: day!.questions.map((q) =>
                 q.id === question.id
@@ -75,11 +80,12 @@ function DaysProvider({ children }: DaysProviderProps) {
     return (
         <DaysContext.Provider
             value={{
-                currentDay: day,
+                currentDay,
                 historyDays,
-                setDay,
+                setCurrentDay,
                 setHistoryDays,
                 addAnswerTo,
+                createDay
             }}
         >
             {children}

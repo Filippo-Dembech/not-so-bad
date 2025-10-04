@@ -21,7 +21,6 @@ export default function LanguagesSelect() {
             }}
             defaultValue="english"
             onChange={async (e) => {
-                console.log(e.target.value);
                 if (e.target.value === "italian") updateLanguage(italian)
                 if (e.target.value === "english") updateLanguage(english)
                 if (e.target.value === "spanish") updateLanguage(spanish)
