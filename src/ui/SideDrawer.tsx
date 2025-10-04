@@ -30,14 +30,10 @@ export default function SideDrawer({
     const { language } = useLanguage();
     const {
         isHistoryOpen,
-        openHistory,
-        closeHistory,
         isWhyOpen,
-        openWhy,
-        closeWhy,
         isWarningOpen,
-        openWarning,
-        closeWarning,
+        open,
+        close
     } = useDrawer();
     return (
         <Drawer
@@ -58,13 +54,13 @@ export default function SideDrawer({
                 <Button
                     startIcon={<MdHistory />}
                     style={{ justifyContent: "flex-start" }}
-                    onClick={openHistory}
+                    onClick={() => open("history")}
                 >
                     {language!.history}
                 </Button>
                 <Dialog
                     open={isHistoryOpen}
-                    onClose={closeHistory}
+                    onClose={() => close("history")}
                     sx={{
                         "& .MuiPaper-root": {
                             borderRadius: "20px",
@@ -86,7 +82,7 @@ export default function SideDrawer({
                                 });
                             }
                             setSelectedDay(date);
-                            closeHistory();
+                            close("history")
                             toggleFn(false);
                         }}
                         dayClassName={(date) =>
@@ -105,13 +101,13 @@ export default function SideDrawer({
                 <Button
                     startIcon={<GoQuestion />}
                     style={{ justifyContent: "flex-start" }}
-                    onClick={openWhy}
+                    onClick={() => open("why")}
                 >
                     {language!.why}
                 </Button>
                 <Dialog
                     open={isWhyOpen}
-                    onClose={closeWhy}
+                    onClose={() => close("why")}
                 >
                     <Box padding={3}>
                         <Typography
@@ -137,13 +133,13 @@ export default function SideDrawer({
                 <Button
                     startIcon={<TiWarningOutline />}
                     style={{ justifyContent: "flex-start" }}
-                    onClick={openWarning}
+                    onClick={() => open("warning")}
                 >
                     {language!.warningButton}
                 </Button>
                 <Dialog
                     open={isWarningOpen}
-                    onClose={closeWarning}
+                    onClose={() => close("warning")}
                 >
                     <Box padding={3}>
                         <Typography

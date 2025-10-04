@@ -3,14 +3,10 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface DrawerContextType {
     isHistoryOpen: boolean;
-    openHistory: () => void;
-    closeHistory: () => void;
     isWhyOpen: boolean;
-    openWhy: () => void;
-    closeWhy: () => void;
     isWarningOpen: boolean;
-    openWarning: () => void;
-    closeWarning: () => void;
+    open: (element: "history" | "why" | "warning") => void
+    close: (element: "history" | "why" | "warning") => void
 }
 
 const DrawerContext = createContext<DrawerContextType | undefined>(
@@ -27,24 +23,25 @@ function DrawerProvider({ children }: DrawerProviderProps) {
     const [isWhyOpen, setIsWhyOpen] = useState(false);
     const [isWarningOpen, setIsWarningOpen] = useState(false);
     
-    const openHistory = () => setIsHistoryOpen(true);
-    const closeHistory = () => setIsHistoryOpen(false);
-    const openWhy = () => setIsWhyOpen(true);
-    const closeWhy = () => setIsWhyOpen(false);
-    const openWarning = () => setIsWarningOpen(true);
-    const closeWarning = () => setIsWarningOpen(false);
+    function open(element: "history" | "why" | "warning") {
+        if (element === "history") setIsHistoryOpen(true);
+        if (element === "why") setIsWhyOpen(true);
+        if (element === "warning") setIsWarningOpen(true);
+    }
+    
+    function close(element: "history" | "why" | "warning") {
+        if (element === "history") setIsHistoryOpen(false);
+        if (element === "why") setIsWhyOpen(false);
+        if (element === "warning") setIsWarningOpen(false);
+    }
 
     return (
         <DrawerContext.Provider value={{
             isHistoryOpen,
             isWhyOpen,
             isWarningOpen,
-            openHistory,
-            closeHistory,
-            openWarning,
-            closeWarning,
-            openWhy,
-            closeWhy
+            open,
+            close
         }}>
             {children}
         </DrawerContext.Provider>
