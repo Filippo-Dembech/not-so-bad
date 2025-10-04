@@ -1,5 +1,4 @@
 /* eslint-disable react-refresh/only-export-components */
-// MyContext.tsx
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Language } from "../types";
 import { getLanguage, saveLanguage } from "../db";
