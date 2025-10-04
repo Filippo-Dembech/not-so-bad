@@ -12,7 +12,6 @@ import LoadingWheel from "./ui/LoadingWheel";
 import QuestionsForm from "./ui/QuestionsForm";
 import SaveButton from "./ui/SaveButton";
 import SuccessSnackbar from "./ui/SuccessSnackbar";
-import NoAnswerSnackbar from "./ui/NoAnswerSnackbar";
 import { useLanguage } from "./context/LanguageContext";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
@@ -34,10 +33,7 @@ function App() {
 
     const {
         isSuccess,
-        hasNoAnswer,
-        showNoAnswerSnackbar,
         showSuccessSnackbar,
-        hideNoAnswerSnackbar,
         hideSuccessSnackbar,
     } = useSnackbar();
 
@@ -113,16 +109,11 @@ function App() {
                     day={day}
                     setHistoryDays={setHistoryDays}
                     showSuccess={showSuccessSnackbar}
-                    showNoAnswer={showNoAnswerSnackbar}
                 />
             </div>
             <SuccessSnackbar
                 isOpen={isSuccess}
                 onClose={hideSuccessSnackbar}
-            />
-            <NoAnswerSnackbar
-                isOpen={hasNoAnswer}
-                onClose={hideNoAnswerSnackbar}
             />
             <Footer />
             <SavePDFButton />
