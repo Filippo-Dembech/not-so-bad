@@ -7,7 +7,6 @@ import { type Day } from "./types";
 import AutoHeight from "embla-carousel-auto-height";
 import { getAllDays } from "./db";
 import { dateToString, stringToDate } from "./utils/dates";
-import { useSnackbar } from "./hooks/useSnackbar";
 import LoadingWheel from "./ui/LoadingWheel";
 import QuestionsForm from "./ui/QuestionsForm";
 import SaveButton from "./ui/SaveButton";
@@ -19,6 +18,7 @@ import Footer from "./ui/Footer";
 import SavePDFButton from "./ui/SavePDFButton";
 import SideDrawer from "./ui/SideDrawer";
 import { DrawerProvider } from "./context/DrawerContext";
+import { useToggler } from "./hooks/useToggler";
 
 const options = {};
 
@@ -31,15 +31,12 @@ function App() {
         undefined
     );
 
-    const {
-        isSuccess,
-        showSuccessSnackbar,
-        hideSuccessSnackbar,
-    } = useSnackbar();
+    const { isToggled, open, close, toggle } = useToggler([
+        { label: "drawer", isToggled: false },
+        { label: "successSnackbar", isToggled: false },
+    ]);
 
     const { language } = useLanguage();
-
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     useEffect(() => {
         if (!language) return; // if language is not loaded yet from the DB, return
@@ -79,13 +76,13 @@ function App() {
                 <Header />
                 <RxHamburgerMenu
                     style={{ cursor: "pointer", scale: 2 }}
-                    onClick={() => setIsDrawerOpen(true)}
+                    onClick={() => open("drawer")}
                 />
             </Box>
             <DrawerProvider>
                 <SideDrawer
-                    isOpen={isDrawerOpen}
-                    toggleFn={setIsDrawerOpen}
+                    isOpen={isToggled("drawer")}
+                    toggleFn={() => toggle("drawer")}
                     selectedDay={selectedDay}
                     setSelectedDay={setSelectedDay}
                     setDay={setDay}
@@ -108,12 +105,12 @@ function App() {
                 <SaveButton
                     day={day}
                     setHistoryDays={setHistoryDays}
-                    showSuccess={showSuccessSnackbar}
+                    showSuccess={() => open("successSnackbar")}
                 />
             </div>
             <SuccessSnackbar
-                isOpen={isSuccess}
-                onClose={hideSuccessSnackbar}
+                isOpen={isToggled("successSnackbar")}
+                onClose={() => close("successSnackbar")}
             />
             <Footer />
             <SavePDFButton />

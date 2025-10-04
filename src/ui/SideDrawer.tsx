@@ -12,7 +12,7 @@ import LanguagesSelect from "./LanguagesSelect";
 
 interface SideDrawerProps {
     isOpen: boolean;
-    toggleFn: React.Dispatch<React.SetStateAction<boolean>>;
+    toggleFn: () => void;
     selectedDay: Date | undefined;
     setSelectedDay: React.Dispatch<React.SetStateAction<Date | undefined>>;
     setDay: React.Dispatch<React.SetStateAction<Day | undefined>>;
@@ -38,7 +38,7 @@ export default function SideDrawer({
     return (
         <Drawer
             open={isOpen}
-            onClose={() => toggleFn(false)}
+            onClose={toggleFn}
         >
             <Box
                 padding="1rem"
@@ -83,7 +83,7 @@ export default function SideDrawer({
                             }
                             setSelectedDay(date);
                             close("history")
-                            toggleFn(false);
+                            toggleFn();
                         }}
                         dayClassName={(date) =>
                             historyDays?.some(
