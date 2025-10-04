@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { RxHamburgerMenu } from "react-icons/rx";
 import useEmblaCarousel from "embla-carousel-react";
 import Header from "./ui/Header";
@@ -19,6 +19,7 @@ import SavePDFButton from "./ui/SavePDFButton";
 import SideDrawer from "./ui/SideDrawer";
 import { DrawerProvider } from "./context/DrawerContext";
 import { useToggler } from "./hooks/useToggler";
+import CurrentDay from "./ui/CurrentDay";
 
 const options = {};
 
@@ -67,7 +68,7 @@ function App() {
     if (!day || !language) return <LoadingWheel />;
 
     return (
-        <div style={{ padding: "1.5rem" }}>
+        <Box padding="1.5rem">
             <Box
                 display="flex"
                 justifyContent="space-between"
@@ -83,15 +84,13 @@ function App() {
                 <SideDrawer
                     isOpen={isToggled("drawer")}
                     toggleFn={() => toggle("drawer")}
+                    setDay={setDay}
                     selectedDay={selectedDay}
                     setSelectedDay={setSelectedDay}
-                    setDay={setDay}
                     historyDays={historyDays}
                 />
             </DrawerProvider>
-            <Typography variant="subtitle1">
-                {language.titleDay} <strong>{day.date}</strong>
-            </Typography>
+            <CurrentDay day={day}/>
             <QuestionsForm
                 setHistoryDays={setHistoryDays}
                 emblaRef={emblaRef}
@@ -99,22 +98,18 @@ function App() {
                 day={day}
                 emblaApi={emblaApi}
             />
-            <div
-                style={{ width: "80%", maxWidth: "400px", margin: "2rem auto" }}
-            >
                 <SaveButton
                     day={day}
                     setHistoryDays={setHistoryDays}
                     showSuccess={() => open("successSnackbar")}
                 />
-            </div>
             <SuccessSnackbar
                 isOpen={isToggled("successSnackbar")}
                 onClose={() => close("successSnackbar")}
             />
             <Footer />
             <SavePDFButton />
-        </div>
+        </Box>
     );
 }
 
