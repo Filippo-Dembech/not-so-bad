@@ -1,4 +1,4 @@
-import { Box, Drawer, Typography } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import { useLanguage } from "../context/LanguageContext";
 import { MdHistory } from "react-icons/md";
 import { GoQuestion } from "react-icons/go";
@@ -7,6 +7,8 @@ import LanguagesSelect from "./LanguagesSelect";
 import Logo from "./Logo";
 import DrawerButton from "./DrawerButton";
 import Calendar from "./Calendar";
+import WhyNotSoBad from "./WhyNotSoBad";
+import Warning from "./Warning";
 
 interface SideDrawerProps {
     isOpen: boolean;
@@ -44,51 +46,13 @@ export default function SideDrawer({
                 </DrawerButton>
                 <DrawerButton
                     icon={<GoQuestion />}
-                    dialogContent={() => (
-                        <Box padding={3}>
-                            <Typography
-                                variant="h2"
-                                color="primary"
-                            >
-                                Not So Bad
-                            </Typography>
-                            <Box
-                                display="flex"
-                                flexDirection="column"
-                                gap={2}
-                                marginTop={2}
-                            >
-                                {language!.description.map((paragraph) => (
-                                    <Typography variant="body1">
-                                        {paragraph}
-                                    </Typography>
-                                ))}
-                            </Box>
-                        </Box>
-                    )}
+                    dialogContent={() => <WhyNotSoBad />}
                 >
                     {language!.why}
                 </DrawerButton>
                 <DrawerButton
                     icon={<TiWarningOutline />}
-                    dialogContent={() => (
-                        <Box padding={3}>
-                            <Typography
-                                variant="h2"
-                                color="primary"
-                            >
-                                {language!.warningTitle}
-                            </Typography>
-                            <Box
-                                display="flex"
-                                flexDirection="column"
-                                gap={2}
-                                marginTop={2}
-                            >
-                                {language!.warningText}
-                            </Box>
-                        </Box>
-                    )}
+                    dialogContent={() => <Warning />}
                 >
                     {language!.warningButton}
                 </DrawerButton>

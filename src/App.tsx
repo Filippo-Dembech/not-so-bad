@@ -15,16 +15,13 @@ import { useToggler } from "./hooks/useToggler";
 import CurrentDay from "./ui/CurrentDay";
 import { useDays } from "./context/DaysContext";
 
-
 function App() {
-
     const { isToggled, open, close, toggle } = useToggler([
         { label: "drawer", isToggled: false },
         { label: "successSnackbar", isToggled: false },
     ]);
 
     const { language } = useLanguage();
-
     const { currentDay } = useDays();
 
     if (!currentDay || !language) return <LoadingWheel />;
@@ -48,9 +45,7 @@ function App() {
             />
             <CurrentDay />
             <QuestionsForm />
-            <SaveButton
-                showSuccess={() => open("successSnackbar")}
-            />
+            <SaveButton showSuccess={() => open("successSnackbar")} />
             <SuccessSnackbar
                 isOpen={isToggled("successSnackbar")}
                 onClose={() => close("successSnackbar")}
