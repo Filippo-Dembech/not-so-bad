@@ -1,16 +1,13 @@
 import { Typography } from "@mui/material";
-import type { Day } from "../types";
 import { useLanguage } from "../context/LanguageContext";
+import { useDays } from "../context/DaysContext";
 
-interface CurrentDayProps {
-    day: Day;
-}
-
-export default function CurrentDay({ day }: CurrentDayProps) {
+export default function CurrentDay() {
     const { language } = useLanguage();
+    const {currentDay} = useDays();
     return (
         <Typography variant="subtitle1">
-            {language!.titleDay} <strong>{day.date}</strong>
+            {language!.titleDay} <strong>{currentDay!.date}</strong>
         </Typography>
     );
 }

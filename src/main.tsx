@@ -6,13 +6,16 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import zenGreenTheme from './materialTheme.tsx';
 import { LanguageProvider } from './context/LanguageContext.tsx';
+import { DaysProvider } from './context/DaysContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={zenGreenTheme}>
       <CssBaseline />
       <LanguageProvider>
-        <App />
+        <DaysProvider>
+          <App />
+        </DaysProvider>
       </LanguageProvider>
     </ThemeProvider>
   </StrictMode>,

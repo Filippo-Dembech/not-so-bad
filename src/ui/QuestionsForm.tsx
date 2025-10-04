@@ -1,8 +1,6 @@
-import type { EmblaViewportRefType } from "embla-carousel-react";
-import type { EmblaCarouselType } from "embla-carousel";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import type { Day, Question } from "../types";
-import { useState, type CSSProperties } from "react";
+import type { Question } from "../types";
+import { useEffect, useState, type CSSProperties } from "react";
 import { usePrevNextButtons } from "../hooks/usePrevNextButtons";
 import { NextButton, PrevButton } from "./CarouselButtons";
 import { DotButton } from "./DotButton";
@@ -10,22 +8,14 @@ import { useDotButton } from "../hooks/useDotButton";
 import Answer from "./Answer";
 import { deleteAnswer } from "../db";
 import { useLanguage } from "../context/LanguageContext";
+import useEmblaCarousel from "embla-carousel-react";
+import AutoHeight from "embla-carousel-auto-height";
+import { useDays } from "../context/DaysContext";
 
-interface QuestionsFormProps {
-    emblaRef: EmblaViewportRefType;
-    emblaApi: EmblaCarouselType | undefined;
-    setDay: React.Dispatch<React.SetStateAction<Day | undefined>>;
-    setHistoryDays: React.Dispatch<React.SetStateAction<Day[] | undefined>>;
-    day: Day;
-}
+const options = {};
 
-export default function QuestionsForm({
-    emblaRef,
-    emblaApi,
-    setDay,
-    setHistoryDays,
-    day,
-}: QuestionsFormProps) {
+export default function QuestionsForm() {
+    const [emblaRef, emblaApi] = useEmblaCarousel(options, [AutoHeight()]);
     const [answer, setAnswer] = useState("");
     const {
         prevBtnDisabled,
@@ -37,6 +27,11 @@ export default function QuestionsForm({
         useDotButton(emblaApi);
 
     const { language } = useLanguage();
+    const { currentDay, setDay, setHistoryDays } = useDays()
+
+    useEffect(() => {
+        emblaApi?.reInit();
+    }, [currentDay, emblaApi]);
 
     const sectionStyle: CSSProperties = {
         border: "2px solid #7FB993",
@@ -134,7 +129,7 @@ export default function QuestionsForm({
                                 flexDirection="column"
                                 marginTop={4}
                             >
-                                {day.questions
+                                {currentDay!.questions
                                     .find((q) => q.id === question.id)
                                     ?.answers.slice().reverse().map((answer, i) => (
                                         <Answer
@@ -143,7 +138,7 @@ export default function QuestionsForm({
                                             onDelete={async () => {
                                                 const newDay =
                                                     await deleteAnswer(
-                                                        day,
+                                                        currentDay!,
                                                         question.id,
                                                         answer
                                                     );

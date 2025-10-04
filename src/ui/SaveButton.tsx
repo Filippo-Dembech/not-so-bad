@@ -1,22 +1,17 @@
 import { Button } from "@mui/material";
-import type { Day } from "../types";
 import { saveDay } from "../db";
 import { useLanguage } from "../context/LanguageContext";
 import type { CSSProperties } from "react";
+import { useDays } from "../context/DaysContext";
 
 interface SaveButtonProps {
-    day: Day;
     showSuccess: () => void;
-    setHistoryDays: React.Dispatch<React.SetStateAction<Day[] | undefined>>;
 }
 
-export default function SaveButton({
-    day,
-    showSuccess,
-    setHistoryDays,
-}: SaveButtonProps) {
+export default function SaveButton({ showSuccess }: SaveButtonProps) {
     const { language } = useLanguage();
-    const hasNoAnswer = day.questions.every(
+    const { currentDay, setHistoryDays } = useDays();
+    const hasNoAnswer = currentDay!.questions.every(
         (question) => question.answers.length === 0
     );
     const buttonStyle: CSSProperties = {
@@ -27,9 +22,9 @@ export default function SaveButton({
     };
 
     async function saveMemories() {
-        await saveDay(day);
+        await saveDay(currentDay!);
         setHistoryDays((historyDays) =>
-            historyDays ? [...historyDays, day] : [day]
+            historyDays ? [...historyDays, currentDay!] : [currentDay!]
         );
         showSuccess();
     }
