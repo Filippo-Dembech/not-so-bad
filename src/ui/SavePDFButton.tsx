@@ -39,7 +39,7 @@ export default function SavePDFButton() {
                 (question) => `
                     <div>
                         <p style="font-weight: bold">
-                            ${question.prompt}
+                            ${language?.questions[question.id - 1].prompt}
                         </p>
                         <ul style="list-style: none">
                             ${getHTMLAnswersFrom(question.answers)}

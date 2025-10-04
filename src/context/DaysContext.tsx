@@ -35,14 +35,17 @@ function DaysProvider({ children }: DaysProviderProps) {
 
     useEffect(() => {
         if (!language) return; // if language is not loaded yet from the DB, return
-        async function getInitialDay() {
+        async function getInitialDay(): Promise<Day> {
             const days = await getAllDays();
             const today = dateToString(new Date());
             const result = days.find((day) => today == day.date);
             if (result) return result;
             return {
                 date: today,
-                questions: language!.questions,
+                questions: language!.questions.map((question) => ({
+                    id: question.id,
+                    answers: [],
+                })),
             };
         }
         async function initializeDay() {

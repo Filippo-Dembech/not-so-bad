@@ -39,6 +39,9 @@ export default function QuestionsForm() {
         paddingBottom: "2rem",
         margin: "2rem auto",
     };
+    
+    console.log("currentDay = ", currentDay);
+    console.log("language.questions = ", language?.questions)
 
     return (
         <section
@@ -50,7 +53,7 @@ export default function QuestionsForm() {
                 ref={emblaRef}
             >
                 <div className="embla__container">
-                    {language!.questions.map((question) => (
+                    {currentDay!.questions.map((question) => (
                         <div
                             className="embla__slide"
                             key={question.id}
@@ -71,9 +74,7 @@ export default function QuestionsForm() {
                                 flexDirection="column"
                                 marginTop={4}
                             >
-                                {currentDay!.questions
-                                    .find((q) => q.id === question.id)
-                                    ?.answers.slice()
+                                {question.answers.slice()
                                     .reverse()
                                     .map((answer, i) => (
                                         <Answer
