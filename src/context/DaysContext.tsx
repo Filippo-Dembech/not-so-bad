@@ -6,7 +6,7 @@ import {
     useState,
     type ReactNode,
 } from "react";
-import type { Day } from "../types";
+import type { Day, Question } from "../types";
 import { useLanguage } from "./LanguageContext";
 import { getAllDays } from "../db";
 import { dateToString } from "../utils/dates";
@@ -14,8 +14,9 @@ import { dateToString } from "../utils/dates";
 interface DaysContextType {
     currentDay?: Day;
     historyDays?: Day[];
-    setDay: React.Dispatch<React.SetStateAction<Day | undefined>>
-    setHistoryDays: React.Dispatch<React.SetStateAction<Day[] | undefined>>
+    setDay: React.Dispatch<React.SetStateAction<Day | undefined>>;
+    setHistoryDays: React.Dispatch<React.SetStateAction<Day[] | undefined>>;
+    addAnswerTo: (question: Question, answer: string) => void;
 }
 
 const DaysContext = createContext<DaysContextType | undefined>(undefined);
@@ -53,9 +54,30 @@ function DaysProvider({ children }: DaysProviderProps) {
         initializeDay();
     }, [language]);
 
+    function addAnswerTo(question: Question, answer: string) {
+        if (!answer) return;
+        setDay((day) => ({
+            ...day!,
+            questions: day!.questions.map((q) =>
+                q.id === question.id
+                    ? {
+                          ...q,
+                          answers: [...q.answers, answer],
+                      }
+                    : q
+            ),
+        }));
+    }
+
     return (
         <DaysContext.Provider
-            value={{ currentDay: day, historyDays, setDay, setHistoryDays }}
+            value={{
+                currentDay: day,
+                historyDays,
+                setDay,
+                setHistoryDays,
+                addAnswerTo,
+            }}
         >
             {children}
         </DaysContext.Provider>
