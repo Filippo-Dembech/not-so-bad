@@ -17,7 +17,6 @@ import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import Footer from "./ui/Footer";
 import SavePDFButton from "./ui/SavePDFButton";
 import SideDrawer from "./ui/SideDrawer";
-import { DrawerProvider } from "./context/DrawerContext";
 import { useToggler } from "./hooks/useToggler";
 import CurrentDay from "./ui/CurrentDay";
 
@@ -80,16 +79,14 @@ function App() {
                     onClick={() => open("drawer")}
                 />
             </Box>
-            <DrawerProvider>
-                <SideDrawer
-                    isOpen={isToggled("drawer")}
-                    toggleFn={() => toggle("drawer")}
-                    setDay={setDay}
-                    selectedDay={selectedDay}
-                    setSelectedDay={setSelectedDay}
-                    historyDays={historyDays}
-                />
-            </DrawerProvider>
+            <SideDrawer
+                isOpen={isToggled("drawer")}
+                toggleFn={() => toggle("drawer")}
+                setDay={setDay}
+                selectedDay={selectedDay}
+                setSelectedDay={setSelectedDay}
+                historyDays={historyDays}
+            />
             <CurrentDay day={day}/>
             <QuestionsForm
                 setHistoryDays={setHistoryDays}
@@ -98,11 +95,11 @@ function App() {
                 day={day}
                 emblaApi={emblaApi}
             />
-                <SaveButton
-                    day={day}
-                    setHistoryDays={setHistoryDays}
-                    showSuccess={() => open("successSnackbar")}
-                />
+            <SaveButton
+                day={day}
+                setHistoryDays={setHistoryDays}
+                showSuccess={() => open("successSnackbar")}
+            />
             <SuccessSnackbar
                 isOpen={isToggled("successSnackbar")}
                 onClose={() => close("successSnackbar")}
