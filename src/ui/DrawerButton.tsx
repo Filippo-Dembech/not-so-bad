@@ -3,14 +3,14 @@ import { useState } from "react";
 
 interface DrawerButtonProps {
     icon: React.ReactNode;
+    text: string;
     dialogContent: (close: () => void) => React.ReactNode;
-    children: React.ReactNode;
 }
 
 export default function DrawerButton({
     icon,
+    text,
     dialogContent,
-    children,
 }: DrawerButtonProps) {
     
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -31,7 +31,7 @@ export default function DrawerButton({
                 style={{ justifyContent: "flex-start" }}
                 onClick={openDialog}
             >
-                {children}
+                {text}
             </Button>
             <Dialog
                 open={isDialogOpen}

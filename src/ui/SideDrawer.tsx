@@ -33,6 +33,7 @@ export default function SideDrawer({
                 <Logo />
                 <DrawerButton
                     icon={<MdHistory />}
+                    text={language!.history}
                     dialogContent={(closeDialog) => (
                         <Calendar 
                             onSelect={() => {
@@ -41,21 +42,17 @@ export default function SideDrawer({
                             }}
                         />
                     )}
-                >
-                    {language!.history}
-                </DrawerButton>
+                />
                 <DrawerButton
                     icon={<GoQuestion />}
+                    text={language!.why}
                     dialogContent={() => <WhyNotSoBad />}
-                >
-                    {language!.why}
-                </DrawerButton>
+                />
                 <DrawerButton
                     icon={<TiWarningOutline />}
+                    text={language!.warningButton}
                     dialogContent={() => <Warning />}
-                >
-                    {language!.warningButton}
-                </DrawerButton>
+                />
                 <LanguagesSelect />
             </Box>
         </Drawer>
