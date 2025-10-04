@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import {
     createContext,
+    useCallback,
     useContext,
     useEffect,
     useState,
@@ -8,7 +9,7 @@ import {
 } from "react";
 import type { Day, Question } from "../types";
 import { useLanguage } from "./LanguageContext";
-import { getAllDays } from "../db";
+import { deleteAnswer, getAllDays } from "../db";
 import { dateToString } from "../utils/dates";
 
 interface DaysContextType {
@@ -17,6 +18,7 @@ interface DaysContextType {
     historyDays?: Day[];
     setHistoryDays: React.Dispatch<React.SetStateAction<Day[] | undefined>>;
     addAnswerTo: (question: Question, answer: string) => void;
+    deleteAnswerFrom: (question: Question, answer: string) => void;
     createDay: (date: string) => Day;
 }
 
@@ -33,34 +35,34 @@ function DaysProvider({ children }: DaysProviderProps) {
     );
 
     const { language } = useLanguage();
-    
-    function createDay(date: string): Day {
-        return {
-            date: date,
+
+    const createDay = useCallback(
+        (date: string): Day => ({
+            date,
             questions: language!.questions.map((question) => ({
                 id: question.id,
                 answers: [],
             })),
-        };
-    }
+        }),
+        [language]
+    );
 
     useEffect(() => {
         if (!language) return; // if language is not loaded yet from the DB, return
         async function getInitialDay(): Promise<Day> {
             const days = await getAllDays();
             const today = dateToString(new Date());
-            const result = days.find((day) => today == day.date);
-            if (result) return result;
-            return createDay(today)
+            const dbDay = days.find((day) => today == day.date);
+            return dbDay || createDay(today);
         }
         async function initializeDay() {
-            const day = await getInitialDay();
+            const initialDay = await getInitialDay();
             const historyDays = await getAllDays();
-            setCurrentDay(day);
+            setCurrentDay(initialDay);
             setHistoryDays(historyDays);
         }
         initializeDay();
-    }, [language]);
+    }, [createDay, language]);
 
     function addAnswerTo(question: Question, answer: string) {
         if (!answer) return;
@@ -77,6 +79,20 @@ function DaysProvider({ children }: DaysProviderProps) {
         }));
     }
 
+    async function deleteAnswerFrom(question: Question, answer: string) {
+        const newDay = await deleteAnswer(currentDay!, question.id, answer);
+        if (
+            newDay.questions.every((question) => question.answers.length === 0)
+        ) {
+            setHistoryDays((historyDays) =>
+                historyDays?.filter(
+                    (historyDay) => historyDay.date !== newDay.date
+                )
+            );
+        }
+        setCurrentDay(newDay);
+    }
+
     return (
         <DaysContext.Provider
             value={{
@@ -85,7 +101,8 @@ function DaysProvider({ children }: DaysProviderProps) {
                 setCurrentDay,
                 setHistoryDays,
                 addAnswerTo,
-                createDay
+                createDay,
+                deleteAnswerFrom
             }}
         >
             {children}

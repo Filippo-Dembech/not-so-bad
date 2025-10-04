@@ -5,8 +5,6 @@ import { NextButton, PrevButton } from "./CarouselButtons";
 import { DotButton } from "./DotButton";
 import { useDotButton } from "../hooks/useDotButton";
 import Answer from "./Answer";
-import { deleteAnswer } from "../db";
-import { useLanguage } from "../context/LanguageContext";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoHeight from "embla-carousel-auto-height";
 import { useDays } from "../context/DaysContext";
@@ -26,8 +24,7 @@ export default function QuestionsForm() {
     const { selectedIndex, scrollSnaps, onDotButtonClick } =
         useDotButton(emblaApi);
 
-    const { language } = useLanguage();
-    const { currentDay, setCurrentDay, setHistoryDays } = useDays();
+    const { currentDay, deleteAnswerFrom } = useDays();
 
     useEffect(() => {
         emblaApi?.reInit();
@@ -71,37 +68,19 @@ export default function QuestionsForm() {
                                 flexDirection="column"
                                 marginTop={4}
                             >
-                                {question.answers.slice()
+                                {question.answers
+                                    .slice()
                                     .reverse()
                                     .map((answer, i) => (
                                         <Answer
                                             key={`${answer}-${i}`}
                                             text={answer}
-                                            onDelete={async () => {
-                                                const newDay =
-                                                    await deleteAnswer(
-                                                        currentDay!,
-                                                        question.id,
-                                                        answer
-                                                    );
-                                                if (
-                                                    newDay.questions.every(
-                                                        (question) =>
-                                                            question.answers
-                                                                .length === 0
-                                                    )
-                                                ) {
-                                                    setHistoryDays(
-                                                        (historyDays) =>
-                                                            historyDays?.filter(
-                                                                (historyDay) =>
-                                                                    historyDay.date !==
-                                                                    newDay.date
-                                                            )
-                                                    );
-                                                }
-                                                setCurrentDay(newDay);
-                                            }}
+                                            onDelete={() =>
+                                                deleteAnswerFrom(
+                                                    question,
+                                                    answer
+                                                )
+                                            }
                                         />
                                     ))}
                             </Box>
