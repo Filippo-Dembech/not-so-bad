@@ -9,14 +9,12 @@ import {
 import type { Day } from "../types";
 import { useLanguage } from "./LanguageContext";
 import { getAllDays } from "../db";
-import { dateToString, stringToDate } from "../utils/dates";
+import { dateToString } from "../utils/dates";
 
 interface DaysContextType {
     currentDay?: Day;
-    selectedDate?: Date;
     historyDays?: Day[];
     setDay: React.Dispatch<React.SetStateAction<Day | undefined>>
-    setSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>
     setHistoryDays: React.Dispatch<React.SetStateAction<Day[] | undefined>>
 }
 
@@ -28,9 +26,6 @@ interface DaysProviderProps {
 
 function DaysProvider({ children }: DaysProviderProps) {
     const [day, setDay] = useState<Day | undefined>(undefined);
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>(
-        undefined
-    );
     const [historyDays, setHistoryDays] = useState<Day[] | undefined>(
         undefined
     );
@@ -54,14 +49,13 @@ function DaysProvider({ children }: DaysProviderProps) {
             const historyDays = await getAllDays();
             setDay(day);
             setHistoryDays(historyDays);
-            setSelectedDate(stringToDate(day.date));
         }
         initializeDay();
     }, [language]);
 
     return (
         <DaysContext.Provider
-            value={{ currentDay: day, selectedDate, historyDays, setDay, setSelectedDate, setHistoryDays }}
+            value={{ currentDay: day, historyDays, setDay, setHistoryDays }}
         >
             {children}
         </DaysContext.Provider>
