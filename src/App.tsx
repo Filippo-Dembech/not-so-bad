@@ -14,6 +14,7 @@ import SideDrawer from "./ui/SideDrawer";
 import { useToggler } from "./hooks/useToggler";
 import CurrentDay from "./ui/CurrentDay";
 import { useDays } from "./context/DaysContext";
+import type { CSSProperties } from "react";
 
 function App() {
     const { isToggled, open, close, toggle } = useToggler([
@@ -23,6 +24,12 @@ function App() {
 
     const { language } = useLanguage();
     const { currentDay } = useDays();
+
+    const hamburgerButtonStyle: CSSProperties = {
+        cursor: "pointer",
+        border: "none",
+        background: "none",
+    };
 
     if (!currentDay || !language) return <LoadingWheel />;
 
@@ -34,10 +41,12 @@ function App() {
                 alignItems="center"
             >
                 <Header />
-                <RxHamburgerMenu
-                    style={{ cursor: "pointer", scale: 2 }}
+                <button
+                    style={hamburgerButtonStyle}
                     onClick={() => open("drawer")}
-                />
+                >
+                    <RxHamburgerMenu style={{ scale: 2 }} />
+                </button>
             </Box>
             <SideDrawer
                 isOpen={isToggled("drawer")}

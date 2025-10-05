@@ -9,7 +9,7 @@ export default function LanguagesSelect() {
     
     async function updateLanguage(language: Language) {
         setLanguage(language);
-        await saveLanguage(language);
+        await saveLanguage(language.id);
     }
 
     return (

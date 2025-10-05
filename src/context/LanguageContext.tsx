@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Language } from "../types";
 import { getLanguage, saveLanguage } from "../db";
-import { english } from "../languages";
+import { english, french, german, italian, japanese, spanish } from "../languages";
 
 interface LanguageContextType {
     language?: Language;
@@ -21,14 +21,23 @@ function LanguageProvider({ children }: LanguageProviderProps) {
     
 
     const [language, setLanguage] = useState<Language | undefined>(undefined)
+
+    function fetchLanguage(language: "english" | "italian" | "french" | "spanish" | "german" | "japanese") {
+        if (language === "english") return english;
+        if (language === "italian") return italian;
+        if (language === "spanish") return spanish;
+        if (language === "german") return german;
+        if (language === "french") return french;
+        if (language === "japanese") return japanese;
+    }
     
     useEffect(() => {
         async function initializeLanguage() {
             const result = await getLanguage();
             if (result) {
-                setLanguage(result);
+                setLanguage(fetchLanguage(result));
             } else {
-                await saveLanguage(english);
+                await saveLanguage(english.id);
                 setLanguage(english)
             }
         }

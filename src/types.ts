@@ -9,6 +9,7 @@ export interface Day {
 }
 
 export interface Language {
+    id: string;
     titleDay: string;
     questions: (Question & { prompt: string })[];
     saveButton: string;

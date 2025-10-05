@@ -1,5 +1,5 @@
 import { openDB } from "idb";
-import { type Day, type Language } from "./types";
+import { type Day } from "./types";
 
 const dbPromise = openDB("not-so-bad", 2, {
     upgrade(db) {
@@ -12,7 +12,7 @@ const dbPromise = openDB("not-so-bad", 2, {
     },
 });
 
-export async function saveLanguage(language: Language) {
+export async function saveLanguage(language: string) {
     const db = await dbPromise;
     await db.put("settings", {key: "language", value: language})
 }

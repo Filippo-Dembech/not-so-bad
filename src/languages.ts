@@ -1,6 +1,7 @@
 import type { Language } from "./types";
 
 const italian: Language = {
+    id: "italian",
     noAnswer: "Per favore, rispondere ad almeno una domanda!",
     questions: [
         { id: 1, prompt: "Cosa ho fatto oggi di cui posso essere fiero(a)?", answers: [] },
@@ -28,11 +29,12 @@ const italian: Language = {
     noDay: "Nessun ricordo è ancora stato salvato.",
     warningButton: "Attenzione",
     warningTitle: "Salva PDF",
-    warningText: '"Not So Bad" utilizza IndexedDB per salvare i dati. Per questo ti consiglio di fare un backup giornaliero dei dati salvandoli come PDF usando il pulsante in basso a destra nella schermata iniziale.'
+    warningText: '"Not So Bad" utilizza IndexedDB per salvare i dati. Per questo ti consiglio di fare un backup giornaliero dei dati salvandoli come PDF usando il pulsante in basso a destra nella schermata iniziale.',
 };
 
 
 const english: Language = {
+    id: "english",
     noAnswer: "Please answer at least one question!",
     questions: [
         { id: 1, prompt: "What did I do today that I can be proud of?", answers: [] },
@@ -60,10 +62,11 @@ const english: Language = {
     noDay: "No memories have been saved yet.",
     warningButton: "Warning",
     warningTitle: "Save PDF",
-    warningText: '"Not So Bad" uses IndexedDB to store data. For this reason, I recommend making a daily backup of the data by saving it as a PDF using the button at the bottom right on the home screen.'
+    warningText: '"Not So Bad" uses IndexedDB to store data. For this reason, I recommend making a daily backup of the data by saving it as a PDF using the button at the bottom right on the home screen.',
 };
 
 const spanish: Language = {
+    id: "spanish",
     noAnswer: "¡Por favor, responde al menos una pregunta!",
     questions: [
         { id: 1, prompt: "¿Qué hice hoy de lo que puedo estar orgulloso(a)?", answers: [] },
@@ -91,10 +94,11 @@ const spanish: Language = {
     noDay: "Aún no se han guardado recuerdos.",
     warningButton: "Advertencia",
     warningTitle: "Guardar PDF",
-    warningText: '"Not So Bad" utiliza IndexedDB para almacenar los datos. Por esta razón, recomiendo hacer una copia de seguridad diaria de los datos guardándolos como PDF usando el botón en la parte inferior derecha de la pantalla principal.'
+    warningText: '"Not So Bad" utiliza IndexedDB para almacenar los datos. Por esta razón, recomiendo hacer una copia de seguridad diaria de los datos guardándolos como PDF usando el botón en la parte inferior derecha de la pantalla principal.',
 };
 
 const french: Language = {
+    id: "french",
     noAnswer: "Veuillez répondre à au moins une question !",
     questions: [
         { id: 1, prompt: "Qu’ai-je fait aujourd’hui dont je peux être fier(ère) ?", answers: [] },
@@ -122,10 +126,11 @@ const french: Language = {
     noDay: "Aucun souvenir n’a encore été enregistré.",
     warningButton: "Attention",
     warningTitle: "Enregistrer PDF",
-    warningText: '"Not So Bad" utilise IndexedDB pour stocker les données. Pour cette raison, je recommande de faire une sauvegarde quotidienne des données en les enregistrant au format PDF en utilisant le bouton en bas à droite de l’écran d’accueil.'
+    warningText: '"Not So Bad" utilise IndexedDB pour stocker les données. Pour cette raison, je recommande de faire une sauvegarde quotidienne des données en les enregistrant au format PDF en utilisant le bouton en bas à droite de l’écran d’accueil.',
 };
 
 const german: Language = {
+    id: "german",
     noAnswer: "Bitte beantworte mindestens eine Frage!",
     questions: [
         { id: 1, prompt: "Was habe ich heute getan, worauf ich stolz sein kann?", answers: [] },
@@ -153,10 +158,11 @@ const german: Language = {
     noDay: "Es wurden noch keine Erinnerungen gespeichert.",
     warningButton: "Achtung",
     warningTitle: "PDF speichern",
-    warningText: '"Not So Bad" verwendet IndexedDB, um Daten zu speichern. Deshalb empfehle ich, täglich ein Backup der Daten zu machen, indem du sie als PDF speicherst und den Button unten rechts auf dem Startbildschirm benutzt.'
+    warningText: '"Not So Bad" verwendet IndexedDB, um Daten zu speichern. Deshalb empfehle ich, täglich ein Backup der Daten zu machen, indem du sie als PDF speicherst und den Button unten rechts auf dem Startbildschirm benutzt.',
 };
 
 const japanese: Language = {
+    id: "japanese",
     noAnswer: "少なくとも1つの質問に答えてください！",
     questions: [
         { id: 1, prompt: "今日、自分が誇れることは何ですか？", answers: [] },
@@ -184,7 +190,7 @@ const japanese: Language = {
     noDay: "まだ思い出は保存されていません。",
     warningButton: "警告",
     warningTitle: "PDFを保存",
-    warningText: '「Not So Bad」はIndexedDBを使ってデータを保存します。そのため、ホーム画面の右下にあるボタンを使って、データをPDFとして保存し、毎日バックアップすることをおすすめします。'
+    warningText: '「Not So Bad」はIndexedDBを使ってデータを保存します。そのため、ホーム画面の右下にあるボタンを使って、データをPDFとして保存し、毎日バックアップすることをおすすめします。',
 };
 
 export { english, italian, french, german, japanese, spanish };
