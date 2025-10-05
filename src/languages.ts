@@ -1,6 +1,7 @@
 import type { Language } from "./types";
 
 const italian: Language = {
+    test: "italian-test",
     id: "italian",
     noAnswer: "Per favore, rispondere ad almeno una domanda!",
     questions: [
@@ -53,6 +54,7 @@ const italian: Language = {
 };
 
 const english: Language = {
+    test: "english-test",
     id: "english",
     noAnswer: "Please answer at least one question!",
     questions: [
@@ -105,6 +107,7 @@ const english: Language = {
 };
 
 const spanish: Language = {
+    test: "spanish-test",
     id: "spanish",
     noAnswer: "¡Por favor, responde al menos una pregunta!",
     questions: [
@@ -153,6 +156,7 @@ const spanish: Language = {
 };
 
 const french: Language = {
+    test: "french-test",
     id: "french",
     noAnswer: "Veuillez répondre à au moins une question !",
     questions: [
@@ -225,6 +229,7 @@ const french: Language = {
 };
 
 const german: Language = {
+    test: "german-test",
     id: "german",
     noAnswer: "Bitte beantworte mindestens eine Frage!",
     questions: [
@@ -277,6 +282,7 @@ const german: Language = {
 };
 
 const japanese: Language = {
+    test: "japanese-test",
     id: "japanese",
     noAnswer: "少なくとも1つの質問に答えてください！",
     questions: [
