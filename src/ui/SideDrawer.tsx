@@ -1,6 +1,6 @@
 import { Box, Drawer } from "@mui/material";
 import { useLanguage } from "../context/LanguageContext";
-import { MdHistory } from "react-icons/md";
+import { MdBugReport, MdHistory } from "react-icons/md";
 import { GoQuestion } from "react-icons/go";
 import { TiWarningOutline } from "react-icons/ti";
 import LanguagesSelect from "./LanguagesSelect";
@@ -9,6 +9,7 @@ import DrawerButton from "./DrawerButton";
 import Calendar from "./Calendar";
 import WhyNotSoBad from "./WhyNotSoBad";
 import Warning from "./Warning";
+import BugReport from "./BugReport";
 
 interface SideDrawerProps {
     isOpen: boolean;
@@ -52,6 +53,11 @@ export default function SideDrawer({
                     icon={<TiWarningOutline />}
                     text={language!.warningButton}
                     dialogContent={() => <Warning />}
+                />
+                <DrawerButton
+                    icon={<MdBugReport />}
+                    text={language!.bugReportTitle}
+                    dialogContent={() => <BugReport />}
                 />
                 <LanguagesSelect />
             </Box>

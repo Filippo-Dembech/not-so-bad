@@ -25,4 +25,6 @@ export interface Language {
     warningButton: string;
     warningTitle: string;
     warningText: string;
+    bugReportTitle: string;
+    bugReportText: string;
 }
