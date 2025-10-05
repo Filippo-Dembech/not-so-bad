@@ -50,6 +50,21 @@ const italian: Language = {
     bugReportTitle: "Bug Report",
     bugReportText:
         "Se trovi un bug o vorresti qualche funzionalità in più scrivimi una mail all'indirizzo in basso della hompage",
+    exportTitle: "Esporta Ricordi",
+    exportText:
+        'Clicca sul pulsante "Esporta" se vuoi esportare i dati per importarli in altri devices.',
+    exportButton: "Esporta",
+    exportNote:
+        "NOTA: I file .json non sono criptati, quindi i dati al loro interno sono leggibili. Una volta importati i dati cancella il file .json se non vuoi che nessuno legga le tue risposte.",
+    importTitle: "Importa Ricordi",
+    importText:
+        "Importa il file .json contenente i ricordi che vuoi importare:",
+    importButton: "Importa",
+    importWrongFormatError: "Struttura file .json non valida.",
+    importGeneralError: "Errore durante l'analisi del file .json.",
+    importOverwrite: "Sovrascrivi ricordi",
+    importOverwriteExplanation:
+        "(Se sovrascrivi i ricordi, quelli  già presenti sull'app, verranno rimpiazzati dai ricordi importati)",
 };
 
 const english: Language = {
@@ -102,6 +117,21 @@ const english: Language = {
     bugReportTitle: "Bug Report",
     bugReportText:
         "If you find a bug or would like some extra features, send me an email at the address at the bottom of the homepage",
+    exportTitle: "Export memories",
+    exportText:
+        'Click the "Export" button if you want to export the data to import it on other devices.',
+    exportButton: "Export",
+    exportNote:
+        "NOTE: .json files are not encrypted, so the data inside can be read. Once you've imported the data, delete the .json file if you don't want anyone to read your answers.",
+    importTitle: "Import Memories",
+    importText:
+        "Import the .json file containing the memories you want to import:",
+    importButton: "Import",
+    importWrongFormatError: "Invalid .json file structure.",
+    importGeneralError: "Error parsing the .json file.",
+    importOverwrite: "Overwrite memories",
+    importOverwriteExplanation:
+        "(If you overwrite the memories, the ones already in the app will be replaced by the imported ones)",
 };
 
 const spanish: Language = {
@@ -150,6 +180,21 @@ const spanish: Language = {
     bugReportTitle: "Informe de errores",
     bugReportText:
         "Si encuentras un error o quieres algunas funciones adicionales, envíame un correo electrónico a la dirección al final de la página principal",
+    exportTitle: "Exportar Recuerdos",
+    exportText:
+        'Haz clic en el botón "Exportar" si quieres exportar los datos para importarlos en otros dispositivos.',
+    exportButton: "Exportar",
+    exportNote:
+        "NOTA: Los archivos .json no están encriptados, por lo que los datos dentro se pueden leer. Una vez importados los datos, elimina el archivo .json si no quieres que nadie lea tus respuestas.",
+    importTitle: "Importar Recuerdos",
+    importText:
+        "Importa el archivo .json que contiene los recuerdos que quieres importar:",
+    importButton: "Importar",
+    importWrongFormatError: "Estructura del archivo .json no válida.",
+    importGeneralError: "Error al analizar el archivo .json.",
+    importOverwrite: "Sobrescribir recuerdos",
+    importOverwriteExplanation:
+        "(Si sobrescribes los recuerdos, los que ya están en la aplicación serán reemplazados por los importados)",
 };
 
 const french: Language = {
@@ -222,6 +267,21 @@ const french: Language = {
     bugReportTitle: "Rapport de bug",
     bugReportText:
         "Si tu trouves un bug ou souhaites plus de fonctionnalités, envoie-moi un e-mail à l’adresse en bas de la page d’accueil",
+    exportTitle: "Exporter les Souvenirs",
+    exportText:
+        'Clique sur le bouton "Exporter" si tu veux exporter les données pour les importer sur d’autres appareils.',
+    exportButton: "Exporter",
+    exportNote:
+        "REMARQUE : Les fichiers .json ne sont pas chiffrés, donc les données qu’ils contiennent sont lisibles. Une fois les données importées, supprime le fichier .json si tu ne veux pas que quelqu’un lise tes réponses.",
+    importTitle: "Importer les Souvenirs",
+    importText:
+        "Importe le fichier .json contenant les souvenirs que tu veux importer :",
+    importButton: "Importer",
+    importWrongFormatError: "Structure du fichier .json invalide.",
+    importGeneralError: "Erreur lors de l'analyse du fichier .json.",
+    importOverwrite: "Écraser les souvenirs",
+    importOverwriteExplanation:
+        "(Si tu écrases les souvenirs, ceux déjà présents dans l’application seront remplacés par ceux importés)",
 };
 
 const german: Language = {
@@ -274,6 +334,21 @@ const german: Language = {
     bugReportTitle: "Fehlerbericht",
     bugReportText:
         "Wenn du einen Fehler findest oder zusätzliche Funktionen möchtest, schick mir eine E-Mail an die Adresse unten auf der Startseite",
+    exportTitle: "Erinnerungen exportieren",
+    exportText:
+        'Klicke auf die Schaltfläche "Exportieren", wenn du die Daten exportieren möchtest, um sie auf anderen Geräten zu importieren.',
+    exportButton: "Exportieren",
+    exportNote:
+        "HINWEIS: .json-Dateien sind nicht verschlüsselt, daher können die darin enthaltenen Daten gelesen werden. Nachdem du die Daten importiert hast, lösche die .json-Datei, wenn du nicht willst, dass jemand deine Antworten liest.",
+    importTitle: "Erinnerungen importieren",
+    importText:
+        "Importiere die .json-Datei, die die Erinnerungen enthält, die du importieren möchtest:",
+    importButton: "Importieren",
+    importWrongFormatError: "Ungültige .json-Dateistruktur.",
+    importGeneralError: "Fehler beim Analysieren der .json-Datei.",
+    importOverwrite: "Erinnerungen überschreiben",
+    importOverwriteExplanation:
+        "(Wenn du die Erinnerungen überschreibst, werden die bereits in der App vorhandenen durch die importierten ersetzt)",
 };
 
 const japanese: Language = {
@@ -318,6 +393,21 @@ const japanese: Language = {
     bugReportTitle: "バグ報告",
     bugReportText:
         "バグを見つけた場合や新しい機能を希望する場合は、ホームページ下部のアドレスにメールを送ってください",
+    exportTitle: "思い出をエクスポート",
+    exportText:
+        "他のデバイスにインポートしたい場合は、「エクスポート」ボタンをクリックしてください。",
+    exportButton: "エクスポート",
+    exportNote:
+        "注意：.jsonファイルは暗号化されていないため、中のデータは閲覧可能です。データをインポートした後は、他の人に回答を見られたくない場合は.jsonファイルを削除してください。",
+    importTitle: "思い出をインポート",
+    importText:
+        "インポートしたい思い出が入った.jsonファイルを選択してください:",
+    importButton: "インポート",
+    importWrongFormatError: ".jsonファイルの構造が無効です。",
+    importGeneralError: ".jsonファイルの解析中にエラーが発生しました。",
+    importOverwrite: "思い出を上書き",
+    importOverwriteExplanation:
+        "（思い出を上書きすると、アプリ内にすでにある思い出はインポートしたものに置き換えられます）",
 };
 
 export { english, italian, french, german, japanese, spanish };

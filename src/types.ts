@@ -27,4 +27,15 @@ export interface Language {
     warningText: string;
     bugReportTitle: string;
     bugReportText: string;
+    exportTitle: string;
+    exportText: string;
+    exportButton: string;
+    exportNote: string;
+    importTitle: string;
+    importButton: string;
+    importText: string;
+    importWrongFormatError: string;
+    importOverwrite: string;
+    importOverwriteExplanation: string;
+    importGeneralError: string;
 }

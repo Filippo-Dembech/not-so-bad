@@ -14,7 +14,7 @@ const dbPromise = openDB("not-so-bad", 2, {
 
 export async function saveLanguage(language: string) {
     const db = await dbPromise;
-    await db.put("settings", {key: "language", value: language})
+    await db.put("settings", { key: "language", value: language });
 }
 
 export async function getLanguage() {
@@ -61,11 +61,19 @@ export async function deleteAnswer(
                   }
         ),
     };
-    if (newDay.questions.every(question => question.answers.length === 0)) {
-        await deleteDay(newDay.date)
+    if (newDay.questions.every((question) => question.answers.length === 0)) {
+        await deleteDay(newDay.date);
     } else {
         await saveDay(newDay);
     }
     // return `newDay` in order to sync the UI
     return newDay;
+}
+
+export async function deleteAllDays(): Promise<void> {
+    const db = await dbPromise;
+    const tx = db.transaction("days", "readwrite");
+    const store = tx.objectStore("days");
+    await store.clear();
+    await tx.done;
 }

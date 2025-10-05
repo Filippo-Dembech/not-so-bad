@@ -9,8 +9,15 @@ import {
 } from "react";
 import type { Day, Question } from "../types";
 import { useLanguage } from "./LanguageContext";
-import { deleteAnswer, getAllDays } from "../db";
+import {
+    deleteAllDays,
+    deleteAnswer,
+    getAllDays,
+    getDay,
+    saveDay,
+} from "../db";
 import { dateToString } from "../utils/dates";
+import type { FileData } from "../ui/Import";
 
 interface DaysContextType {
     currentDay?: Day;
@@ -20,6 +27,8 @@ interface DaysContextType {
     addAnswerTo: (question: Question, answer: string) => void;
     deleteAnswerFrom: (question: Question, answer: string) => void;
     createDay: (date: string) => Day;
+    overwriteDays: (days: FileData) => void;
+    addAnswers: (days: FileData) => void;
 }
 
 const DaysContext = createContext<DaysContextType | undefined>(undefined);
@@ -93,6 +102,54 @@ function DaysProvider({ children }: DaysProviderProps) {
         setCurrentDay(newDay);
     }
 
+    async function overwriteDays(days: FileData) {
+        await deleteAllDays();
+        days.forEach(async (day) => await saveDay(day));
+        const day = await getDay(currentDay!.date);
+        const allDays = await getAllDays();
+        if (day) {
+            setCurrentDay(day);
+        } else {
+            setCurrentDay(createDay(currentDay!.date));
+        }
+        setHistoryDays(allDays);
+    }
+
+    async function addAnswers(days: FileData) {
+        const dbDays = await getAllDays();
+        if (dbDays.length > 0) {
+            const updatedDays = [];
+            // Update all days that are present in the DB
+            for (const day of dbDays) {
+                const updatedDay = {
+                    ...day,
+                    questions: day.questions.map((question) => ({
+                        ...question,
+                        answers: [
+                            ...question.answers,
+                            ...(days.find((newDay) => newDay.date === day.date)
+                                ?.questions[question.id - 1].answers || []),
+                        ],
+                    })),
+                };
+                updatedDays.push(updatedDay);
+                await saveDay(updatedDay);
+            }
+            // Add all days that are not present in the DB
+            for (const day of days) {
+                if (!dbDays.some(dbDay => dbDay.date === day.date)) {
+                    await saveDay(day);
+                    updatedDays.push(day);
+                }
+            }
+            setHistoryDays(updatedDays);
+
+        } else {
+            overwriteDays(days);
+            setHistoryDays(days);
+        }
+    }
+
     return (
         <DaysContext.Provider
             value={{
@@ -102,7 +159,9 @@ function DaysProvider({ children }: DaysProviderProps) {
                 setHistoryDays,
                 addAnswerTo,
                 createDay,
-                deleteAnswerFrom
+                deleteAnswerFrom,
+                overwriteDays,
+                addAnswers,
             }}
         >
             {children}
