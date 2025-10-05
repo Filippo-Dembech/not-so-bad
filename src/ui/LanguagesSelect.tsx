@@ -5,7 +5,7 @@ import { english, french, german, italian, japanese, spanish } from "../language
 import type { Language } from "../types";
 
 export default function LanguagesSelect() {
-    const {setLanguage} = useLanguage()
+    const {language, setLanguage} = useLanguage()
     
     async function updateLanguage(language: Language) {
         setLanguage(language);
@@ -19,7 +19,7 @@ export default function LanguagesSelect() {
                 position: "absolute",
                 bottom: "1rem",
             }}
-            defaultValue="english"
+            defaultValue={language!.id}
             onChange={async (e) => {
                 if (e.target.value === "italian") updateLanguage(italian)
                 if (e.target.value === "english") updateLanguage(english)
