@@ -10,7 +10,7 @@ export default defineConfig({
         name: 'Not So Bad',
         short_name: 'Not So Bad',
         description: 'See the positive in your life! After all, it is Not So Bad.',
-        start_url: '/not-so-bad',
+        start_url: '/not-so-bad/',
         display: 'standalone',
         background_color: '#ffffff',
         theme_color: '#000000',
@@ -28,7 +28,7 @@ export default defineConfig({
         ]
       }
     })],
-  base: "/not-so-bad",
+  base: "/not-so-bad/",
   server: {
     open: true
   }
