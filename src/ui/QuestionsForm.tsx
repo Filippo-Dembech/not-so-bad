@@ -107,7 +107,12 @@ export default function QuestionsForm() {
                             onClick={() => {
                                 onDotButtonClick(index);
                             }}
-                            className={"embla__dot".concat(
+                            className={`embla__dot ${
+                                (currentDay?.questions[index].answers || [])
+                                    .length > 0
+                                    ? "embla__dot--answered"
+                                    : ""
+                            }`.concat(
                                 index === selectedIndex
                                     ? " embla__dot--selected"
                                     : ""
