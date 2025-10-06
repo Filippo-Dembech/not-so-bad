@@ -70,11 +70,9 @@ export default function Import() {
             if (parsed.success) {
                 const data: FileData = parsed.data;
                 if (overwrite) {
-                    console.log("overwriteDays()")
                     await overwriteDays(data)
                     setOverwriteSuccess("Memories have been successfully imported.")
                 } else {
-                    console.log("addAnswers()")
                     await addAnswers(data);
                     setOverwriteSuccess("Memories have been successfully imported.")
                 }
