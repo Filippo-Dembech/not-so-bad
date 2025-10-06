@@ -5,7 +5,7 @@ export default function BugReport() {
         
     const { language } = useLanguage();
     return (
-        <Box padding={3}>
+        <Box>
             <Typography
                 variant="h2"
                 color="primary"

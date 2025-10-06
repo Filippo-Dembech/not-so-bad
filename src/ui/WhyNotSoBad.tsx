@@ -4,7 +4,7 @@ import { useLanguage } from "../context/LanguageContext";
 export default function WhyNotSoBad() {
     const { language } = useLanguage();
     return (
-        <Box padding={3}>
+        <Box>
             <Typography
                 variant="h2"
                 color="primary"

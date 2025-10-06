@@ -20,7 +20,7 @@ export default function Export() {
     }
 
     return (
-        <Box padding={3}>
+        <Box>
             <Typography
                 variant="h2"
                 color="primary"

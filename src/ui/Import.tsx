@@ -87,7 +87,7 @@ export default function Import() {
     };
 
     return (
-        <Box padding={3}>
+        <Box>
             <Typography
                 variant="h2"
                 color="primary"
