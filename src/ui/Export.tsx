@@ -42,7 +42,11 @@ export default function Export() {
                 >
                     {language!.exportButton}
                 </Button>
-                <Typography style={{ fontSize: "0.8rem" }}>
+                <Typography
+                    fontSize="0.8rem"
+                    color="orange"
+                    fontWeight="bold"
+                >
                     {language!.exportNote}
                 </Typography>
             </Box>
