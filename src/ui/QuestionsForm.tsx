@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect, type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { usePrevNextButtons } from "../hooks/usePrevNextButtons";
 import { NextButton, PrevButton } from "./CarouselButtons";
 import { DotButton } from "./DotButton";
@@ -14,6 +14,7 @@ import QuestionInput from "./QuestionInput";
 const options = {};
 
 export default function QuestionsForm() {
+    console.log("question form rendering")
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [AutoHeight()]);
     const {
         prevBtnDisabled,
@@ -25,9 +26,14 @@ export default function QuestionsForm() {
         useDotButton(emblaApi);
 
     const { currentDay, deleteAnswerFrom } = useDays();
+    const currentDayRef = useRef(currentDay);
 
     useEffect(() => {
         emblaApi?.reInit();
+        if (currentDay?.date !== currentDayRef.current?.date) {
+            emblaApi?.scrollTo(0)
+            currentDayRef.current = currentDay
+        }
     }, [currentDay, emblaApi]);
 
     const sectionStyle: CSSProperties = {

@@ -1,4 +1,4 @@
-import { Box, Drawer } from "@mui/material";
+import { Box, Divider, Drawer } from "@mui/material";
 import { useLanguage } from "../context/LanguageContext";
 import { MdBugReport, MdFileDownload, MdHistory } from "react-icons/md";
 import { FaFileImport } from "react-icons/fa6";
@@ -32,6 +32,7 @@ export default function SideDrawer({
             <Box
                 padding="1rem"
                 display="flex"
+                gap="0.5rem"
                 flexDirection="column"
             >
                 <Logo />
@@ -47,21 +48,8 @@ export default function SideDrawer({
                         />
                     )}
                 />
-                <DrawerButton
-                    icon={<GoQuestion />}
-                    text={language!.why}
-                    dialogContent={() => <WhyNotSoBad />}
-                />
-                <DrawerButton
-                    icon={<TiWarningOutline />}
-                    text={language!.warningButton}
-                    dialogContent={() => <Warning />}
-                />
-                <DrawerButton
-                    icon={<MdBugReport />}
-                    text={language!.bugReportTitle}
-                    dialogContent={() => <BugReport />}
-                />
+                <Divider />
+                <Box display="flex" flexDirection="column" >
                 <DrawerButton
                     icon={<MdFileDownload />}
                     text={language!.exportTitle}
@@ -71,7 +59,24 @@ export default function SideDrawer({
                     icon={<FaFileImport />}
                     text={language!.importTitle}
                     dialogContent={() => <Import />}
+                /></Box>
+                <Divider />
+                <Box display="flex" flexDirection="column" >
+                <DrawerButton
+                    icon={<GoQuestion />}
+                    text={language!.why}
+                    dialogContent={() => <WhyNotSoBad />}
                 />
+                <DrawerButton
+                    icon={<MdBugReport />}
+                    text={language!.bugReportTitle}
+                    dialogContent={() => <BugReport />}
+                />
+                <DrawerButton
+                    icon={<TiWarningOutline />}
+                    text={language!.warningButton}
+                    dialogContent={() => <Warning />}
+                /></Box>
                 <LanguagesSelect />
             </Box>
         </Drawer>
