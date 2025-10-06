@@ -38,6 +38,8 @@ export interface Language {
     importOverwrite: string;
     importOverwriteExplanation: string;
     importGeneralError: string;
+    importOverwriteSuccessText: string;
+    importMergeSuccessText: string;
     savePDFTitle: string;
     savePDFText: string;
     noAnswerPlaceholder: string;

@@ -69,6 +69,8 @@ const italian: Language = {
     savePDFText:
         "“Scarica i tuoi ricordi in PDF per leggerli in un formato pulito e ordinato, perfetto da condividere o stampare.”",
     noAnswerPlaceholder: "Nessun ricordo per questa domanda.",
+    importOverwriteSuccessText: "I ricordi sono stati sovrascritti con successo.",
+    importMergeSuccessText: "I ricordi sono stati importati con successo."
 };
 
 const english: Language = {
@@ -140,6 +142,8 @@ const english: Language = {
     savePDFText:
         "Download your memories as a PDF to read them in a clean, organized format — perfect for sharing or printing.",
     noAnswerPlaceholder: "No memory for this question.",
+    importOverwriteSuccessText: "Memories have been successfully overwritten.",
+    importMergeSuccessText: "Memories have been successfully imported.",
 };
 
 const spanish: Language = {
@@ -207,6 +211,8 @@ const spanish: Language = {
     savePDFText:
         "Descarga tus recuerdos en PDF para leerlos en un formato limpio y ordenado, perfecto para compartir o imprimir.",
     noAnswerPlaceholder: "No hay recuerdos para esta pregunta.",
+    importOverwriteSuccessText: "Los recuerdos se han sobrescrito correctamente.",
+    importMergeSuccessText: "Los recuerdos se han importado correctamente.",
 };
 
 const french: Language = {
@@ -298,6 +304,8 @@ const french: Language = {
     savePDFText:
         "Télécharge tes souvenirs en PDF pour les lire dans un format clair et organisé, parfait à partager ou à imprimer.",
     noAnswerPlaceholder: "Aucun souvenir pour cette question.",
+    importOverwriteSuccessText: "Les souvenirs ont été écrasés avec succès.",
+    importMergeSuccessText: "Les souvenirs ont été importés avec succès.",
 };
 
 const german: Language = {
@@ -369,6 +377,8 @@ const german: Language = {
     savePDFText:
         "Lade deine Erinnerungen als PDF herunter, um sie in einem klaren, geordneten Format zu lesen – perfekt zum Teilen oder Ausdrucken.",
     noAnswerPlaceholder: "Keine Erinnerung für diese Frage.",
+    importOverwriteSuccessText: "Die Erinnerungen wurden erfolgreich überschrieben.",
+    importMergeSuccessText: "Die Erinnerungen wurden erfolgreich importiert.",
 };
 
 const japanese: Language = {
@@ -433,6 +443,8 @@ const japanese: Language = {
     savePDFText:
         "思い出をPDFとしてダウンロードし、すっきり整った形式で読むことができます。共有や印刷にも最適です。",
     noAnswerPlaceholder: "この質問には思い出がありません。",
+    importOverwriteSuccessText: "思い出は正常に上書きされました。",
+    importMergeSuccessText: "思い出は正常にインポートされました。",
 };
 
 export { english, italian, french, german, japanese, spanish };

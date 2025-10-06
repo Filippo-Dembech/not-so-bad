@@ -71,10 +71,10 @@ export default function Import() {
                 const data: FileData = parsed.data;
                 if (overwrite) {
                     await overwriteDays(data)
-                    setOverwriteSuccess("Memories have been successfully imported.")
+                    setOverwriteSuccess(language?.importOverwriteSuccessText)
                 } else {
                     await addAnswers(data);
-                    setOverwriteSuccess("Memories have been successfully imported.")
+                    setOverwriteSuccess(language?.importMergeSuccessText)
                 }
             } else {
                 setError(language!.importWrongFormatError);
