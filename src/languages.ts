@@ -68,6 +68,7 @@ const italian: Language = {
     savePDFTitle: "Salva Ricordi in PDF",
     savePDFText:
         "“Scarica i tuoi ricordi in PDF per leggerli in un formato pulito e ordinato, perfetto da condividere o stampare.”",
+    noAnswerPlaceholder: "Nessun ricordo per questa domanda.",
 };
 
 const english: Language = {
@@ -138,6 +139,7 @@ const english: Language = {
     savePDFTitle: "Save Memories as PDF",
     savePDFText:
         "Download your memories as a PDF to read them in a clean, organized format — perfect for sharing or printing.",
+    noAnswerPlaceholder: "No memory for this question.",
 };
 
 const spanish: Language = {
@@ -204,6 +206,7 @@ const spanish: Language = {
     savePDFTitle: "Guardar recuerdos en PDF",
     savePDFText:
         "Descarga tus recuerdos en PDF para leerlos en un formato limpio y ordenado, perfecto para compartir o imprimir.",
+    noAnswerPlaceholder: "No hay recuerdos para esta pregunta.",
 };
 
 const french: Language = {
@@ -294,6 +297,7 @@ const french: Language = {
     savePDFTitle: "Enregistrer les souvenirs en PDF",
     savePDFText:
         "Télécharge tes souvenirs en PDF pour les lire dans un format clair et organisé, parfait à partager ou à imprimer.",
+    noAnswerPlaceholder: "Aucun souvenir pour cette question.",
 };
 
 const german: Language = {
@@ -364,6 +368,7 @@ const german: Language = {
     savePDFTitle: "Erinnerungen als PDF speichern",
     savePDFText:
         "Lade deine Erinnerungen als PDF herunter, um sie in einem klaren, geordneten Format zu lesen – perfekt zum Teilen oder Ausdrucken.",
+    noAnswerPlaceholder: "Keine Erinnerung für diese Frage.",
 };
 
 const japanese: Language = {
@@ -427,6 +432,7 @@ const japanese: Language = {
     savePDFTitle: "思い出をPDFで保存",
     savePDFText:
         "思い出をPDFとしてダウンロードし、すっきり整った形式で読むことができます。共有や印刷にも最適です。",
+    noAnswerPlaceholder: "この質問には思い出がありません。",
 };
 
 export { english, italian, french, german, japanese, spanish };

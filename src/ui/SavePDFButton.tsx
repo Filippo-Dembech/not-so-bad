@@ -19,6 +19,7 @@ export default function SavePDFButton({ style, isContained = false }: SavePDFBut
     }
 
     function getHTMLAnswersFrom(answers: string[]) {
+        if (answers.length === 0) return `<li style="color: #d4d4d4; font-style: italic">${language!.noAnswerPlaceholder}</li>`
         return answers
             .map(
                 (answer) => `
@@ -35,7 +36,7 @@ export default function SavePDFButton({ style, isContained = false }: SavePDFBut
         return questions
             .map(
                 (question) => `
-                    <div>
+                    <div style="border-left: 5px solid #cff0dd; padding-left: 1rem; margin-bottom: 1rem">
                         <p style="font-weight: bold">
                             ${language?.questions[question.id - 1].prompt}
                         </p>

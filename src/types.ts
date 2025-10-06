@@ -40,4 +40,5 @@ export interface Language {
     importGeneralError: string;
     savePDFTitle: string;
     savePDFText: string;
+    noAnswerPlaceholder: string;
 }
