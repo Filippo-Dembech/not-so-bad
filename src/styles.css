@@ -244,10 +244,6 @@ body {
   break-before: page;
 }
 
-.question-break {
-  break-before: page;
-}
-
 @media (max-width: 400px) {
   .embla__button {
     width: 3rem;
