@@ -1,6 +1,7 @@
 import { Box, Divider, Drawer } from "@mui/material";
 import { useLanguage } from "../context/LanguageContext";
 import { MdBugReport, MdFileDownload, MdHistory } from "react-icons/md";
+import { FaFilePdf } from "react-icons/fa6";
 import { FaFileImport } from "react-icons/fa6";
 import { GoQuestion } from "react-icons/go";
 import { TiWarningOutline } from "react-icons/ti";
@@ -13,6 +14,7 @@ import Warning from "./Warning";
 import BugReport from "./BugReport";
 import Export from "./Export";
 import Import from "./Import";
+import PDFDialog from "./PDFDialog";
 
 interface SideDrawerProps {
     isOpen: boolean;
@@ -59,6 +61,11 @@ export default function SideDrawer({
                     icon={<FaFileImport />}
                     text={language!.importTitle}
                     dialogContent={() => <Import />}
+                />
+                <DrawerButton
+                    icon={<FaFilePdf />}
+                    text={language!.savePdf}
+                    dialogContent={() => <PDFDialog />}
                 /></Box>
                 <Divider />
                 <Box display="flex" flexDirection="column" >

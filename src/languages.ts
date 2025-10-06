@@ -46,7 +46,7 @@ const italian: Language = {
     warningButton: "Attenzione",
     warningTitle: "Salva PDF",
     warningText:
-        '"Not So Bad" utilizza IndexedDB per salvare i dati. Per questo ti consiglio di fare un backup giornaliero dei dati salvandoli come PDF usando il pulsante in basso a destra nella schermata iniziale.',
+        '"Not So Bad" utilizza IndexedDB per salvare i dati. Per questo ti consiglio di fare un backup giornaliero dei dati salvandoli come PDF o esportandoli come file .json .',
     bugReportTitle: "Bug Report",
     bugReportText:
         "Se trovi un bug o vorresti qualche funzionalità in più scrivimi una mail all'indirizzo in basso della hompage",
@@ -65,6 +65,9 @@ const italian: Language = {
     importOverwrite: "Sovrascrivi ricordi",
     importOverwriteExplanation:
         "(Se sovrascrivi i ricordi, quelli  già presenti sull'app, verranno rimpiazzati dai ricordi importati)",
+    savePDFTitle: "Salva Ricordi in PDF",
+    savePDFText:
+        "“Scarica i tuoi ricordi in PDF per leggerli in un formato pulito e ordinato, perfetto da condividere o stampare.”",
 };
 
 const english: Language = {
@@ -113,7 +116,7 @@ const english: Language = {
     warningButton: "Warning",
     warningTitle: "Save PDF",
     warningText:
-        '"Not So Bad" uses IndexedDB to store data. For this reason, I recommend making a daily backup of the data by saving it as a PDF using the button at the bottom right on the home screen.',
+        '"Not So Bad" uses IndexedDB to store data. For this reason, I recommend making a daily backup by saving them as a PDF or exporting them as a .json file.',
     bugReportTitle: "Bug Report",
     bugReportText:
         "If you find a bug or would like some extra features, send me an email at the address at the bottom of the homepage",
@@ -132,6 +135,9 @@ const english: Language = {
     importOverwrite: "Overwrite memories",
     importOverwriteExplanation:
         "(If you overwrite the memories, the ones already in the app will be replaced by the imported ones)",
+    savePDFTitle: "Save Memories as PDF",
+    savePDFText:
+        "Download your memories as a PDF to read them in a clean, organized format — perfect for sharing or printing.",
 };
 
 const spanish: Language = {
@@ -176,7 +182,7 @@ const spanish: Language = {
     warningButton: "Advertencia",
     warningTitle: "Guardar PDF",
     warningText:
-        '"Not So Bad" utiliza IndexedDB para almacenar los datos. Por esta razón, recomiendo hacer una copia de seguridad diaria de los datos guardándolos como PDF usando el botón en la parte inferior derecha de la pantalla principal.',
+        '"Not So Bad" utiliza IndexedDB para guardar los datos. Por eso te recomiendo hacer una copia de seguridad diaria guardándolos como PDF o exportándolos como archivo .json.',
     bugReportTitle: "Informe de errores",
     bugReportText:
         "Si encuentras un error o quieres algunas funciones adicionales, envíame un correo electrónico a la dirección al final de la página principal",
@@ -195,6 +201,9 @@ const spanish: Language = {
     importOverwrite: "Sobrescribir recuerdos",
     importOverwriteExplanation:
         "(Si sobrescribes los recuerdos, los que ya están en la aplicación serán reemplazados por los importados)",
+    savePDFTitle: "Guardar recuerdos en PDF",
+    savePDFText:
+        "Descarga tus recuerdos en PDF para leerlos en un formato limpio y ordenado, perfecto para compartir o imprimir.",
 };
 
 const french: Language = {
@@ -263,7 +272,7 @@ const french: Language = {
     warningButton: "Attention",
     warningTitle: "Enregistrer PDF",
     warningText:
-        '"Not So Bad" utilise IndexedDB pour stocker les données. Pour cette raison, je recommande de faire une sauvegarde quotidienne des données en les enregistrant au format PDF en utilisant le bouton en bas à droite de l’écran d’accueil.',
+        '"Not So Bad" utilise IndexedDB pour stocker les données. C’est pourquoi je te conseille de faire une sauvegarde quotidienne en les enregistrant en PDF ou en les exportant en fichier .json.',
     bugReportTitle: "Rapport de bug",
     bugReportText:
         "Si tu trouves un bug ou souhaites plus de fonctionnalités, envoie-moi un e-mail à l’adresse en bas de la page d’accueil",
@@ -282,6 +291,9 @@ const french: Language = {
     importOverwrite: "Écraser les souvenirs",
     importOverwriteExplanation:
         "(Si tu écrases les souvenirs, ceux déjà présents dans l’application seront remplacés par ceux importés)",
+    savePDFTitle: "Enregistrer les souvenirs en PDF",
+    savePDFText:
+        "Télécharge tes souvenirs en PDF pour les lire dans un format clair et organisé, parfait à partager ou à imprimer.",
 };
 
 const german: Language = {
@@ -330,7 +342,7 @@ const german: Language = {
     warningButton: "Achtung",
     warningTitle: "PDF speichern",
     warningText:
-        '"Not So Bad" verwendet IndexedDB, um Daten zu speichern. Deshalb empfehle ich, täglich ein Backup der Daten zu machen, indem du sie als PDF speicherst und den Button unten rechts auf dem Startbildschirm benutzt.',
+        '"Not So Bad" verwendet IndexedDB zum Speichern der Daten. Daher empfehle ich dir, täglich ein Backup zu machen, indem du sie als PDF speicherst oder als .json-Datei exportierst.',
     bugReportTitle: "Fehlerbericht",
     bugReportText:
         "Wenn du einen Fehler findest oder zusätzliche Funktionen möchtest, schick mir eine E-Mail an die Adresse unten auf der Startseite",
@@ -349,6 +361,9 @@ const german: Language = {
     importOverwrite: "Erinnerungen überschreiben",
     importOverwriteExplanation:
         "(Wenn du die Erinnerungen überschreibst, werden die bereits in der App vorhandenen durch die importierten ersetzt)",
+    savePDFTitle: "Erinnerungen als PDF speichern",
+    savePDFText:
+        "Lade deine Erinnerungen als PDF herunter, um sie in einem klaren, geordneten Format zu lesen – perfekt zum Teilen oder Ausdrucken.",
 };
 
 const japanese: Language = {
@@ -389,7 +404,8 @@ const japanese: Language = {
     warningButton: "警告",
     warningTitle: "PDFを保存",
     warningText:
-        "「Not So Bad」はIndexedDBを使ってデータを保存します。そのため、ホーム画面の右下にあるボタンを使って、データをPDFとして保存し、毎日バックアップすることをおすすめします。",
+        "「Not So Bad」はデータの保存にIndexedDBを使用しています。そのため、PDFとして保存するか、.jsonファイルとしてエクスポートして毎日バックアップを取ることをおすすめします。",
+
     bugReportTitle: "バグ報告",
     bugReportText:
         "バグを見つけた場合や新しい機能を希望する場合は、ホームページ下部のアドレスにメールを送ってください",
@@ -408,6 +424,9 @@ const japanese: Language = {
     importOverwrite: "思い出を上書き",
     importOverwriteExplanation:
         "（思い出を上書きすると、アプリ内にすでにある思い出はインポートしたものに置き換えられます）",
+    savePDFTitle: "思い出をPDFで保存",
+    savePDFText:
+        "思い出をPDFとしてダウンロードし、すっきり整った形式で読むことができます。共有や印刷にも最適です。",
 };
 
 export { english, italian, french, german, japanese, spanish };

@@ -14,7 +14,6 @@ import QuestionInput from "./QuestionInput";
 const options = {};
 
 export default function QuestionsForm() {
-    console.log("question form rendering")
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [AutoHeight()]);
     const {
         prevBtnDisabled,

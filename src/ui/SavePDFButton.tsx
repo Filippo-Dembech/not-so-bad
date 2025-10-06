@@ -6,15 +6,13 @@ import html2pdf from "html2pdf.js";
 import type { CSSProperties } from "react";
 import type { Day, Question } from "../types";
 
-export default function SavePDFButton() {
+interface SavePDFButtonProps {
+    style: CSSProperties,
+    isContained?: boolean
+}
+
+export default function SavePDFButton({ style, isContained = false }: SavePDFButtonProps) {
     const { language } = useLanguage();
-    const buttonStyle: CSSProperties = {
-        position: "fixed",
-        bottom: "1rem",
-        right: "1rem",
-        background: "white",
-        zIndex: 999,
-    };
 
     function chronologically(a: Day, b: Day) {
         return stringToDate(a.date).getTime() - stringToDate(b.date).getTime();
@@ -88,8 +86,9 @@ export default function SavePDFButton() {
 
     return (
         <Button
-            style={buttonStyle}
-            variant="outlined"
+            style={style}
+            variant={`${isContained ? "contained" : "outlined"}`}
+            disableElevation={isContained}
             onClick={async () => {
                 const days = await getAllDays();
                 const sortedDays = days.sort(chronologically);

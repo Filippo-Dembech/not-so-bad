@@ -60,7 +60,15 @@ function App() {
                 onClose={() => close("successSnackbar")}
             />
             <Footer />
-            <SavePDFButton />
+            <SavePDFButton
+                style={{
+                    position: "fixed",
+                    bottom: "1rem",
+                    right: "1rem",
+                    background: "white",
+                    zIndex: 999,
+                }}
+            />
         </Box>
     );
 }
