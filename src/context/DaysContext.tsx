@@ -143,7 +143,10 @@ function DaysProvider({ children }: DaysProviderProps) {
                 }
             }
             setHistoryDays(updatedDays);
-
+            const updatedCurrentDay = updatedDays.find(day => day.date === currentDay?.date); 
+            if (updatedCurrentDay) {
+                setCurrentDay(updatedCurrentDay);
+            }
         } else {
             overwriteDays(days);
             setHistoryDays(days);
