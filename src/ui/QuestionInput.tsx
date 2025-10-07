@@ -7,9 +7,10 @@ import type { Theme } from "@emotion/react";
 
 interface QuestionInputProps {
     question: Question;
+    setAnswerFieldFocused: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function QuestionInput({ question }: QuestionInputProps) {
+export default function QuestionInput({ question, setAnswerFieldFocused }: QuestionInputProps) {
     const { language } = useLanguage();
     const { addAnswerTo } = useDays();
     const [answer, setAnswer] = useState("");
@@ -39,6 +40,8 @@ export default function QuestionInput({ question }: QuestionInputProps) {
             }}
         >
             <TextField
+                onFocus={() => setAnswerFieldFocused(true)}
+                onBlur={() => setAnswerFieldFocused(false)}
                 color="secondary"
                 label={language!.textFieldPlaceholder}
                 autoComplete="off"

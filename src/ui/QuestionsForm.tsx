@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { usePrevNextButtons } from "../hooks/usePrevNextButtons";
 import { NextButton, PrevButton } from "./CarouselButtons";
 import { DotButton } from "./DotButton";
@@ -26,12 +26,24 @@ export default function QuestionsForm() {
 
     const { currentDay, deleteAnswerFrom } = useDays();
     const currentDayRef = useRef(currentDay);
+    const [isAnswerFieldFocused, setIsAnswerFieldFocused] = useState(false);
+
+    useEffect(() => {
+        function keydownCallback(e: globalThis.KeyboardEvent) {
+            if (!isAnswerFieldFocused) {
+                if (e.key === "ArrowRight") onNextButtonClick();
+                if (e.key === "ArrowLeft") onPrevButtonClick();
+            }
+        }
+        window.addEventListener("keydown", keydownCallback);
+        return () => window.removeEventListener("keydown", keydownCallback);
+    }, [onNextButtonClick, onPrevButtonClick, isAnswerFieldFocused]);
 
     useEffect(() => {
         emblaApi?.reInit();
         if (currentDay?.date !== currentDayRef.current?.date) {
-            emblaApi?.scrollTo(0)
-            currentDayRef.current = currentDay
+            emblaApi?.scrollTo(0);
+            currentDayRef.current = currentDay;
         }
     }, [currentDay, emblaApi]);
 
@@ -63,7 +75,12 @@ export default function QuestionsForm() {
                                 margin="auto"
                             >
                                 <Question question={question} />
-                                <QuestionInput question={question} />
+                                <QuestionInput
+                                    setAnswerFieldFocused={
+                                        setIsAnswerFieldFocused
+                                    }
+                                    question={question}
+                                />
                             </Box>
                             <Box
                                 width="80%"
