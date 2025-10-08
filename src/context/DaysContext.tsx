@@ -18,6 +18,7 @@ import {
 } from "../db";
 import { dateToString } from "../utils/dates";
 import type { FileData } from "../ui/Import";
+import { useQuestions } from "./QuestionsContext";
 
 interface DaysContextType {
     currentDay?: Day;
@@ -44,16 +45,20 @@ function DaysProvider({ children }: DaysProviderProps) {
     );
 
     const { language } = useLanguage();
+    const { questions } = useQuestions();
 
     const createDay = useCallback(
         (date: string): Day => ({
             date,
-            questions: language!.questions.map((question) => ({
-                id: question.id,
-                answers: [],
-            })),
+            questions: language!.questions
+                .map((question) => ({
+                    id: question.id,
+                    answers: [],
+                }))
+                .filter((question) => questions?.some(q => q.id === question.id)
+                ),
         }),
-        [language]
+        [language, questions]
     );
 
     useEffect(() => {
@@ -137,13 +142,15 @@ function DaysProvider({ children }: DaysProviderProps) {
             }
             // Add all days that are not present in the DB
             for (const day of days) {
-                if (!dbDays.some(dbDay => dbDay.date === day.date)) {
+                if (!dbDays.some((dbDay) => dbDay.date === day.date)) {
                     await saveDay(day);
                     updatedDays.push(day);
                 }
             }
             setHistoryDays(updatedDays);
-            const updatedCurrentDay = updatedDays.find(day => day.date === currentDay?.date); 
+            const updatedCurrentDay = updatedDays.find(
+                (day) => day.date === currentDay?.date
+            );
             if (updatedCurrentDay) {
                 setCurrentDay(updatedCurrentDay);
             }

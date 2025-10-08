@@ -3,6 +3,10 @@ export interface Question {
     answers: string[]
 }
 
+export interface TemplateQuestion {
+    id: number
+}
+
 export interface Day {
     date: string,
     questions: Question[]

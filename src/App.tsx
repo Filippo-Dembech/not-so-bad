@@ -14,7 +14,9 @@ import SideDrawer from "./ui/SideDrawer";
 import { useToggler } from "./hooks/useToggler";
 import CurrentDay from "./ui/CurrentDay";
 import { useDays } from "./context/DaysContext";
-import type { CSSProperties } from "react";
+import { type CSSProperties } from "react";
+import SelectQuestions from "./ui/SelectQuestions";
+import { useQuestions } from "./context/QuestionsContext";
 
 function App() {
     const { isToggled, open, close, toggle } = useToggler([
@@ -24,14 +26,17 @@ function App() {
 
     const { language } = useLanguage();
     const { currentDay } = useDays();
+    const { questions } = useQuestions();
 
     const hamburgerButtonStyle: CSSProperties = {
         cursor: "pointer",
         border: "none",
         background: "none",
     };
+    
+    if (!currentDay || !language || !questions) return <LoadingWheel />;
 
-    if (!currentDay || !language) return <LoadingWheel />;
+    if (questions.length === 0) return <SelectQuestions />
 
     return (
         <Box padding="1.5rem">
