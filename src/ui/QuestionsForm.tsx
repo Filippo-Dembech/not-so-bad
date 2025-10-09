@@ -122,7 +122,7 @@ export default function QuestionsForm() {
                         disabled={nextBtnDisabled}
                     />
                 </div>
-                <div className="embla__dots">
+                <div className="embla__dots" style={{ justifyContent: "center"}}>
                     {scrollSnaps.map((_, index) => (
                         <DotButton
                             key={index}

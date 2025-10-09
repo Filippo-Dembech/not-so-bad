@@ -256,7 +256,7 @@ body {
   }
 }
 
-@media (max-width: 490px) {
+@media (max-width: 640px) {
   /* .embla__dot {
     display: none
   } */
