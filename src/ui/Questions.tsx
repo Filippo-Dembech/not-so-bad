@@ -23,7 +23,7 @@ export default function Questions() {
                 gap="1rem"
             >
                 <Typography>These are the current questions you choose to answer every night:</Typography>
-                {questions?.map((question) => (
+                {questions?.reverse().map((question) => (
                     <Box
                         key={`${language!.questions[question.id - 1].prompt}-${question.id}`}
                         display="flex"

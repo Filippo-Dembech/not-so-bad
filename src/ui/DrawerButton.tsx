@@ -5,15 +5,13 @@ import { MdClose } from "react-icons/md";
 interface DrawerButtonProps {
     icon: React.ReactNode;
     text: string;
-    dialogContent?: (close: () => void) => React.ReactNode;
-    onClick?: () => void;
+    dialogContent: (close: () => void) => React.ReactNode;
 }
 
 export default function DrawerButton({
     icon,
     text,
     dialogContent,
-    onClick,
 }: DrawerButtonProps) {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -48,31 +46,26 @@ export default function DrawerButton({
             <Button
                 startIcon={icon}
                 style={{ justifyContent: "flex-start" }}
-                onClick={() => {
-                    if (dialogContent) openDialog();
-                    onClick?.();
-                }}
+                onClick={openDialog}
             >
                 {text}
             </Button>
-            {dialogContent && (
-                <Dialog
-                    open={isDialogOpen}
-                    onClose={closeDialog}
-                    sx={dialogStyle}
+            <Dialog
+                open={isDialogOpen}
+                onClose={closeDialog}
+                sx={dialogStyle}
+            >
+                <button
+                    style={closeButtonStyle}
+                    onClick={closeDialog}
                 >
-                    <button
-                        style={closeButtonStyle}
-                        onClick={closeDialog}
-                    >
-                        <MdClose
-                            fontSize="1.5rem"
-                            color="#fff"
-                        />
-                    </button>
-                    <Box padding={3}>{dialogContent(closeDialog)}</Box>
-                </Dialog>
-            )}
+                    <MdClose
+                        fontSize="1.5rem"
+                        color="#fff"
+                    />
+                </button>
+                <Box padding={3}>{dialogContent(closeDialog)}</Box>
+            </Dialog>
         </>
     );
 }

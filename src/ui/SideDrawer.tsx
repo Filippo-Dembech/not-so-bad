@@ -16,8 +16,7 @@ import Export from "./Export";
 import Import from "./Import";
 import PDFDialog from "./PDFDialog";
 import Questions from "./Questions";
-import SelectQuestions from "./SelectQuestions";
-import { useQuestions } from "../context/QuestionsContext";
+import ConfirmChange from "./ConfirmChange";
 
 interface SideDrawerProps {
     isOpen: boolean;
@@ -26,7 +25,6 @@ interface SideDrawerProps {
 
 export default function SideDrawer({ isOpen, toggleFn }: SideDrawerProps) {
     const { language } = useLanguage();
-    const {deleteAllQuestions} = useQuestions();
     return (
         <Drawer
             open={isOpen}
@@ -64,7 +62,9 @@ export default function SideDrawer({ isOpen, toggleFn }: SideDrawerProps) {
                     <DrawerButton
                         icon={<FaCheck />}
                         text="Change Questions"
-                        onClick={deleteAllQuestions}
+                        dialogContent={(closeDialog) => (
+                            <ConfirmChange closeDialog={closeDialog} />
+                        )}
                     />
                 </Box>
                 <Divider />
