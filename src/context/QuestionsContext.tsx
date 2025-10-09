@@ -6,6 +6,7 @@ import type { TemplateQuestion } from "../types";
 interface QuestionsContextType {
     questions?: TemplateQuestion[]
     updateQuestions: (questionIds: number[]) => Promise<void>
+    deleteAllQuestions: () => void;
 }
 
 const QuestionsContext = createContext<QuestionsContextType | undefined>(
@@ -24,6 +25,10 @@ function QuestionsProvider({ children }: QuestionsProviderProps) {
         await dbUpdateQuestions(questionIds)
         setQuestions(questionIds.map(questionId => ({ id: questionId })))
     }
+    
+    async function deleteAllQuestions() {
+        setQuestions([])
+    }
 
     useEffect(() => {
         async function getQuestions() {
@@ -33,7 +38,7 @@ function QuestionsProvider({ children }: QuestionsProviderProps) {
     }, [])
 
     return (
-        <QuestionsContext.Provider value={{ questions, updateQuestions }}>
+        <QuestionsContext.Provider value={{ questions, updateQuestions, deleteAllQuestions }}>
             {children}
         </QuestionsContext.Provider>
     );

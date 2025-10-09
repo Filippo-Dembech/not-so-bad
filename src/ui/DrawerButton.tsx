@@ -5,13 +5,15 @@ import { MdClose } from "react-icons/md";
 interface DrawerButtonProps {
     icon: React.ReactNode;
     text: string;
-    dialogContent: (close: () => void) => React.ReactNode;
+    dialogContent?: (close: () => void) => React.ReactNode;
+    onClick?: () => void;
 }
 
 export default function DrawerButton({
     icon,
     text,
     dialogContent,
+    onClick,
 }: DrawerButtonProps) {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -46,23 +48,31 @@ export default function DrawerButton({
             <Button
                 startIcon={icon}
                 style={{ justifyContent: "flex-start" }}
-                onClick={openDialog}
+                onClick={() => {
+                    if (dialogContent) openDialog();
+                    onClick?.();
+                }}
             >
                 {text}
             </Button>
-            <Dialog
-                open={isDialogOpen}
-                onClose={closeDialog}
-                sx={dialogStyle}
-            >
-                <button style={closeButtonStyle} onClick={closeDialog}>
-                    <MdClose
-                        fontSize="1.5rem"
-                        color="#fff"
-                    />
-                </button>
-                <Box padding={3}>{dialogContent(closeDialog)}</Box>
-            </Dialog>
+            {dialogContent && (
+                <Dialog
+                    open={isDialogOpen}
+                    onClose={closeDialog}
+                    sx={dialogStyle}
+                >
+                    <button
+                        style={closeButtonStyle}
+                        onClick={closeDialog}
+                    >
+                        <MdClose
+                            fontSize="1.5rem"
+                            color="#fff"
+                        />
+                    </button>
+                    <Box padding={3}>{dialogContent(closeDialog)}</Box>
+                </Dialog>
+            )}
         </>
     );
 }
