@@ -130,7 +130,7 @@ export default function QuestionsForm() {
                                 onDotButtonClick(index);
                             }}
                             className={`embla__dot ${
-                                (currentDay?.questions[index].answers || [])
+                                (currentDay?.questions[index]?.answers || [])
                                     .length > 0
                                     ? "embla__dot--answered"
                                     : ""
