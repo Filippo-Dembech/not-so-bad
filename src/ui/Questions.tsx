@@ -9,7 +9,12 @@ export default function Questions() {
     if (questions?.length === 0) return <p>Loading...</p>;
 
     return (
-        <Box>
+        <Box
+                sx={{
+                    overflowY: "auto"
+                }}
+                maxHeight="70dvh"
+        >
             <Typography
                 variant="h2"
                 color="primary"

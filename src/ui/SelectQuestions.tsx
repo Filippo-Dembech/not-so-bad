@@ -31,7 +31,7 @@ export default function SelectQuestions() {
             margin="0 auto"
         >
             <Header />
-            <p>Select the questions you would like to answer every night:</p>
+            <p>{language?.selectQuestionsText}</p>
             <Box
                 display="flex"
                 flexDirection="column"
@@ -47,6 +47,7 @@ export default function SelectQuestions() {
                         gap="1rem"
                         padding="0.5rem 1rem 0.5rem 0"
                         sx={{
+                            cursor: "pointer",
                             bgcolor: selectedQuestionIds.includes(question.id)
                                 ? "secondary.main"
                                 : "secondary.light",

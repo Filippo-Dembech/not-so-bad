@@ -54,4 +54,5 @@ export interface Language {
     changeQuestionsNo: string;
     currentQuestions: string;
     currentQuestionsText: string;
+    selectQuestionsText: string;
 }

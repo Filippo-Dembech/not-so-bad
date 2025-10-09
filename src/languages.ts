@@ -78,8 +78,9 @@ const italian: Language = {
     changeQuestionsText: "Vuoi cambiare le domande a cui devi rispondere?",
     questionsButton: "Domande",
     currentQuestions: "Domande a cui Tieni",
-    currentQuestionsText:
-        "Queste sono le domande a cui tieni, quelle a cui vorresti rispondere ogni notte",
+    currentQuestionsText: "Queste sono le domande a cui tieni:",
+    selectQuestionsText:
+        "Seleziona le domande a cui vorresti rispondere, quelle che trovi stimolanti e significative per te. Quelle che ti dicono qualcosa.",
 };
 
 const english: Language = {
@@ -159,8 +160,10 @@ const english: Language = {
     changeQuestionsText: "Do you want to change the questions you answer?",
     questionsButton: "Questions",
     currentQuestions: "Questions You Care About",
-    currentQuestionsText:
-        "These are the questions you care about — the ones you'd like to answer every night.",
+    currentQuestionsText: "These are the questions you care about:",
+
+    selectQuestionsText:
+        "Select the questions you’d like to answer — the ones you find stimulating and meaningful to you, the ones that truly speak to you.",
 };
 
 const spanish: Language = {
@@ -237,8 +240,10 @@ const spanish: Language = {
     changeQuestionsText: "¿Quieres cambiar las preguntas a las que respondes?",
     questionsButton: "Preguntas",
     currentQuestions: "Preguntas que te importan",
-    currentQuestionsText:
-        "Estas son las preguntas que te importan, aquellas a las que te gustaría responder cada noche.",
+    currentQuestionsText: "Estas son las preguntas que te importan:",
+
+    selectQuestionsText:
+        "Selecciona las preguntas a las que te gustaría responder, esas que encuentras estimulantes y significativas para ti, las que realmente te dicen algo.",
 };
 
 const french: Language = {
@@ -339,8 +344,10 @@ const french: Language = {
         "Veux-tu changer les questions auxquelles tu réponds ?",
     questionsButton: "Questions",
     currentQuestions: "Questions qui te tiennent à cœur",
-    currentQuestionsText:
-        "Ce sont les questions qui te tiennent à cœur, celles auxquelles tu veux répondre chaque soir.",
+    currentQuestionsText: "Voici les questions qui te tiennent à cœur :",
+
+    selectQuestionsText:
+        "Sélectionne les questions auxquelles tu aimerais répondre, celles que tu trouves stimulantes et significatives pour toi, celles qui te parlent vraiment.",
 };
 
 const german: Language = {
@@ -421,8 +428,9 @@ const german: Language = {
     changeQuestionsText: "Möchtest du die Fragen ändern, die du beantwortest?",
     questionsButton: "Fragen",
     currentQuestions: "Fragen, die dir wichtig sind",
-    currentQuestionsText:
-        "Das sind die Fragen, die dir wichtig sind – die, auf die du jede Nacht antworten möchtest.",
+    currentQuestionsText: "Das sind die Fragen, die dir wichtig sind:",
+    selectQuestionsText:
+        "Wähle die Fragen aus, auf die du antworten möchtest – die, die du anregend und bedeutungsvoll findest, die, die wirklich zu dir sprechen.",
 };
 
 const japanese: Language = {
@@ -495,8 +503,9 @@ const japanese: Language = {
     changeQuestionsText: "答える質問を変更しますか？",
     questionsButton: "質問",
     currentQuestions: "大切にしている質問",
-    currentQuestionsText:
-        "これはあなたが大切にしている質問で、毎晩答えたいと思っているものです。",
+    currentQuestionsText: "これはあなたが大切にしている質問です：",
+    selectQuestionsText:
+        "答えたいと思う質問を選んでください。刺激的で、自分にとって意味のある、心に響く質問を選びましょう。",
 };
 
 export { english, italian, french, german, japanese, spanish };
