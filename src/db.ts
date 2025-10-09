@@ -2,7 +2,12 @@ import { openDB } from "idb";
 import { type Day } from "./types";
 
 const dbPromise = openDB("not-so-bad", 3, {
-    upgrade(db) {
+    upgrade(db, oldVersion) {
+        if (oldVersion < 3) {
+            for (const storeName of db.objectStoreNames) {
+                db.deleteObjectStore(storeName);
+            }
+        }
         if (!db.objectStoreNames.contains("days")) {
             db.createObjectStore("days", { keyPath: "date" });
         }
@@ -10,7 +15,7 @@ const dbPromise = openDB("not-so-bad", 3, {
             db.createObjectStore("settings", { keyPath: "key" });
         }
         if (!db.objectStoreNames.contains("questions")) {
-            db.createObjectStore("questions", { keyPath: "id" })
+            db.createObjectStore("questions", { keyPath: "id" });
         }
     },
 });
@@ -89,25 +94,24 @@ export async function getAllQuestions() {
 export async function saveQuestion(id: number) {
     const db = await dbPromise;
     const tx = db.transaction("questions", "readwrite");
-    await tx.store.put({ id })
+    await tx.store.put({ id });
 }
 
 export async function updateQuestions(questionIds: number[]) {
-  const db = await dbPromise;
-  const tx = db.transaction('questions', 'readwrite');
-  const store = tx.objectStore('questions');
+    const db = await dbPromise;
+    const tx = db.transaction("questions", "readwrite");
+    const store = tx.objectStore("questions");
 
-  // clear old data
-  await store.clear();
+    // clear old data
+    await store.clear();
 
-  // insert new data
-  for (const id of questionIds) {
-    await store.put({ id });
-  }
+    // insert new data
+    for (const id of questionIds) {
+        await store.put({ id });
+    }
 
-  await tx.done;
+    await tx.done;
 }
-
 
 export async function deleteQuestionById(id: number) {
     const db = await dbPromise;
