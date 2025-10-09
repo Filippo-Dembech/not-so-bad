@@ -14,7 +14,7 @@ export default function Questions() {
                 variant="h2"
                 color="primary"
             >
-                Current Questions
+                {language?.currentQuestions}
             </Typography>
             <Box
                 display="flex"
@@ -22,7 +22,7 @@ export default function Questions() {
                 marginTop="1rem"
                 gap="1rem"
             >
-                <Typography>These are the current questions you choose to answer every night:</Typography>
+                <Typography>{language?.currentQuestionsText}:</Typography>
                 {questions?.reverse().map((question) => (
                     <Box
                         key={`${language!.questions[question.id - 1].prompt}-${question.id}`}

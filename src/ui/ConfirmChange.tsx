@@ -1,11 +1,13 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useQuestions } from "../context/QuestionsContext";
+import { useLanguage } from "../context/LanguageContext";
 
 interface ConfirmChangeProps {
     closeDialog: () => void
 }
 
 export default function ConfirmChange({closeDialog}: ConfirmChangeProps) {
+    const { language } = useLanguage()
     const {deleteAllQuestions} = useQuestions();
    return (
         <Box>
@@ -13,7 +15,7 @@ export default function ConfirmChange({closeDialog}: ConfirmChangeProps) {
                 variant="h2"
                 color="primary"
             >
-                Change Questions
+                {language?.changeQuestionsButton}
             </Typography>
             <Box
                 display="flex"
@@ -21,7 +23,7 @@ export default function ConfirmChange({closeDialog}: ConfirmChangeProps) {
                 gap={2}
                 marginTop={2}
             >
-                <Typography>Are you sure you want to change questions?</Typography>
+                <Typography>{language?.changeQuestionsText}</Typography>
                 <Box
                     display="flex"
                     gap={1}
@@ -32,7 +34,7 @@ export default function ConfirmChange({closeDialog}: ConfirmChangeProps) {
                         onClick={deleteAllQuestions}
                         disableElevation
                     >
-                        Yes
+                        {language?.changeQuestionsYes}
                     </Button>
                     <Button
                         fullWidth
@@ -40,7 +42,7 @@ export default function ConfirmChange({closeDialog}: ConfirmChangeProps) {
                         onClick={closeDialog}
                         disableElevation
                     >
-                        No
+                        {language?.changeQuestionsNo}
                     </Button>
                 </Box>
             </Box>

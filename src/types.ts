@@ -47,4 +47,11 @@ export interface Language {
     savePDFTitle: string;
     savePDFText: string;
     noAnswerPlaceholder: string;
+    questionsButton: string;
+    changeQuestionsButton: string;
+    changeQuestionsText: string;
+    changeQuestionsYes: string;
+    changeQuestionsNo: string;
+    currentQuestions: string;
+    currentQuestionsText: string;
 }

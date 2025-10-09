@@ -56,12 +56,12 @@ export default function SideDrawer({ isOpen, toggleFn }: SideDrawerProps) {
                 >
                     <DrawerButton
                         icon={<FaList />}
-                        text="Questions"
+                        text={language!.questionsButton}
                         dialogContent={() => <Questions />}
                     />
                     <DrawerButton
                         icon={<FaCheck />}
-                        text="Change Questions"
+                        text={language!.changeQuestionsButton}
                         dialogContent={(closeDialog) => (
                             <ConfirmChange closeDialog={closeDialog} />
                         )}

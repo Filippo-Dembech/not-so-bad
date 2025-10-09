@@ -69,8 +69,17 @@ const italian: Language = {
     savePDFText:
         "“Scarica i tuoi ricordi in PDF per leggerli in un formato pulito e ordinato, perfetto da condividere o stampare.”",
     noAnswerPlaceholder: "Nessun ricordo per questa domanda.",
-    importOverwriteSuccessText: "I ricordi sono stati sovrascritti con successo.",
-    importMergeSuccessText: "I ricordi sono stati importati con successo."
+    importOverwriteSuccessText:
+        "I ricordi sono stati sovrascritti con successo.",
+    importMergeSuccessText: "I ricordi sono stati importati con successo.",
+    changeQuestionsButton: "Cambia Domande",
+    changeQuestionsNo: "No",
+    changeQuestionsYes: "Sì",
+    changeQuestionsText: "Vuoi cambiare le domande a cui devi rispondere?",
+    questionsButton: "Domande",
+    currentQuestions: "Domande a cui Tieni",
+    currentQuestionsText:
+        "Queste sono le domande a cui tieni, quelle a cui vorresti rispondere ogni notte",
 };
 
 const english: Language = {
@@ -144,6 +153,14 @@ const english: Language = {
     noAnswerPlaceholder: "No memory for this question.",
     importOverwriteSuccessText: "Memories have been successfully overwritten.",
     importMergeSuccessText: "Memories have been successfully imported.",
+    changeQuestionsButton: "Change Questions",
+    changeQuestionsNo: "No",
+    changeQuestionsYes: "Yes",
+    changeQuestionsText: "Do you want to change the questions you answer?",
+    questionsButton: "Questions",
+    currentQuestions: "Questions You Care About",
+    currentQuestionsText:
+        "These are the questions you care about — the ones you'd like to answer every night.",
 };
 
 const spanish: Language = {
@@ -211,8 +228,17 @@ const spanish: Language = {
     savePDFText:
         "Descarga tus recuerdos en PDF para leerlos en un formato limpio y ordenado, perfecto para compartir o imprimir.",
     noAnswerPlaceholder: "No hay recuerdos para esta pregunta.",
-    importOverwriteSuccessText: "Los recuerdos se han sobrescrito correctamente.",
+    importOverwriteSuccessText:
+        "Los recuerdos se han sobrescrito correctamente.",
     importMergeSuccessText: "Los recuerdos se han importado correctamente.",
+    changeQuestionsButton: "Cambiar Preguntas",
+    changeQuestionsNo: "No",
+    changeQuestionsYes: "Sí",
+    changeQuestionsText: "¿Quieres cambiar las preguntas a las que respondes?",
+    questionsButton: "Preguntas",
+    currentQuestions: "Preguntas que te importan",
+    currentQuestionsText:
+        "Estas son las preguntas que te importan, aquellas a las que te gustaría responder cada noche.",
 };
 
 const french: Language = {
@@ -306,6 +332,15 @@ const french: Language = {
     noAnswerPlaceholder: "Aucun souvenir pour cette question.",
     importOverwriteSuccessText: "Les souvenirs ont été écrasés avec succès.",
     importMergeSuccessText: "Les souvenirs ont été importés avec succès.",
+    changeQuestionsButton: "Changer les Questions",
+    changeQuestionsNo: "Non",
+    changeQuestionsYes: "Oui",
+    changeQuestionsText:
+        "Veux-tu changer les questions auxquelles tu réponds ?",
+    questionsButton: "Questions",
+    currentQuestions: "Questions qui te tiennent à cœur",
+    currentQuestionsText:
+        "Ce sont les questions qui te tiennent à cœur, celles auxquelles tu veux répondre chaque soir.",
 };
 
 const german: Language = {
@@ -377,8 +412,17 @@ const german: Language = {
     savePDFText:
         "Lade deine Erinnerungen als PDF herunter, um sie in einem klaren, geordneten Format zu lesen – perfekt zum Teilen oder Ausdrucken.",
     noAnswerPlaceholder: "Keine Erinnerung für diese Frage.",
-    importOverwriteSuccessText: "Die Erinnerungen wurden erfolgreich überschrieben.",
+    importOverwriteSuccessText:
+        "Die Erinnerungen wurden erfolgreich überschrieben.",
     importMergeSuccessText: "Die Erinnerungen wurden erfolgreich importiert.",
+    changeQuestionsButton: "Fragen ändern",
+    changeQuestionsNo: "Nein",
+    changeQuestionsYes: "Ja",
+    changeQuestionsText: "Möchtest du die Fragen ändern, die du beantwortest?",
+    questionsButton: "Fragen",
+    currentQuestions: "Fragen, die dir wichtig sind",
+    currentQuestionsText:
+        "Das sind die Fragen, die dir wichtig sind – die, auf die du jede Nacht antworten möchtest.",
 };
 
 const japanese: Language = {
@@ -445,6 +489,14 @@ const japanese: Language = {
     noAnswerPlaceholder: "この質問には思い出がありません。",
     importOverwriteSuccessText: "思い出は正常に上書きされました。",
     importMergeSuccessText: "思い出は正常にインポートされました。",
+    changeQuestionsButton: "質問を変更",
+    changeQuestionsNo: "いいえ",
+    changeQuestionsYes: "はい",
+    changeQuestionsText: "答える質問を変更しますか？",
+    questionsButton: "質問",
+    currentQuestions: "大切にしている質問",
+    currentQuestionsText:
+        "これはあなたが大切にしている質問で、毎晩答えたいと思っているものです。",
 };
 
 export { english, italian, french, german, japanese, spanish };
