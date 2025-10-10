@@ -50,7 +50,7 @@ export default function Import() {
     const [error, setError] = useState<string | undefined>();
     const [overwrite, setOverwrite] = useState(false);
     const [overwriteSuccess, setOverwriteSuccess] = useState<string | undefined>();
-    const { overwriteDays, addAnswers } = useDays()
+    const { overwriteDays, mergeDays } = useDays()
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -73,7 +73,7 @@ export default function Import() {
                     await overwriteDays(data)
                     setOverwriteSuccess(language?.importOverwriteSuccessText)
                 } else {
-                    await addAnswers(data);
+                    await mergeDays(data);
                     setOverwriteSuccess(language?.importMergeSuccessText)
                 }
             } else {

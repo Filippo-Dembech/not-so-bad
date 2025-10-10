@@ -29,7 +29,7 @@ interface DaysContextType {
     deleteAnswerFrom: (question: Question, answer: string) => void;
     createDay: (date: string) => Day;
     overwriteDays: (days: FileData) => void;
-    addAnswers: (days: FileData) => void;
+    mergeDays: (days: FileData) => void;
 }
 
 const DaysContext = createContext<DaysContextType | undefined>(undefined);
@@ -55,7 +55,8 @@ function DaysProvider({ children }: DaysProviderProps) {
                     id: question.id,
                     answers: [],
                 }))
-                .filter((question) => questions?.some(q => q.id === question.id)
+                .filter((question) =>
+                    questions?.some((q) => q.id === question.id)
                 ),
         }),
         [language, questions]
@@ -107,9 +108,68 @@ function DaysProvider({ children }: DaysProviderProps) {
         setCurrentDay(newDay);
     }
 
+    function isQuestionOf(day: Day, targetQuestion: Question) {
+        return day.questions.some(
+            (question) => question.id === targetQuestion.id
+        );
+    }
+
+    function mergeQuestionOf(day: Day, questionsToAdd: Question[]) {
+        const existingQuestions = day.questions;
+        const newQuestions = questionsToAdd.filter(
+            (question) => !isQuestionOf(day, question)
+        );
+        return {
+            ...day,
+            questions: [...existingQuestions, ...newQuestions],
+        };
+    }
+
+    function hasQuestion(questions: Question[], targetQuestion: Question) {
+        return questions.some((question) => question.id === targetQuestion.id);
+    }
+
+    function areSameQuestions(questionA: Question, questionB: Question) {
+        return questionA.id === questionB.id;
+    }
+
+    function mergeAnswers(questionA: Question, questionB: Question) {
+        return [...questionA.answers, ...questionB.answers];
+    }
+
+    function mergeDaysQuestions(dayA: Day, dayB: Day) {
+        if (dayA.date !== dayB.date) return undefined;
+        let mergedQuestions: Question[] = dayA.questions;
+        for (const questionB of dayB.questions) {
+            if (hasQuestion(mergedQuestions, questionB)) {
+                mergedQuestions = mergedQuestions.map((mergedQuestion) =>
+                    areSameQuestions(mergedQuestion, questionB)
+                        ? {
+                              ...mergedQuestion,
+                              answers: mergeAnswers(mergedQuestion, questionB),
+                          }
+                        : mergedQuestion
+                );
+            } else {
+                mergedQuestions.push(questionB);
+            }
+        }
+        return mergedQuestions;
+    }
+
+    function getCurrentQuestions(): Question[] {
+        return (
+            questions?.map((question) => ({ id: question.id, answers: [] })) ||
+            []
+        );
+    }
+
     async function overwriteDays(days: FileData) {
         await deleteAllDays();
-        days.forEach(async (day) => await saveDay(day));
+        days.forEach(async (day) => {
+            const newDay = mergeQuestionOf(day, getCurrentQuestions());
+            await saveDay(newDay);
+        });
         const day = await getDay(currentDay!.date);
         const allDays = await getAllDays();
         if (day) {
@@ -120,31 +180,50 @@ function DaysProvider({ children }: DaysProviderProps) {
         setHistoryDays(allDays);
     }
 
-    async function addAnswers(days: FileData) {
+    function findDayByDate(date: string, days: Day[]) {
+        return days.find((day) => day.date === date);
+    }
+
+    async function mergeDays(importedDays: FileData) {
         const dbDays = await getAllDays();
         if (dbDays.length > 0) {
             const updatedDays = [];
             // Update all days that are present in the DB
-            for (const day of dbDays) {
-                const updatedDay = {
-                    ...day,
-                    questions: day.questions.map((question) => ({
-                        ...question,
-                        answers: [
-                            ...question.answers,
-                            ...(days.find((newDay) => newDay.date === day.date)
-                                ?.questions[question.id - 1].answers || []),
-                        ],
-                    })),
-                };
-                updatedDays.push(updatedDay);
-                await saveDay(updatedDay);
+            for (const dbDay of dbDays) {
+                // if dbDay is in common with importedDays
+                const commonDay = findDayByDate(dbDay.date, importedDays);
+                if (commonDay) {
+                    const updatedDay: Day = {
+                        date: commonDay.date,
+                        questions: mergeDaysQuestions(dbDay, commonDay)!,
+                    };
+                    updatedDays.push(updatedDay);
+                    await saveDay(updatedDay);
+                } else {
+                    // if dbDay is not in common with importedDays
+                    updatedDays.push(dbDay);
+                    await saveDay(dbDay);
+                }
             }
+
             // Add all days that are not present in the DB
-            for (const day of days) {
-                if (!dbDays.some((dbDay) => dbDay.date === day.date)) {
-                    await saveDay(day);
-                    updatedDays.push(day);
+            for (const newDay of importedDays) {
+                const isDayPresentInDB = dbDays.some(
+                    (dbDay) => dbDay.date === newDay.date
+                );
+                if (!isDayPresentInDB) {
+                    const dayWithCurrentQuestions = {
+                        ...newDay,
+                        questions: [
+                            ...newDay.questions,
+                            ...questions!.map((question) => ({
+                                id: question.id,
+                                answers: [],
+                            })),
+                        ],
+                    };
+                    await saveDay(dayWithCurrentQuestions);
+                    updatedDays.push(dayWithCurrentQuestions);
                 }
             }
             setHistoryDays(updatedDays);
@@ -155,8 +234,8 @@ function DaysProvider({ children }: DaysProviderProps) {
                 setCurrentDay(updatedCurrentDay);
             }
         } else {
-            overwriteDays(days);
-            setHistoryDays(days);
+            overwriteDays(importedDays);
+            setHistoryDays(importedDays);
         }
     }
 
@@ -171,7 +250,7 @@ function DaysProvider({ children }: DaysProviderProps) {
                 createDay,
                 deleteAnswerFrom,
                 overwriteDays,
-                addAnswers,
+                mergeDays,
             }}
         >
             {children}

@@ -64,50 +64,55 @@ export default function QuestionsForm() {
                 ref={emblaRef}
             >
                 <div className="embla__container">
-                    {currentDay!.questions.map((question) => (
-                        <div
-                            className="embla__slide"
-                            key={question.id}
-                            style={{ textAlign: "center" }}
-                        >
-                            <Box
-                                width="80%"
-                                margin="auto"
+                    {currentDay!.questions
+                        .sort(
+                            (questionA, questionB) =>
+                                questionA.id - questionB.id
+                        )
+                        .map((question) => (
+                            <div
+                                className="embla__slide"
+                                key={question.id}
+                                style={{ textAlign: "center" }}
                             >
-                                <Question question={question} />
-                                <QuestionInput
-                                    setAnswerFieldFocused={
-                                        setIsAnswerFieldFocused
-                                    }
-                                    question={question}
-                                />
-                            </Box>
-                            <Box
-                                width="80%"
-                                margin="auto"
-                                gap={2}
-                                display="flex"
-                                flexDirection="column"
-                                marginTop={4}
-                            >
-                                {question.answers
-                                    .slice()
-                                    .reverse()
-                                    .map((answer, i) => (
-                                        <Answer
-                                            key={`${answer}-${i}`}
-                                            text={answer}
-                                            onDelete={() =>
-                                                deleteAnswerFrom(
-                                                    question,
-                                                    answer
-                                                )
-                                            }
-                                        />
-                                    ))}
-                            </Box>
-                        </div>
-                    ))}
+                                <Box
+                                    width="80%"
+                                    margin="auto"
+                                >
+                                    <Question question={question} />
+                                    <QuestionInput
+                                        setAnswerFieldFocused={
+                                            setIsAnswerFieldFocused
+                                        }
+                                        question={question}
+                                    />
+                                </Box>
+                                <Box
+                                    width="80%"
+                                    margin="auto"
+                                    gap={2}
+                                    display="flex"
+                                    flexDirection="column"
+                                    marginTop={4}
+                                >
+                                    {question.answers
+                                        .slice()
+                                        .reverse()
+                                        .map((answer, i) => (
+                                            <Answer
+                                                key={`${answer}-${i}`}
+                                                text={answer}
+                                                onDelete={() =>
+                                                    deleteAnswerFrom(
+                                                        question,
+                                                        answer
+                                                    )
+                                                }
+                                            />
+                                        ))}
+                                </Box>
+                            </div>
+                        ))}
                 </div>
             </div>
 
@@ -122,7 +127,7 @@ export default function QuestionsForm() {
                         disabled={nextBtnDisabled}
                     />
                 </div>
-                <div className="embla__dots" style={{ justifyContent: "center"}}>
+                <div className="embla__dots">
                     {scrollSnaps.map((_, index) => (
                         <DotButton
                             key={index}
